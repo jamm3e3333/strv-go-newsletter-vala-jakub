@@ -49,20 +49,19 @@ migration-up: ## Apply all up migrations
 	docker-compose run --rm \
 	  -e DATABASE_URL=${DATABASE_URL} \
 	  strv-newsletter \
-	  goose postgres "postgres://postgres:postgres@postgres/strv-newsletter?sslmode=disable" -dir db/migrations -v up status
-	#  goose -dir db/migrations postgres "$$DATABASE_URL" up
+	  goose postgres "$$DATABASE_URL" -dir db/migrations -v up status
 
 migration-down-by-one: ## Roll back the last migration
 	docker-compose run --rm \
 	  -e DATABASE_URL=${DATABASE_URL} \
 	  strv-newsletter \
-	  goose postgres "postgres://postgres:postgres@postgres/strv-newsletter?sslmode=disable" -dir db/migrations -v down status
+	  goose postgres "$$DATABASE_URL" -dir db/migrations -v down status
 
 migration-down-all: ## Roll back all migrations
 	docker-compose run --rm \
 	  -e DATABASE_URL=${DATABASE_URL} \
 	  strv-newsletter \
-	  goose postgres "postgres://postgres:postgres@postgres/strv-newsletter?sslmode=disable" -dir db/migrations -v reset status
+	  goose postgres "$$DATABASE_URL" -dir db/migrations -v reset status
 
 
 ##@ Test

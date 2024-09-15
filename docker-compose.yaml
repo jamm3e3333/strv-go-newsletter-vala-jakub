@@ -11,6 +11,7 @@ services:
         PROJECT_ROOT: "/go/src/github.com/jamm3e3333/strv-newsletter"
     depends_on:
       - postgres
+      - firebase-emulator
     volumes:
       - ".:/go/src/github.com/jamm3e3333/strv-newsletter/:cached"
     environment:
@@ -25,3 +26,18 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: strv-newsletter
+
+  firebase-emulator:
+    image: spine3/firebase-emulator:latest
+    container_name: firebase-emulator
+    ports:
+      - "4000:4000"
+      - "9000:9000"
+    environment:
+      GCP_PROJECT: strv-newsletter-go-vala-jakub-vala-local
+      ENABLE_UI: true
+      RDB_EMULATOR_PORT: 9000
+      UI_EMULATOR_PORT: 4000
+      UI_ENABLED: true
+    volumes:
+      - "firebase.json:/firebase/firebase.json"

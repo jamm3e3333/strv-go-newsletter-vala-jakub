@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  strv-newsletter:
+    init: true
+    container_name: strv-newsletter
+    build:
+      context: .
+      target: development
+      args:
+        PROJECT_ROOT: "/go/src/github.com/jamm3e3333/strv-newsletter"
+    depends_on:
+      - postgres
+    volumes:
+      - ".:/go/src/github.com/jamm3e3333/strv-newsletter/:cached"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres/strv-newsletter?sslmode=disable
+
+  postgres:
+    image: postgis/postgis:15-3.4
+    container_name: postgres
+    ports:
+      - "54320:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: strv-newsletter

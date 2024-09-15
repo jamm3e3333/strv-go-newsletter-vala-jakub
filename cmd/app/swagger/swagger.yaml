@@ -1,0 +1,97 @@
+definitions:
+  user.CreateUserReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+info:
+  contact:
+    name: STRV
+  description: API provides endpoints for newsletter
+  title: STRV Newsletter API
+  version: "2.0"
+paths:
+  /metrics:
+    get:
+      description: Expose Prometheus metrics
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: Prometheus metrics
+          schema:
+            type: string
+      tags:
+      - Metrics
+  /v1/session:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new session for a user by validating the email and password
+      parameters:
+      - description: JWT token
+        example: '"Bearer <your_jwt_token>"'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: '{"token": "token"}'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: '{"error": "invalid credentials"}'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new session
+      tags:
+      - Sessions
+  /v1/user:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new user account with an email and password
+      parameters:
+      - description: Content-Type
+        example: application/json
+        in: header
+        name: Content-Type
+        required: true
+        type: string
+      - description: User data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.CreateUserReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: '{"token": "token"}'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: '{"error": "bad request"}'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new user
+      tags:
+      - Users
+swagger: "2.0"

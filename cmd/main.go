@@ -12,6 +12,7 @@ import (
 	_ "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/swagger"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal"
 	pghealth "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg"
+	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/firebase"
 	healthcheck "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/health"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
 	pkgGin "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/gin"
@@ -33,10 +34,11 @@ func main() {
 	ctx := shutdown.SetupShutdownContext()
 
 	var (
-		appConfig, errAPPConfig       = config.CreateAPPConfig()
-		loggerConfig, errLoggerConfig = config.CreateLoggerConfig()
-		jwtConfig, errJWTConfig       = config.CreateJWTConfig()
-		pgConfig, errPGConfig         = config.CreatePostgresConfig()
+		appConfig, errAPPConfig           = config.CreateAPPConfig()
+		loggerConfig, errLoggerConfig     = config.CreateLoggerConfig()
+		jwtConfig, errJWTConfig           = config.CreateJWTConfig()
+		pgConfig, errPGConfig             = config.CreatePostgresConfig()
+		firebaseConfig, errFirebaseConfig = config.CreateFirebaseConfig()
 	)
 
 	for _, err := range []error{
@@ -44,13 +46,13 @@ func main() {
 		errLoggerConfig,
 		errPGConfig,
 		errJWTConfig,
+		errFirebaseConfig,
 	} {
 		if err != nil {
 			panic(err)
 		}
 	}
 
-	// Set correct timezone for loading from the database
 	location, _ := time.LoadLocation(appConfig.Timezone)
 	time.Local = location
 
@@ -68,6 +70,16 @@ func main() {
 		HealthCheckPeriod: pgConfig.HealthCheckPeriod,
 	}, lg, mm.Pm)
 
+	firebase.NewConnection(
+		ctx,
+		firebase.Config{
+			DBUrl:      firebaseConfig.DBUrl,
+			SA:         firebaseConfig.SAKey,
+			IsTestMode: firebaseConfig.IsTestingMode,
+		},
+		lg,
+	)
+
 	// Http server
 	lg.Info("Initializing http server...")
 
@@ -83,8 +95,6 @@ func main() {
 			AllowOrigins:     appConfig.AllowedOrigins(),
 			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 			AllowCredentials: true,
-			//AllowHeaders:     appConfig.AllowedHeaders(),
-			//ExposeHeaders:    appConfig.ExposedHeaders(),
 		}),
 		pkgGin.LoggerMiddleware(pkgGin.NewLoggerMiddlewareConfig(
 			[]string{"/metrics", "/health/liveness", "/health/readiness", "/status", "/api/*any"},
@@ -99,7 +109,7 @@ func main() {
 	}))
 	lg.Info("gin prometheus initialized")
 
-	//ge.Use(middleware.PanicRecoverMiddleware(lg)) // TODO: add recovery middleware
+	// TODO: add recovery middleware
 
 	// Initialize Swagger
 	gsc := ginSwagger.Config{

@@ -49,6 +49,10 @@ services:
       CONFIG_DATABASE_POOL_MIN_CONNS: 1
       CONFIG_DATABASE_POOL_HEALTH_CHECK_PERIOD: 5s
 
+      # FIREBASE
+      CONFIG_FIREBASE_DATABASE_URL: http://firebase-emulator:9000?ns=strv-newsletter-go-vala-jakub-vala-local
+      CONFIG_FIREBASE_IS_TESTING_MODE: true
+
   postgres:
     image: postgis/postgis:15-3.4
     container_name: postgres

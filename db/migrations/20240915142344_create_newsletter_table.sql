@@ -1,7 +1,12 @@
 -- +goose Up
 -- +goose StatementBegin
+CREATE SEQUENCE IF NOT EXISTS newsletter_public_id_seq
+    START WITH 1100
+    INCREMENT BY 1;
+
 CREATE TABLE newsletter (
     id BIGSERIAL PRIMARY KEY,
+    public_id BIGINT UNIQUE NOT NULL DEFAULT nextval('newsletter_public_id_seq'::regclass),
     client_id BIGINT REFERENCES client(id) NOT NULL,
     name TEXT NOT NULL,
     description TEXT DEFAULT '',

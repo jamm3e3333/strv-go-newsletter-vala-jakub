@@ -1,8 +1,12 @@
 -- +goose Up
 -- +goose StatementBegin
+CREATE SEQUENCE IF NOT EXISTS client_public_id_seq
+    START WITH 1100
+    INCREMENT BY 1;
+
 CREATE TABLE client (
     id BIGSERIAL PRIMARY KEY,
-    public_id BIGSERIAL UNIQUE NOT NULL,
+    public_id BIGINT UNIQUE NOT NULL DEFAULT nextval('client_public_id_seq'::regclass),
     email TEXT UNIQUE NOT NULL,
     hashed_password TEXT NOT NULL,
     create_at TIMESTAMP NOT NULL DEFAULT NOW(),

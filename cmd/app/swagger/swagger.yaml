@@ -1,5 +1,5 @@
 definitions:
-  user.CreateUserReq:
+  client.CreateClientReq:
     properties:
       email:
         type: string
@@ -8,6 +8,11 @@ definitions:
     required:
     - email
     - password
+    type: object
+  client.CreateClientRes:
+    properties:
+      token:
+        type: string
     type: object
 info:
   contact:
@@ -28,16 +33,62 @@ paths:
             type: string
       tags:
       - Metrics
+  /v1/client:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new client account with an email and password
+      parameters:
+      - description: Content-Type
+        example: application/json
+        in: header
+        name: Content-Type
+        required: true
+        type: string
+      - description: Client data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/client.CreateClientReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: '{"token": "token"}'
+          schema:
+            $ref: '#/definitions/client.CreateClientRes'
+        "400":
+          description: '{"error": "bad request"}'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "422":
+          description: '{"error": "bad request"}'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: '{"error": "bad request"}'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new client
+      tags:
+      - Client
   /v1/session:
     post:
       consumes:
       - application/json
       description: Creates a new session for a user by validating the email and password
       parameters:
-      - description: JWT token
-        example: '"Bearer <your_jwt_token>"'
+      - description: Content-Type
+        example: application/json
         in: header
-        name: Authorization
+        name: Content-Type
         required: true
         type: string
       produces:
@@ -58,40 +109,4 @@ paths:
       summary: Create a new session
       tags:
       - Sessions
-  /v1/user:
-    post:
-      consumes:
-      - application/json
-      description: Creates a new user account with an email and password
-      parameters:
-      - description: Content-Type
-        example: application/json
-        in: header
-        name: Content-Type
-        required: true
-        type: string
-      - description: User data
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/user.CreateUserReq'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: '{"token": "token"}'
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-        "400":
-          description: '{"error": "bad request"}'
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: Create a new user
-      tags:
-      - Users
 swagger: "2.0"

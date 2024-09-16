@@ -10,6 +10,7 @@ import (
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/setup/postgres"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/setup/prometheus"
 	_ "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/swagger"
+	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal"
 	pghealth "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg"
 	healthcheck "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/health"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
@@ -34,7 +35,7 @@ func main() {
 	var (
 		appConfig, errAPPConfig       = config.CreateAPPConfig()
 		loggerConfig, errLoggerConfig = config.CreateLoggerConfig()
-		_, errJWTConfig               = config.CreateJWTConfig()
+		jwtConfig, errJWTConfig       = config.CreateJWTConfig()
 		pgConfig, errPGConfig         = config.CreatePostgresConfig()
 	)
 
@@ -77,18 +78,21 @@ func main() {
 	pprof.Register(ge)
 
 	// Register logger middleware
-	ge.Use(cors.New(cors.Config{
-		AllowOrigins:     appConfig.AllowedOrigins(),
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowCredentials: true,
-		//AllowHeaders:     appConfig.AllowedHeaders(),
-		//ExposeHeaders:    appConfig.ExposedHeaders(),
-	}), pkgGin.LoggerMiddleware(pkgGin.NewLoggerMiddlewareConfig(
-		[]string{"/metrics", "/health/liveness", "/health/readiness", "/status", "/api/*any"},
-	), lg))
+	ge.Use(
+		cors.New(cors.Config{
+			AllowOrigins:     appConfig.AllowedOrigins(),
+			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+			AllowCredentials: true,
+			//AllowHeaders:     appConfig.AllowedHeaders(),
+			//ExposeHeaders:    appConfig.ExposedHeaders(),
+		}),
+		pkgGin.LoggerMiddleware(pkgGin.NewLoggerMiddlewareConfig(
+			[]string{"/metrics", "/health/liveness", "/health/readiness", "/status", "/api/*any"},
+		), lg),
+	)
 
 	// Register prometheus endpoint and request/response metrics
-	ge.Any("/metrics", ginprometheus.Handler())
+	ge.GET("/metrics", ginprometheus.Handler())
 	ge.Use(ginprometheus.Measure(ginprometheus.Config{
 		Subsystem: appConfig.AppName,
 		Labels:    []ginprometheus.Label{},
@@ -119,7 +123,12 @@ func main() {
 	readinessHealthCheck.RegisterIndicator(pghealth.NewHealthIndicator(ctx, pc, lg))
 	lg.Info("health check indicators registered")
 
-	// TODO: add module init
+	internal.RegisterModule(ge, internal.ModuleParams{
+		HashSecret: appConfig.HashSecret,
+		JWTSecret:  jwtConfig.Secret,
+		PGConn:     pc,
+	})
+
 	for _, v := range ge.Routes() {
 		lg.Info("[HTTP] Route: %s %s initialized.", v.Method, v.Path)
 	}

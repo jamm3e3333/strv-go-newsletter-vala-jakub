@@ -9,7 +9,7 @@ const (
 )
 
 type JWTConfig struct {
-	Secret string `end:"CONFIG_JWT_SECRET"`
+	Secret string `env:"CONFIG_JWT_SECRET"`
 }
 
 func CreateJWTConfig() (JWTConfig, error) {

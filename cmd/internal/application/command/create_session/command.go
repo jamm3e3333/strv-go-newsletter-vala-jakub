@@ -1,4 +1,4 @@
-package create_user
+package create_session
 
 type Command struct {
 	Email    string

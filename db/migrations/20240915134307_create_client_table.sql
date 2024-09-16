@@ -9,7 +9,7 @@ CREATE TABLE client (
     public_id BIGINT UNIQUE NOT NULL DEFAULT nextval('client_public_id_seq'::regclass),
     email TEXT UNIQUE NOT NULL,
     hashed_password TEXT NOT NULL,
-    create_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 

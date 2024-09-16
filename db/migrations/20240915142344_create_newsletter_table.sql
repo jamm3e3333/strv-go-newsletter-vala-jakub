@@ -10,7 +10,7 @@ CREATE TABLE newsletter (
     client_id BIGINT REFERENCES client(id) NOT NULL,
     name TEXT NOT NULL,
     description TEXT DEFAULT '',
-    create_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 

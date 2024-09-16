@@ -20,7 +20,6 @@ type PostgresConfig struct {
 	MaxConns          int32         `env:"CONFIG_DATABASE_POOL_MAX_CONNS"`
 	MinConns          int32         `env:"CONFIG_DATABASE_POOL_MIN_CONNS"`
 	HealthCheckPeriod time.Duration `env:"CONFIG_DATABASE_POOL_HEALTH_CHECK_PERIOD"`
-	HashSecret        string        `env:"CONFIG_DATABASE_HASH_SECRET"`
 }
 
 func CreatePostgresConfig() (PostgresConfig, error) {

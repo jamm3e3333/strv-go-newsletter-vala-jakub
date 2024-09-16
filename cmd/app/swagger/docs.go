@@ -36,6 +36,75 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/client": {
+            "post": {
+                "description": "Creates a new client account with an email and password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Create a new client",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "application/json",
+                        "description": "Content-Type",
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Client data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/client.CreateClientReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{\"token\": \"token\"}",
+                        "schema": {
+                            "$ref": "#/definitions/client.CreateClientRes"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"error\": \"bad request\"}",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "{\"error\": \"bad request\"}",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "{\"error\": \"bad request\"}",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v1/session": {
             "post": {
                 "description": "Creates a new session for a user by validating the email and password",
@@ -52,9 +121,9 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "example": "\"Bearer \u003cyour_jwt_token\u003e\"",
-                        "description": "JWT token",
-                        "name": "Authorization",
+                        "example": "application/json",
+                        "description": "Content-Type",
+                        "name": "Content-Type",
                         "in": "header",
                         "required": true
                     }
@@ -80,64 +149,10 @@ const docTemplate = `{
                     }
                 }
             }
-        },
-        "/v1/user": {
-            "post": {
-                "description": "Creates a new user account with an email and password",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Create a new user",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "application/json",
-                        "description": "Content-Type",
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "User data",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/user.CreateUserReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "{\"token\": \"token\"}",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "{\"error\": \"bad request\"}",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
         }
     },
     "definitions": {
-        "user.CreateUserReq": {
+        "client.CreateClientReq": {
             "type": "object",
             "required": [
                 "email",
@@ -148,6 +163,14 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "client.CreateClientRes": {
+            "type": "object",
+            "properties": {
+                "token": {
                     "type": "string"
                 }
             }

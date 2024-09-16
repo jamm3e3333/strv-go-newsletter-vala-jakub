@@ -27,6 +27,7 @@ services:
       CONFIG_HEALTH_CHECK_TIMEOUT: 5s
       CONFIG_TIMEZONE: Europe/Warsaw
       CONFIG_APP_NAME: strv_newsletter
+      CONFIG_HASH_SECRET: B293A7DC884D9
 
       # JWT
       CONFIG_JWT_SECRET: vf6dXaJMjYI7jkEhq7rH1F28N1vITNju
@@ -47,7 +48,6 @@ services:
       CONFIG_DATABASE_POOL_MAX_CONNS: 100
       CONFIG_DATABASE_POOL_MIN_CONNS: 1
       CONFIG_DATABASE_POOL_HEALTH_CHECK_PERIOD: 5s
-      CONFIG_DATABASE_HASH_SECRET: hash_secret
 
   postgres:
     image: postgis/postgis:15-3.4

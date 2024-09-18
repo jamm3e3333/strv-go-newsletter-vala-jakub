@@ -100,10 +100,6 @@ jobs:
           build-args: |
             PROJECT_ROOT=/go/src/github.com/jamm3e3333/strv-newsletter
 
-  export-env-vars:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: export-environment-variables
         env:
           ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
@@ -114,10 +110,6 @@ jobs:
           
           grep -v '^#' ./env/vault.yml | sed 's/: /=/' > .env
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: export-env-vars
-    steps:
       - name: paste-env-file
         uses: appleboy/scp-action@v0.1.4
         with:

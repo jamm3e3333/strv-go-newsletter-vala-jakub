@@ -62,10 +62,22 @@ jobs:
           script: |
             docker pull jamm3e3333/strv-newsletter-go-vala-jakub:latest
             
-            docker service create \
-              --name strv-newsletter \
-              --replicas 2 \
-              --publish published=3000,target=3000 \
-              --env-file ~/.env \
-              jamm3e3333/strv-newsletter-go-vala-jakub:latest
+            if [ $(docker service ls --filter name=strv-newsletter -q) ]; then
+              echo "Service exists. Updating service..."
+              docker service update \
+                --image jamm3e3333/strv-newsletter-go-vala-jakub:latest \
+                --replicas 2 \
+                --env-file ~/.env \
+                --publish-rm 3000 \
+                --publish-add published=3000,target=3000 \
+                strv-newsletter
+            else
+              echo "Service does not exist. Creating new service..."
+              docker service create \
+                --name strv-newsletter \
+                --replicas 2 \
+                --publish published=3000,target=3000 \
+                --env-file ~/.env \
+                jamm3e3333/strv-newsletter-go-vala-jakub:latest
+            fi
         timeout-minutes: 2

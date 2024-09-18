@@ -31,6 +31,9 @@ jobs:
           context: .
           push: true
           tags: jamm3e3333/strv-newsletter-go-vala-jakub:latest
+          target: production
+          build-args: |
+            PROJECT_ROOT=/go/src/github.com/jamm3e3333/strv-newsletter
 
       - name: SSH and Deploy
         uses: appleboy/ssh-action@v0.1.7

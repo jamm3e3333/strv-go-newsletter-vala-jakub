@@ -4,75 +4,9 @@ on:
   push:
     branches:
       - main
-#
-#jobs:
-#  build-and-deploy:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: checkout-repo
-#        uses: actions/checkout@v3
-#
-#      - name: setup-qemu
-#        uses: docker/setup-qemu-action@v2
-#
-#      - name: docker-build-setup
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: dockerhub-login
-#        uses: docker/login-action@v2
-#        with:
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_TOKEN }}
-#
-#      - name: build-push
-#        uses: docker/build-push-action@v4
-#        with:
-#          context: .
-#          push: true
-#          tags: jamm3e3333/strv-newsletter-go-vala-jakub:latest
-#          target: production
-#          build-args: |
-#            PROJECT_ROOT=/go/src/github.com/jamm3e3333/strv-newsletter
-#
-#      - name: export-env-file
-#        env:
-#          ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
-#        run: |
-#          echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > vault_pass.txt
-#          ansible-vault decrypt ./env/vault.yml --vault-password-file vault_pass.txt
-#          rm vault_pass.txt  # Clean up the password file for security
-#
-#          grep -v '^#' ./env/vault.yml | sed 's/: /=/' > .env
-#
-#      - name: scp-secrets
-#        uses: appleboy/scp-action@v0.1.4
-#        with:
-#          host: ${{ secrets.DROPLET_HOST }}
-#          username: ${{ secrets.DROPLET_USERNAME }}
-#          key: ${{ secrets.DROPLET_SSH_KEY }}
-#          source: ".env"
-#          target: "~/strv-newsletter.env"
-#
-#      - name: SSH and Deploy
-#        uses: appleboy/ssh-action@v0.1.7
-#        with:
-#          host: ${{ secrets.DROPLET_HOST }}
-#          username: ${{ secrets.DROPLET_USERNAME }}
-#          key: ${{ secrets.DROPLET_SSH_KEY }}
-#          script: |
-#            docker pull jamm3e3333/strv-newsletter-go-vala-jakub:latest
-#            docker service create \
-#            --name strv-newsletter \
-#            --env-file ~/strv-newsletter.env \
-#            --replicas 2 \
-#            --publish published=3000,target=3000 \
-#            jamm3e3333/strv-newsletter-go-vala-jakub:latest strv-newsletter
-#        timeout-minutes: 2
-#
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -109,15 +43,17 @@ jobs:
           rm vault_pass.txt  # Clean up the password file for security
           
           grep -v '^#' ./env/vault.yml | sed 's/: /=/' > .env
+          cat .env
 
       - name: paste-env-file
-        uses: appleboy/scp-action@v0.1.4
+        uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_KEY }}
-          source: ".env"
-          target: "~/strv-newsletter.env"
+          port: 22
+          script: |
+            scp -o StrictHostKeyChecking=no .env ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_HOST }}:~/strv-newsletter.env
 
       - name: deploy-app
         uses: appleboy/ssh-action@v0.1.4

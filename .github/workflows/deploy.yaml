@@ -78,6 +78,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      - name: setup-qemu
+        uses: docker/setup-qemu-action@v2
+
       - name: setup-docker-build
         uses: docker/setup-buildx-action@v2
 
@@ -88,9 +91,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: build-push
-        run: |
-          docker build -t jamm3e3333/strv-newsletter-go-vala-jakub:latest .
-          docker push jamm3e3333/strv-newsletter-go-vala-jakub:latest
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: jamm3e3333/strv-newsletter-go-vala-jakub:latest
+          target: production
+          build-args: |
+            PROJECT_ROOT=/go/src/github.com/jamm3e3333/strv-newsletter
 
   export-env-vars:
     runs-on: ubuntu-latest
@@ -119,7 +127,7 @@ jobs:
           source: ".env"
           target: "~/strv-newsletter.env"
 
-      - name: Deploy to Docker Swarm using the .env file
+      - name: deploy-app
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.DROPLET_HOST }}

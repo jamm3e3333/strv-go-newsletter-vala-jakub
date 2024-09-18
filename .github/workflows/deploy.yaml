@@ -68,6 +68,6 @@ jobs:
               --name strv-newsletter \
               --replicas 2 \
               --publish published=3000,target=3000 \
-              --env-file ~/.strv-newsletter.env \
+              --env-file ~/.env \
               jamm3e3333/strv-newsletter-go-vala-jakub:latest
         timeout-minutes: 2

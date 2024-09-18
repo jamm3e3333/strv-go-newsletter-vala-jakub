@@ -1,13 +1,12 @@
 name: deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -40,12 +39,11 @@ jobs:
         run: |
           echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > vault_pass.txt
           ansible-vault decrypt ./env/vault.yml --vault-password-file vault_pass.txt
-          rm vault_pass.txt  # Clean up the password file for security
+          rm vault_pass.txt
           
           grep -v '^#' ./env/vault.yml | sed 's/: /=/' > .env
-          cat .env
 
-      - name: Copy .env file to server
+      - name: scp-env-file
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.DROPLET_HOST }}

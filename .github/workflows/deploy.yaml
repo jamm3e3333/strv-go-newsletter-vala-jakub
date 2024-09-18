@@ -44,13 +44,12 @@ jobs:
           rm vault_pass.txt  # Clean up the password file for security
           
           grep -v '^#' ./env/vault.yml | sed 's/: /=/' > .env
-          cat .env
 
       - name: scp-secrets
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.DROPLET_IP }}
-          username: ${{ secrets.DROPLET_USER }}
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_KEY }}
           source: ".env"
           target: "~/strv-newsletter.env"
@@ -69,3 +68,4 @@ jobs:
             --replicas 2 \
             --publish published=3000,target=3000 \
             jamm3e3333/strv-newsletter-go-vala-jakub:latest strv-newsletter
+        timeout-minutes: 2

@@ -43,6 +43,8 @@ jobs:
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
             docker pull jamm3e3333/strv-newsletter-go-vala-jakub:latest
-            docker stop strv-newsletter || true
-            docker rm strv-newsletter || true
-            docker run -d --name strv-newsletter --env-file /path/to/.env -p 3000:3000 your-dockerhub-username/your-image-name:latest -d
+            docker service create \
+            --name my-app-service \
+            --replicas 2 \
+            --publish published=3000,target=3000 \
+            jamm3e3333/strv-newsletter-go-vala-jakub:latest strv-newsletter

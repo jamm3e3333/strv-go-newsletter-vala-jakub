@@ -3,9 +3,10 @@ package firebase
 import (
 	"context"
 	"fmt"
+	"os"
 
-	firebase "firebase.google.com/go"
-	"firebase.google.com/go/db"
+	firebase "firebase.google.com/go/v4"
+	"firebase.google.com/go/v4/db"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
 	"google.golang.org/api/option"
 )
@@ -24,19 +25,39 @@ type Config struct {
 
 // NewConnection TODO: add metrics
 func NewConnection(ctx context.Context, cfg Config, lg logger.Logger) *Connection {
-	var opt option.ClientOption
+	var app *firebase.App
+
 	if cfg.IsTestMode {
-		opt = option.WithoutAuthentication()
+		err := os.Setenv("FIREBASE_DATABASE_EMULATOR_HOST", "firebase-emulator:9000/?ns=strv-newsletter-go-vala-jakub-vala-local")
+		if err != nil {
+			lg.Fatal(err)
+		}
+
+		fbCfg := &firebase.Config{
+			DatabaseURL: "https://strv-newsletter-go-vala-jakub-vala-local.firebaseio.com",
+		}
+		app, err = firebase.NewApp(ctx, fbCfg)
+		if err != nil {
+			lg.Fatal(err)
+		}
 	} else {
-		opt = option.WithCredentialsJSON([]byte(cfg.SA))
+		opt := option.WithCredentialsJSON([]byte(cfg.SA))
+		fbCfg := &firebase.Config{
+			DatabaseURL: cfg.DBUrl,
+		}
+
+		var err error
+		app, err = firebase.NewApp(ctx, fbCfg, opt)
+		if err != nil {
+			lg.Fatal(err)
+		}
 	}
 
-	config := &firebase.Config{DatabaseURL: cfg.DBUrl}
-	app, err := firebase.NewApp(ctx, config, opt)
+	client, err := app.Database(ctx)
 	if err != nil {
 		lg.Fatal(err)
 	}
-	client, err := app.Database(ctx)
+
 	if err != nil {
 		lg.Fatal(err)
 	}
@@ -47,13 +68,12 @@ func NewConnection(ctx context.Context, cfg Config, lg logger.Logger) *Connectio
 	}
 }
 
-func (c *Connection) Create(ctx context.Context, opName, path string, data []byte) error {
+func (c *Connection) Create(ctx context.Context, opName, path string, data any) error {
 	if err := c.NewRef(path).Set(ctx, data); err != nil {
 		c.lg.ErrorWithMetadata(
 			fmt.Sprintf("firebase op `%s` error", opName),
 			map[string]any{
 				"error": err.Error(),
-				"data":  string(data),
 				"name":  opName,
 				"path":  path,
 			},
@@ -61,7 +81,7 @@ func (c *Connection) Create(ctx context.Context, opName, path string, data []byt
 		return err
 	}
 
-	c.lg.InfoWithMetadata(fmt.Sprintf("success operation `%s`", opName), map[string]any{"data": string(data), "path": path, "name": opName})
+	c.lg.InfoWithMetadata(fmt.Sprintf("success operation `%s`", opName), map[string]any{"path": path, "name": opName})
 	return nil
 }
 

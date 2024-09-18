@@ -3,6 +3,7 @@
 CREATE TABLE newsletter_subscribers (
     email TEXT NOT NULL,
     newsletter_id BIGINT NOT NULL REFERENCES newsletter(id),
+    unsubscribe_verification_code TEXT NOT NULL,
     subscribed_at TIMESTAMP NOT NULL DEFAULT NOW(),
     PRIMARY KEY (email, newsletter_id)
 );

@@ -19,10 +19,8 @@ func NewListNewsletterOperation(pgConn pgx.Connection) *ListNewsletter {
 }
 
 type newsletterResult struct {
-	ID             int64     `db:"id"`
 	PublicID       int64     `db:"public_id"`
 	Name           string    `db:"name"`
-	ClientID       int64     `db:"client_id"`
 	ClientPublicID int64     `db:"client_public_id"`
 	Description    *string   `db:"description"`
 	TotalCount     int64     `db:"total_count"`
@@ -51,11 +49,9 @@ func (o *ListNewsletter) Execute(ctx context.Context, p dto.ListNewsletter) ([]d
 	for (*r).Next() {
 		var n newsletterResult
 		err := (*r).Scan(
-			&n.ID,
 			&n.PublicID,
 			&n.Description,
 			&n.Name,
-			&n.ClientID,
 			&n.CreatedAt,
 			&n.ClientPublicID,
 			&n.TotalCount,
@@ -64,9 +60,7 @@ func (o *ListNewsletter) Execute(ctx context.Context, p dto.ListNewsletter) ([]d
 			return nil, err
 		}
 		newsletters = append(newsletters, dto.Newsletter{
-			ClientID:       n.ClientID,
 			ClientPublicID: n.ClientPublicID,
-			ID:             n.ID,
 			PublicID:       n.PublicID,
 			TotalCount:     n.TotalCount,
 			Name:           n.Name,
@@ -81,11 +75,9 @@ func (o *ListNewsletter) Execute(ctx context.Context, p dto.ListNewsletter) ([]d
 func (o *ListNewsletter) sql() string {
 	return `
 SELECT
-    nl.id,
     nl.public_id,
     nl.description,
     nl.name,
-    nl.client_id,
     nl.created_at,
     cc.public_id AS client_public_id,
     COUNT(*) OVER() AS total_count

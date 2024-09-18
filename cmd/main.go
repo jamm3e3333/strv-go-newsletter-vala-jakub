@@ -15,6 +15,7 @@ import (
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/firebase"
 	healthcheck "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/health"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/mailjet"
 	pkgGin "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/gin"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/ginprometheus"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/server"
@@ -39,6 +40,7 @@ func main() {
 		jwtConfig, errJWTConfig           = config.CreateJWTConfig()
 		pgConfig, errPGConfig             = config.CreatePostgresConfig()
 		firebaseConfig, errFirebaseConfig = config.CreateFirebaseConfig()
+		emailConfig, errEmailConfig       = config.CreateEmailConfig()
 	)
 
 	for _, err := range []error{
@@ -47,6 +49,7 @@ func main() {
 		errPGConfig,
 		errJWTConfig,
 		errFirebaseConfig,
+		errEmailConfig,
 	} {
 		if err != nil {
 			panic(err)
@@ -70,7 +73,7 @@ func main() {
 		HealthCheckPeriod: pgConfig.HealthCheckPeriod,
 	}, lg, mm.Pm)
 
-	firebase.NewConnection(
+	fbConn := firebase.NewConnection(
 		ctx,
 		firebase.Config{
 			DBUrl:      firebaseConfig.DBUrl,
@@ -133,10 +136,18 @@ func main() {
 	readinessHealthCheck.RegisterIndicator(pghealth.NewHealthIndicator(ctx, pc, lg))
 	lg.Info("health check indicators registered")
 
+	mailClient := mailjet.NewEmailClient(lg, mailjet.Config{
+		APIKey:    emailConfig.APIKey,
+		APISecret: emailConfig.APISecret,
+	})
 	internal.RegisterModule(ge, internal.ModuleParams{
-		HashSecret: appConfig.HashSecret,
-		JWTSecret:  jwtConfig.Secret,
-		PGConn:     pc,
+		HashSecret:      appConfig.HashSecret,
+		JWTSecret:       jwtConfig.Secret,
+		EmailSenderAddr: emailConfig.SenderEmailAddrParsed,
+		PGConn:          pc,
+		FirebaseConn:    fbConn,
+		Logger:          lg,
+		MailClient:      mailClient,
 	})
 
 	for _, v := range ge.Routes() {

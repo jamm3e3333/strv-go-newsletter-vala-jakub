@@ -61,7 +61,7 @@ func (c *Controller) createNewsletter(ctx *gin.Context) {
 	var h Header
 	err := ctx.ShouldBindHeader(&h)
 	if err != nil {
-		ctx.JSON(400, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -70,7 +70,7 @@ func (c *Controller) createNewsletter(ctx *gin.Context) {
 	var req CreateNewsletterReq
 	err = ctx.ShouldBindBodyWithJSON(&req)
 	if err != nil {
-		ctx.JSON(400, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -82,7 +82,7 @@ func (c *Controller) createNewsletter(ctx *gin.Context) {
 
 	// TODO: map error
 	if err != nil {
-		ctx.JSON(500, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -100,10 +100,10 @@ type ListNewsletterRes struct {
 }
 
 type Newsletter struct {
-	Name        string  `json:"name"`
-	Description *string `json:"description"`
-	ID          int64   `json:"id"`
-	ClientID    int64   `json:"client_id"`
+	Name           string  `json:"name"`
+	Description    *string `json:"description"`
+	PublicID       int64   `json:"public_id"`
+	ClientPublicID int64   `json:"client_public_id"`
 }
 
 // @Summary List newsletters with pagination
@@ -122,7 +122,7 @@ func (c *Controller) listNewsletter(ctx *gin.Context) {
 	var q ListNewsletterQP
 	err := ctx.ShouldBindQuery(&q)
 	if err != nil {
-		ctx.JSON(400, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	clientID := ctx.GetInt64(middleware.ClientCTXKey)
@@ -132,7 +132,7 @@ func (c *Controller) listNewsletter(ctx *gin.Context) {
 		PageSize: q.PageSize,
 	})
 	if err != nil {
-		ctx.JSON(500, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "INTERNAL_SERVER_ERROR"})
 		return
 	}
 
@@ -147,10 +147,10 @@ func (c *Controller) listNewsletter(ctx *gin.Context) {
 	newslettersRes := make([]Newsletter, len(newsletters))
 	for i, v := range newsletters {
 		newslettersRes[i] = Newsletter{
-			Name:        v.Name,
-			Description: v.Description,
-			ID:          v.PublicID,
-			ClientID:    v.ClientPublicID,
+			Name:           v.Name,
+			Description:    v.Description,
+			PublicID:       v.PublicID,
+			ClientPublicID: v.ClientPublicID,
 		}
 	}
 

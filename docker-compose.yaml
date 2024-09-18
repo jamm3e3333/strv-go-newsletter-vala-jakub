@@ -50,8 +50,13 @@ services:
       CONFIG_DATABASE_POOL_HEALTH_CHECK_PERIOD: 5s
 
       # FIREBASE
-      CONFIG_FIREBASE_DATABASE_URL: http://firebase-emulator:9000?ns=strv-newsletter-go-vala-jakub-vala-local
+      CONFIG_FIREBASE_DATABASE_URL: http://127.0.0.1:9000/?ns=strv-newsletter-go-vala-jakub-vala-local
       CONFIG_FIREBASE_IS_TESTING_MODE: true
+
+      # EMAIL
+      CONFIG_EMAIL_SENDER_EMAIL_ADDRESS: petrr.nowak1@gmail.com
+      CONFIG_EMAIL_API_KEY: 089fdce0177f16205adda46f7eaf15b8
+      CONFIG_EMAIL_API_SECRET: c3fc2d94efdd62fbacf60bd3635c729e
 
   postgres:
     image: postgis/postgis:15-3.4
@@ -77,3 +82,4 @@ services:
       UI_ENABLED: true
     volumes:
       - "./firebase.json:/firebase/firebase.json"
+      - "./database.rules.json:/firebase/database.rules.json"

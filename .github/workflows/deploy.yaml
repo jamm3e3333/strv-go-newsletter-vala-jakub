@@ -12,6 +12,26 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      - name: export-environment-variables
+        env:
+          ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+        run: |
+          echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > vault_pass.txt
+          ansible-vault decrypt ./env/vault.yml --vault-password-file vault_pass.txt
+          rm vault_pass.txt  # Clean up the password file for security
+          
+          grep -v '^#' ./env/vault.yml | sed 's/: /=/' > .env
+          cat .env
+
+      - name: Copy .env file to server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          source: ".env"
+          target: "~/.strv-newsletter.env"
+
       - name: setup-qemu
         uses: docker/setup-qemu-action@v2
 
@@ -34,26 +54,7 @@ jobs:
           build-args: |
             PROJECT_ROOT=/go/src/github.com/jamm3e3333/strv-newsletter
 
-      - name: export-environment-variables
-        env:
-          ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
-        run: |
-          echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > vault_pass.txt
-          ansible-vault decrypt ./env/vault.yml --vault-password-file vault_pass.txt
-          rm vault_pass.txt  # Clean up the password file for security
-          
-          grep -v '^#' ./env/vault.yml | sed 's/: /=/' > .env
-          cat .env
 
-      - name: paste-env-file
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ secrets.DROPLET_HOST }}
-          username: ${{ secrets.DROPLET_USERNAME }}
-          key: ${{ secrets.DROPLET_SSH_KEY }}
-          port: 22
-          script: |
-            scp -o StrictHostKeyChecking=no .env ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_HOST }}:~/strv-newsletter.env
 
       - name: deploy-app
         uses: appleboy/ssh-action@v0.1.4
@@ -69,6 +70,6 @@ jobs:
               --name strv-newsletter \
               --replicas 2 \
               --publish published=3000,target=3000 \
-              --env-file ~/strv-newsletter.env \
+              --env-file ~/.strv-newsletter.env \
               jamm3e3333/strv-newsletter-go-vala-jakub:latest
         timeout-minutes: 2

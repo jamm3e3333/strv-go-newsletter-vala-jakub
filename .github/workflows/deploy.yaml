@@ -59,7 +59,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_KEY }}
           source: "./db/migrations"
-          target: "~/db/migrations"
+          target: "~/"
 
       - name: deploy-app
         uses: appleboy/ssh-action@v0.1.4
@@ -70,13 +70,19 @@ jobs:
           port: 22
           script: |
             docker pull jamm3e3333/strv-newsletter-go-vala-jakub:latest
-            
+
+            set -o allexport
+            source ~/.env
+            set +o allexport
+
+            ENV_VARS=$(grep -v '^#' ~/.env | xargs -I {} echo "--env-add {}")
+
             if [ $(docker service ls --filter name=strv-newsletter -q) ]; then
               echo "Service exists. Updating service..."
               docker service update \
                 --image jamm3e3333/strv-newsletter-go-vala-jakub:latest \
                 --replicas 2 \
-                --env-file ~/.env \
+                $ENV_VARS \
                 --publish-rm 3000 \
                 --publish-add published=3000,target=3000 \
                 strv-newsletter

@@ -12,6 +12,7 @@ import (
 	_ "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/swagger"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal"
 	pghealth "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg"
+	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/health"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/firebase"
 	healthcheck "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/health"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
@@ -129,12 +130,14 @@ func main() {
 	lg.Info("swagger initialized")
 
 	// Initialize health check
-	readinessHealthCheck := healthcheck.NewHealthCheck(appConfig.HealthCheckTimeout, lg)
-	_ = healthcheck.NewHealthCheck(appConfig.HealthCheckTimeout, lg)
-	lg.Info("health checks initialized")
+	livenessHCh := healthcheck.NewHealthCheck(appConfig.HealthCheckTimeout, lg)
+	livenessHCh.RegisterIndicator(pghealth.NewHealthIndicator(ctx, pc, lg))
 
-	readinessHealthCheck.RegisterIndicator(pghealth.NewHealthIndicator(ctx, pc, lg))
-	lg.Info("health check indicators registered")
+	readinessHCh := healthcheck.NewHealthCheck(appConfig.HealthCheckTimeout, lg)
+
+	hc := health.NewController(readinessHCh, livenessHCh, ge)
+	hc.Register(ge)
+	lg.Info("health check controller initialized")
 
 	mailClient := mailjet.NewEmailClient(lg, mailjet.Config{
 		APIKey:    emailConfig.APIKey,

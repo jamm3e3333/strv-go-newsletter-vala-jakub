@@ -11,16 +11,21 @@ import (
 type SendSubConfirmation struct {
 	emailSender       mailjet.MailClientSender
 	senderMailAddress *mail.Address
+	isLocalEnv        bool
 }
 
-func NewSendSubConfirmation(emailSender mailjet.MailClientSender, senderMail *mail.Address) *SendSubConfirmation {
+func NewSendSubConfirmation(emailSender mailjet.MailClientSender, senderMail *mail.Address, isLocalEnv bool) *SendSubConfirmation {
 	return &SendSubConfirmation{
 		emailSender:       emailSender,
 		senderMailAddress: senderMail,
+		isLocalEnv:        isLocalEnv,
 	}
 }
 
 func (s *SendSubConfirmation) Execute(ctx context.Context, p dto.SendSubConfirmation) error {
+	if s.isLocalEnv {
+		return nil
+	}
 	mailParams := mailjet.SendEmailParams{
 		Recipient: mailjet.Recipient{
 			Email: p.RecipientEmailAddr,

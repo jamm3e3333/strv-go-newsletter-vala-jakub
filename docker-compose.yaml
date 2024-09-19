@@ -54,9 +54,6 @@ services:
       CONFIG_FIREBASE_IS_TESTING_MODE: true
 
       # EMAIL
-      CONFIG_EMAIL_SENDER_EMAIL_ADDRESS: petrr.nowak1@gmail.com
-      CONFIG_EMAIL_API_KEY: 089fdce0177f16205adda46f7eaf15b8
-      CONFIG_EMAIL_API_SECRET: c3fc2d94efdd62fbacf60bd3635c729e
       CONFIG_UNSUBSCRIBE_URL: http://localhost:59110/v1/newsletter/subscriber/unsubscribe
 
   postgres:

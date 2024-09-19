@@ -11,7 +11,7 @@ type GetClientData struct {
 	pgConn pgx.Connection
 }
 
-func NewGetClientData(pgConn pgx.Connection) *GetClientData {
+func NewGetClientDataOperation(pgConn pgx.Connection) *GetClientData {
 	return &GetClientData{pgConn: pgConn}
 }
 

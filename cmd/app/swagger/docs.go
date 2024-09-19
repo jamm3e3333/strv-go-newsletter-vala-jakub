@@ -427,6 +427,15 @@ const docTemplate = `{
                         "name": "Content-Type",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "description": "Client data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/client.CreateSessionReq"
+                        }
                     }
                 ],
                 "responses": {
@@ -472,6 +481,21 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "client.CreateSessionReq": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
                     "type": "string"
                 }
             }

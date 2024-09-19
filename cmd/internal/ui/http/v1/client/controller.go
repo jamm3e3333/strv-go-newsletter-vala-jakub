@@ -25,20 +25,20 @@ type CreateSessionHandler interface {
 }
 
 type Controller struct {
-	createUserHandler    CreateClientHandler
+	createClientHandler  CreateClientHandler
 	createSessionHandler CreateSessionHandler
 }
 
-func NewController(createUser CreateClientHandler, createSession CreateSessionHandler) *Controller {
+func NewController(createClient CreateClientHandler, createSession CreateSessionHandler) *Controller {
 	return &Controller{
-		createUserHandler:    createUser,
+		createClientHandler:  createClient,
 		createSessionHandler: createSession,
 	}
 }
 
 func (c *Controller) Register(ge *gin.Engine) {
-	ge.POST("/v1/client", c.createClient)
-	ge.POST("/v1/session", c.createSession) // TODO: authenticate with email and password
+	ge.POST("/v1/client", c.CreateClient)
+	ge.POST("/v1/session", c.CreateSession)
 }
 
 type Header struct {
@@ -63,7 +63,7 @@ func (r CreateClientReq) ValidatePassword() error {
 	return nil
 }
 
-// createClient godoc
+// CreateClient godoc
 // @Summary Create a new client
 // @Description Creates a new client account with an email and password
 // @Tags Client
@@ -76,7 +76,7 @@ func (r CreateClientReq) ValidatePassword() error {
 // @Failure 422 {object} map[string]string "{"error": "bad request"}"
 // @Failure 500 {object} map[string]string "{"error": "bad request"}"
 // @Router /v1/client [post]
-func (c *Controller) createClient(ctx *gin.Context) {
+func (c *Controller) CreateClient(ctx *gin.Context) {
 	var h Header
 	err := ctx.ShouldBindHeader(&h)
 	if err != nil {
@@ -104,7 +104,7 @@ func (c *Controller) createClient(ctx *gin.Context) {
 	}
 
 	// TODO: add error mapping
-	token, err := c.createUserHandler.Handle(ctx, &create_client.Command{
+	token, err := c.createClientHandler.Handle(ctx, &create_client.Command{
 		Email:    email.String(),
 		Password: req.Password,
 	})
@@ -125,17 +125,18 @@ type CreateSessionRes struct {
 	Token string `json:"token"`
 }
 
-// createSession godoc
+// CreateSession godoc
 // @Summary Create a new session
 // @Description Creates a new session for a user by validating the email and password
 // @Tags Sessions
 // @Accept json
 // @Produce json
 // @Param Content-Type header string true "Content-Type" example(application/json)
+// @Param data body CreateSessionReq true "Client data"
 // @Success 201 {object} map[string]string "{"token": "token"}"
 // @Failure 400 {object} map[string]string "{"error": "invalid credentials"}"
 // @Router /v1/session [post]
-func (c *Controller) createSession(ctx *gin.Context) {
+func (c *Controller) CreateSession(ctx *gin.Context) {
 	var h Header
 	err := ctx.ShouldBindHeader(&h)
 	if err != nil {

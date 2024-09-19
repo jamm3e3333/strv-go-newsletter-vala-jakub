@@ -14,6 +14,16 @@ definitions:
       token:
         type: string
     type: object
+  client.CreateSessionReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
   gin.H:
     additionalProperties: {}
     type: object
@@ -360,6 +370,12 @@ paths:
         name: Content-Type
         required: true
         type: string
+      - description: Client data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/client.CreateSessionReq'
       produces:
       - application/json
       responses:

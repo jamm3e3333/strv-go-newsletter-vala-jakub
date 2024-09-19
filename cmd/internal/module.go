@@ -43,7 +43,7 @@ func RegisterModule(ge *gin.Engine, p ModuleParams) {
 
 	createToken := jwt.NewCreateClientToken(p.JWTSecret)
 
-	getClientData := operation.NewGetClientData(p.PGConn)
+	getClientData := operation.NewGetClientDataOperation(p.PGConn)
 	createClient := operation.NewCreateClientOperation(p.PGConn)
 	createNewsletter := operation.NewCreateNewsletterOperation(p.PGConn)
 	listNewsletter := operation.NewListNewsletterOperation(p.PGConn)

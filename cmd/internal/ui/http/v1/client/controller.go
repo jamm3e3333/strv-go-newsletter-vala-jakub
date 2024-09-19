@@ -14,6 +14,7 @@ import (
 
 var (
 	passwordRegexPattern = `^[0-9a-zA-Z$&+,:;=?@#|'<>.\-^*()%!]{6,20}$`
+	emailRegexPattern    = `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
 )
 
 type CreateClientHandler interface {
@@ -63,6 +64,15 @@ func (r CreateClientReq) ValidatePassword() error {
 	return nil
 }
 
+func (r CreateClientReq) ValidateEmail() error {
+	emailRegex := regexp.MustCompile(emailRegexPattern)
+	if ok := emailRegex.MatchString(r.Email); !ok {
+		return errors.New("invalid email")
+	}
+
+	return nil
+}
+
 // CreateClient godoc
 // @Summary Create a new client
 // @Description Creates a new client account with an email and password
@@ -97,6 +107,11 @@ func (c *Controller) CreateClient(ctx *gin.Context) {
 		return
 	}
 
+	err = req.ValidateEmail()
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	email, err := mail.ParseAddress(req.Email)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -109,7 +124,7 @@ func (c *Controller) CreateClient(ctx *gin.Context) {
 		Password: req.Password,
 	})
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "INTERNAL_SERVER_ERROR"})
 		return
 	}
 

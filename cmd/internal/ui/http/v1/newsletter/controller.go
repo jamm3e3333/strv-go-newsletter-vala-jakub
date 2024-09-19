@@ -82,7 +82,7 @@ func (c *Controller) createNewsletter(ctx *gin.Context) {
 
 	// TODO: map error
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "INTERNAL_SERVER_ERROR"})
 		return
 	}
 

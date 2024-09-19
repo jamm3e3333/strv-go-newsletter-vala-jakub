@@ -2,6 +2,7 @@ package internal
 
 import (
 	"net/mail"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_client"
@@ -31,6 +32,7 @@ type ModuleParams struct {
 	JWTSecret       string
 	EmailSenderAddr *mail.Address
 	EmailUnsubURL   string
+	AppENV          string
 	PGConn          pgx.Connection
 	FirebaseConn    firebasepkg.Connector
 	Logger          logger.Logger
@@ -55,13 +57,18 @@ func RegisterModule(ge *gin.Engine, p ModuleParams) {
 	delNewsletterSub := operation.NewDeleteNewsletterSub(p.PGConn)
 
 	createSub := firebase.NewCreateSubscription(p.FirebaseConn)
+	createPubNewsletter := firebase.NewCreatePubNewsletter(p.FirebaseConn)
 
-	sendSubConfirm := mailjet.NewSendSubConfirmation(p.MailClient, p.EmailSenderAddr)
+	sendSubConfirm := mailjet.NewSendSubConfirmation(
+		p.MailClient,
+		p.EmailSenderAddr,
+		strings.Contains(p.AppENV, "local"),
+	)
 
 	createClientHan := create_client.NewCreateClientHandler(hashPaswd, createToken, createClient)
 	createSessHan := create_session.NewCreateSessionHandler(verifyPasswd, getClientData, createToken)
 
-	createNewsletterHan := create_newsletter.NewCreateNewsletterHandler(createNewsletter)
+	createNewsletterHan := create_newsletter.NewCreateNewsletterHandler(createNewsletter, createPubNewsletter)
 	listNewsletterHan := list_newsletter.NewListNewsletterHandler(listNewsletter)
 	createSubHan := create_subscription.NewCreateSubscriptionHandler(
 		createSub,

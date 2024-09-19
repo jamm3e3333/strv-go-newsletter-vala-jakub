@@ -79,7 +79,7 @@ func (c *Controller) createSubscription(ctx *gin.Context) {
 		NewsletterPublicID: req.NewsletterPublicID,
 	})
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "INTERNAL_SERVER_ERROR"})
 		return
 	}
 
@@ -124,7 +124,7 @@ func (c *Controller) deleteSubscription(ctx *gin.Context) {
 		VerificationCode:   qp.Code,
 	})
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "INTERNAL_SERVER_ERROR"})
 		return
 	}
 

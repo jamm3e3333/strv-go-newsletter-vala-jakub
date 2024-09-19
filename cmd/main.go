@@ -153,6 +153,7 @@ func main() {
 		Logger:          lg,
 		MailClient:      mailClient,
 		EmailUnsubURL:   emailConfig.UnsubURL,
+		AppENV:          appConfig.AppEnv,
 	})
 
 	for _, v := range ge.Routes() {

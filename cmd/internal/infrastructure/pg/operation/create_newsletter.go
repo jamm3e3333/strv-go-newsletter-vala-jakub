@@ -17,26 +17,30 @@ func NewCreateNewsletterOperation(pgConn pgx.Connection) *CreateNewsletter {
 	}
 }
 
-func (o *CreateNewsletter) Execute(ctx context.Context, p dto.CreateNewsletter) error {
-	r, cancel, err := o.pgConn.Query(ctx, "CreateNewsletter", o.sql(), pgx.NamedArgs{
+type CreateNewsletterResult struct {
+	PublicID int64 `db:"public_id"`
+}
+
+func (o *CreateNewsletter) Execute(ctx context.Context, p dto.CreateNewsletter) (int64, error) {
+	r, cancel := o.pgConn.QueryRow(ctx, "CreateNewsletter", o.sql(), pgx.NamedArgs{
 		"clientID":    p.ClientID,
 		"name":        p.Name,
 		"description": p.Description,
 	})
-	if err != nil {
-		return err
-	}
 	defer cancel()
 
-	if err := (*r).Err(); err != nil {
-		return err
+	res := &CreateNewsletterResult{}
+	err := (*r).Scan(&res.PublicID)
+	if err != nil {
+		return -1, err
 	}
-	return nil
+
+	return res.PublicID, nil
 }
 
 func (o *CreateNewsletter) sql() string {
 	return `
 INSERT INTO newsletter (client_id, name, description)
-		values(@clientID, @name, @description);
+		values(@clientID, @name, @description) RETURNING public_id;
 `
 }

@@ -20,6 +20,7 @@ type PostgresConfig struct {
 	MaxConns          int32         `env:"CONFIG_DATABASE_POOL_MAX_CONNS"`
 	MinConns          int32         `env:"CONFIG_DATABASE_POOL_MIN_CONNS"`
 	HealthCheckPeriod time.Duration `env:"CONFIG_DATABASE_POOL_HEALTH_CHECK_PERIOD"`
+	SSLMode           string        `env:"CONFIG_DATABASE_SSL_MODE" env-default:"disable"`
 }
 
 func CreatePostgresConfig() (PostgresConfig, error) {
@@ -33,11 +34,12 @@ func CreatePostgresConfig() (PostgresConfig, error) {
 
 func (pc PostgresConfig) ConnectionURL() string {
 	return fmt.Sprintf(
-		"postgresql://%s:%s@%s:%d/%s",
+		"postgresql://%s:%s@%s:%d/%s?sslmode=%s",
 		pc.User,
 		pc.Password,
 		pc.Host,
 		pc.Port,
 		pc.DBName,
+		pc.SSLMode,
 	)
 }

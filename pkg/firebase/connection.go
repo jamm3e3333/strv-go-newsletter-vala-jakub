@@ -2,6 +2,7 @@ package firebase
 
 import (
 	"context"
+	"encoding/base64"
 	"fmt"
 	"os"
 
@@ -19,7 +20,7 @@ type Connection struct {
 
 type Config struct {
 	DBUrl      string
-	SA         string
+	SAFileEnc  string
 	IsTestMode bool
 }
 
@@ -41,12 +42,15 @@ func NewConnection(ctx context.Context, cfg Config, lg logger.Logger) *Connectio
 			lg.Fatal(err)
 		}
 	} else {
-		opt := option.WithCredentialsJSON([]byte(cfg.SA))
+		saKey, err := base64.StdEncoding.DecodeString(cfg.SAFileEnc)
+		if err != nil {
+			lg.Fatal(err)
+		}
+		opt := option.WithCredentialsJSON(saKey)
 		fbCfg := &firebase.Config{
 			DatabaseURL: cfg.DBUrl,
 		}
 
-		var err error
 		app, err = firebase.NewApp(ctx, fbCfg, opt)
 		if err != nil {
 			lg.Fatal(err)

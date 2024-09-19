@@ -96,7 +96,12 @@ jobs:
             
             if [ $STATUS -eq 0 ]; then
               echo "STRV Newsletter service successful. Running migrations..."
-              goose postgres "$$DATABASE_URL" -dir ~/db/migrations -v up status
+            
+              set -o allexport
+              source ~/.env
+              set +o allexport
+
+              goose postgres "$DATABASE_URL" -dir ~/db/migrations -v up status
             else
               echo "STRV Newsletter service successful failed. Skipping migrations."
               exit 1

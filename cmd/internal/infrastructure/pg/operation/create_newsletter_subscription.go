@@ -2,7 +2,6 @@ package operation
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
@@ -25,13 +24,11 @@ func (o *CreateNewsletterSubscription) Execute(ctx context.Context, p dto.Create
 		"code":         p.VerifCode,
 	})
 	if err != nil {
-		fmt.Println("err1", err.Error())
 		return err
 	}
 	defer cancel()
 
 	if err := (*r).Err(); err != nil {
-		fmt.Println("err2", err.Error())
 		return err
 	}
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -11,7 +12,7 @@ import (
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/setup/prometheus"
 	_ "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/swagger"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal"
-	pghealth "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg"
+	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/health"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/firebase"
 	healthcheck "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/health"
@@ -131,7 +132,7 @@ func main() {
 
 	// Initialize health check
 	livenessHCh := healthcheck.NewHealthCheck(appConfig.HealthCheckTimeout, lg)
-	livenessHCh.RegisterIndicator(pghealth.NewHealthIndicator(ctx, pc, lg))
+	livenessHCh.RegisterIndicator(pg.NewHealthIndicator(ctx, pc, lg))
 
 	readinessHCh := healthcheck.NewHealthCheck(appConfig.HealthCheckTimeout, lg)
 
@@ -151,6 +152,7 @@ func main() {
 		FirebaseConn:    fbConn,
 		Logger:          lg,
 		MailClient:      mailClient,
+		EmailUnsubURL:   emailConfig.UnsubURL,
 	})
 
 	for _, v := range ge.Routes() {
@@ -170,7 +172,7 @@ func main() {
 		lg.Error("http server error, %s", err)
 		shutdown.SignalShutdown()
 	case <-ctx.Done():
-		if err := srv.Shutdown(ctx); err != nil {
+		if err := srv.Shutdown(context.Background()); err != nil {
 			lg.Error("err shutting down http server, error: %v", err)
 		}
 		lg.Info("shutdown signaled")

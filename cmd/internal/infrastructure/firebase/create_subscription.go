@@ -21,12 +21,10 @@ func NewCreateSubscription(fbConn firebase.Connector) *CreateSubscription {
 func (c *CreateSubscription) Execute(ctx context.Context, p dto.CreateSubscription) error {
 	encodedEmail := encodeEmail(p.Email)
 	path := fmt.Sprintf("subscriber/%s", encodedEmail)
-
-	err := c.fbConn.Create(ctx, "CreateSubscription", path, map[int64]any{
-		p.NewsletterPublicID: true,
+	err := c.fbConn.Create(ctx, "CreateSubscription", path, map[string]any{
+		fmt.Sprintf("%d", p.NewsletterPublicID): true,
 	})
 	if err != nil {
-		fmt.Println("err1", err.Error())
 		return err
 	}
 

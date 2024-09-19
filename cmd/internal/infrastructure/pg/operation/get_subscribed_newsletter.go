@@ -3,6 +3,7 @@ package operation
 import (
 	"context"
 
+	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
 )
 
@@ -16,26 +17,20 @@ func NewGetSubscribedNewsletterIDOp(pgConn pgx.Connection) *GetSubscribedNewslet
 	}
 }
 
-type subbedNewsletterRes struct {
-	ID int64 `db:"id"`
+type SubbedNewsletterRes struct {
+	ID int64 `db:"newsletter_id"`
 }
 
-func (o *GetSubscribedNewsletterID) GetForUserCode(ctx context.Context, email, code string) (int64, error) {
-	r, cancel, err := o.pgConn.Query(ctx, "GetSubscribedNewsletterID", o.sql(), pgx.NamedArgs{
-		"code":  code,
-		"email": email,
+func (o *GetSubscribedNewsletterID) Execute(ctx context.Context, p dto.GetSubscribedNewsletter) (int64, error) {
+	r, cancel := o.pgConn.QueryRow(ctx, "GetSubscribedNewsletterID", o.sql(), pgx.NamedArgs{
+		"newsletterPublicID": p.NewsletterPublicID,
+		"email":              p.Email,
+		"code":               p.VerifCode,
 	})
-	if err != nil {
-		return -1, err
-	}
 	defer cancel()
 
-	if err := (*r).Err(); err != nil {
-		return -1, err
-	}
-
-	var res subbedNewsletterRes
-	err = (*r).Scan(&res.ID)
+	res := SubbedNewsletterRes{}
+	err := (*r).Scan(&res.ID)
 	if err != nil {
 		return -1, err
 	}
@@ -46,11 +41,13 @@ func (o *GetSubscribedNewsletterID) GetForUserCode(ctx context.Context, email, c
 func (o *GetSubscribedNewsletterID) sql() string {
 	return `
 SELECT
-	*
+	n.id
 FROM
 	newsletter_subscribers ns
+	INNER JOIN newsletter n ON n.id = ns.newsletter_id
 WHERE
-	ns.email = @email
-	AND ns.unsubscribe_verification_code = @code;
+	n.public_id = @newsletterPublicID
+	AND ns.email = @email
+	AND unsubscribe_verification_code = @code;
 `
 }

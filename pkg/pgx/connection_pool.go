@@ -258,5 +258,9 @@ func (c *ConnectionPool) QueryRow(
 		c.metrics.qm.IncQueryCounter(querySuccess, dbFuncName)
 	}
 
+	c.log.InfoWithMetadata("pg query operation", map[string]any{
+		"func": dbFuncName,
+		"sql":  sql,
+	})
 	return &r, cancel
 }

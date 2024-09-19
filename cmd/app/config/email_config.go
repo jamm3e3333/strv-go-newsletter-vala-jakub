@@ -23,6 +23,7 @@ type EmailConfig struct {
 	SenderEmailAddress    string `env:"CONFIG_EMAIL_SENDER_EMAIL_ADDRESS"`
 	APIKey                string `env:"CONFIG_EMAIL_API_KEY"`
 	APISecret             string `env:"CONFIG_EMAIL_API_SECRET"`
+	UnsubURL              string `env:"CONFIG_UNSUBSCRIBE_URL"`
 	SenderEmailAddrParsed *mail.Address
 }
 

@@ -8,6 +8,7 @@ import (
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_newsletter"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_session"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_subscription"
+	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/delete_subscription"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/query/list_newsletter"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/service"
 	"github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/firebase"
@@ -29,6 +30,7 @@ type ModuleParams struct {
 	HashSecret      string
 	JWTSecret       string
 	EmailSenderAddr *mail.Address
+	EmailUnsubURL   string
 	PGConn          pgx.Connection
 	FirebaseConn    firebasepkg.Connector
 	Logger          logger.Logger
@@ -47,6 +49,10 @@ func RegisterModule(ge *gin.Engine, p ModuleParams) {
 	listNewsletter := operation.NewListNewsletterOperation(p.PGConn)
 	getNewsletterID := operation.NewGetNewsletterOp(p.PGConn)
 	createNewsletterSub := operation.NewCreateNewsletterSubscription(p.PGConn)
+	isNewsletterSubExist := operation.NewIsNewsletterSubExistOp(p.PGConn)
+	getSubbedNewsletterID := operation.NewGetSubscribedNewsletterIDOp(p.PGConn)
+	delSub := firebase.NewDeleteSubscriptionOp(p.FirebaseConn)
+	delNewsletterSub := operation.NewDeleteNewsletterSub(p.PGConn)
 
 	createSub := firebase.NewCreateSubscription(p.FirebaseConn)
 
@@ -63,11 +69,14 @@ func RegisterModule(ge *gin.Engine, p ModuleParams) {
 		createNewsletterSub,
 		service.GenerateUnsubscribeCode,
 		sendSubConfirm,
+		isNewsletterSubExist,
+		p.EmailUnsubURL,
 	)
+	deleteSubHandler := delete_subscription.NewDeleteSubscriptionHandler(getSubbedNewsletterID, delSub, delNewsletterSub)
 
 	clientCTRL := client.NewController(createClientHan, createSessHan)
 	newsletterCTRL := newsletter.NewController(createNewsletterHan, listNewsletterHan)
-	createSubCTRL := subscriber.NewController(createSubHan)
+	createSubCTRL := subscriber.NewController(createSubHan, deleteSubHandler)
 
 	decryptToken := jwtui.NewDecryptToken(p.JWTSecret)
 	getClientID := operation.NewGetClientIDOperation(p.PGConn)

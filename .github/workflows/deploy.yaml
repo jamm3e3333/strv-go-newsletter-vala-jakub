@@ -83,7 +83,7 @@ jobs:
                 --image jamm3e3333/strv-newsletter-go-vala-jakub:latest \
                 --replicas 2 \
                 $ENV_VARS \
-                --publish-rm 3000 \
+                --publish-add 3000 \
                 --publish-add published=3000,target=3000 \
                 strv-newsletter
             
@@ -107,7 +107,7 @@ jobs:
               source ~/.env
               set +o allexport
 
-              goose postgres "$DATABASE_URL" -dir ~/db/migrations -v up status
+              goose postgres "$DATABASE_URL" -dir ~/db/migrations up status
             else
               echo "STRV Newsletter service successful failed. Skipping migrations."
               exit 1

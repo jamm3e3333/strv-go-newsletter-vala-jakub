@@ -14,6 +14,73 @@ definitions:
       token:
         type: string
     type: object
+  gin.H:
+    additionalProperties: {}
+    type: object
+  health.ComponentStatus:
+    properties:
+      component:
+        example: main
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/health.Status'
+        enum:
+        - up
+        - down
+        example: up
+    type: object
+  health.Result:
+    properties:
+      components:
+        items:
+          $ref: '#/definitions/health.ComponentStatus'
+        type: array
+      status:
+        allOf:
+        - $ref: '#/definitions/health.Status'
+        enum:
+        - up
+        - down
+        example: up
+    type: object
+  health.Status:
+    enum:
+    - up
+    - down
+    - timeout
+    type: string
+    x-enum-varnames:
+    - StatusUp
+    - StatusDown
+    - StatusTimeout
+  newsletter.CreateNewsletterReq:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  subscriber.CreateSubscriptionReq:
+    properties:
+      email:
+        type: string
+      newsletter_public_id:
+        type: integer
+    required:
+    - email
+    - newsletter_public_id
+    type: object
+  subscriber.Header:
+    properties:
+      value:
+        example: application/json
+        type: string
+    required:
+    - value
+    type: object
 info:
   contact:
     name: STRV
@@ -21,6 +88,38 @@ info:
   title: STRV Newsletter API
   version: "2.0"
 paths:
+  /health/liveness:
+    get:
+      description: Health check for liveness probe
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health.Result'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/health.Result'
+      tags:
+      - Health
+  /health/readiness:
+    get:
+      description: Health check of the application
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health.Result'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/health.Result'
+      tags:
+      - Health
   /metrics:
     get:
       description: Expose Prometheus metrics
@@ -79,6 +178,176 @@ paths:
       summary: Create a new client
       tags:
       - Client
+  /v1/newsletter:
+    get:
+      consumes:
+      - application/json
+      description: Get a paginated list of newsletters
+      parameters:
+      - description: Bearer <token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        required: true
+        type: integer
+      - default: 10
+        description: Number of newsletters per page
+        in: query
+        maximum: 100
+        minimum: 5
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of newsletters
+          schema:
+            items:
+              $ref: '#/definitions/newsletter.CreateNewsletterReq'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List newsletters with pagination
+      tags:
+      - Newsletter
+    post:
+      consumes:
+      - application/json
+      description: Create a new newsletter with the specified name and optional description
+      parameters:
+      - description: Bearer <token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: application/json
+        in: header
+        name: Content-Type
+        required: true
+        type: string
+      - description: Newsletter details
+        in: body
+        name: CreateNewsletterReq
+        required: true
+        schema:
+          $ref: '#/definitions/newsletter.CreateNewsletterReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new newsletter
+      tags:
+      - Newsletter
+  /v1/newsletter/subscriber:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new email subscription to a newsletter
+      parameters:
+      - description: Content-Type header
+        in: body
+        name: header
+        required: true
+        schema:
+          $ref: '#/definitions/subscriber.Header'
+      - description: Subscription details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/subscriber.CreateSubscriptionReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Subscription created successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create a new subscription
+      tags:
+      - Subscriber
+  /v1/newsletter/subscriber/unsubscribe:
+    get:
+      consumes:
+      - application/json
+      description: Removes an email subscription using a verification code
+      parameters:
+      - description: Newsletter Public ID
+        example: 12345
+        in: query
+        name: newsletter_public_id
+        required: true
+        type: integer
+      - description: Verification Code
+        example: '"ABC123"'
+        in: query
+        name: code
+        required: true
+        type: string
+      - description: Email address
+        example: '"user@example.com"'
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully unsubscribed
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Unsubscribe from a newsletter
+      tags:
+      - Subscriber
   /v1/session:
     post:
       consumes:

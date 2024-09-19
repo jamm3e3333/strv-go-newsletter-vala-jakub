@@ -1,7 +1,6 @@
 package dto
 
-type GetSubscribedNewsletter struct {
+type DeleteSubscription struct {
 	Email              string
 	NewsletterPublicID int64
-	VerifCode          string
 }

@@ -3,7 +3,7 @@ package template
 import "fmt"
 
 var (
-	confirmSubHTML    = `<h3>Dear user, you're now subscribed to the newsletter: %s! To unsubscribe, click on a link here <a href=\"%s/\">Unsubscribe</a>!</h3><br />`
+	confirmSubHTML    = `<h3>Dear user, you're now subscribed to the newsletter: %s! To unsubscribe, click on a link here %s!</h3><br />`
 	confirmSubText    = `Dear user, you're now subscribed to the newsletter: %s! To unsubscribe, click on link here: %s`
 	confirmSubSubject = "STRV Newsletter subscription %d"
 )

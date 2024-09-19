@@ -12,6 +12,11 @@ import (
 	"google.golang.org/api/option"
 )
 
+const (
+	TestDBUrl      = "https://strv-newsletter-go-vala-jakub-vala-local.firebaseio.com"
+	FBEmulatorHost = "firebase-emulator:9000/?ns=strv-newsletter-go-vala-jakub-vala-local"
+)
+
 type Connection struct {
 	*db.Client
 
@@ -29,13 +34,13 @@ func NewConnection(ctx context.Context, cfg Config, lg logger.Logger) *Connectio
 	var app *firebase.App
 
 	if cfg.IsTestMode {
-		err := os.Setenv("FIREBASE_DATABASE_EMULATOR_HOST", "firebase-emulator:9000/?ns=strv-newsletter-go-vala-jakub-vala-local")
+		err := os.Setenv("FIREBASE_DATABASE_EMULATOR_HOST", FBEmulatorHost)
 		if err != nil {
 			lg.Fatal(err)
 		}
 
 		fbCfg := &firebase.Config{
-			DatabaseURL: "https://strv-newsletter-go-vala-jakub-vala-local.firebaseio.com",
+			DatabaseURL: TestDBUrl,
 		}
 		app, err = firebase.NewApp(ctx, fbCfg)
 		if err != nil {
@@ -72,8 +77,8 @@ func NewConnection(ctx context.Context, cfg Config, lg logger.Logger) *Connectio
 	}
 }
 
-func (c *Connection) Create(ctx context.Context, opName, path string, data any) error {
-	if err := c.NewRef(path).Set(ctx, data); err != nil {
+func (c *Connection) Create(ctx context.Context, opName, path string, data map[string]any) error {
+	if err := c.NewRef(path).Update(ctx, data); err != nil {
 		c.lg.ErrorWithMetadata(
 			fmt.Sprintf("firebase op `%s` error", opName),
 			map[string]any{

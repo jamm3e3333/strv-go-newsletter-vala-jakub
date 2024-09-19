@@ -18,7 +18,7 @@ func NewListNewsletterOperation(pgConn pgx.Connection) *ListNewsletter {
 	}
 }
 
-type newsletterResult struct {
+type NewsletterResult struct {
 	PublicID       int64     `db:"public_id"`
 	Name           string    `db:"name"`
 	ClientPublicID int64     `db:"client_public_id"`
@@ -47,7 +47,7 @@ func (o *ListNewsletter) Execute(ctx context.Context, p dto.ListNewsletter) ([]d
 
 	var newsletters []dto.Newsletter
 	for (*r).Next() {
-		var n newsletterResult
+		n := NewsletterResult{}
 		err := (*r).Scan(
 			&n.PublicID,
 			&n.Description,

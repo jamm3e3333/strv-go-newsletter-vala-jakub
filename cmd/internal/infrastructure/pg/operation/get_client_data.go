@@ -15,7 +15,7 @@ func NewGetClientData(pgConn pgx.Connection) *GetClientData {
 	return &GetClientData{pgConn: pgConn}
 }
 
-type result struct {
+type GetClientDataResult struct {
 	Email          string `db:"email"`
 	HashedPassword string `db:"hashed_password"`
 	PublicID       int64  `db:"public_id"`
@@ -25,7 +25,7 @@ func (o *GetClientData) GetForEmail(ctx context.Context, email string) (dto.Clie
 	r, cancel := o.pgConn.QueryRow(ctx, "GetClientData", o.sql(), pgx.NamedArgs{"email": email})
 	defer cancel()
 
-	res := result{}
+	res := GetClientDataResult{}
 	err := (*r).Scan(
 		&res.Email,
 		&res.HashedPassword,

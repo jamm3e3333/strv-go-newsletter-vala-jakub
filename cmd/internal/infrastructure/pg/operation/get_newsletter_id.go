@@ -17,7 +17,7 @@ func NewGetNewsletterOp(pgConn pgx.Connection) *GetNewsletter {
 	}
 }
 
-type resultForNewsletter struct {
+type ResultForNewsletter struct {
 	ID   int64  `db:"id"`
 	Name string `db:"name"`
 }
@@ -27,7 +27,7 @@ func (o *GetNewsletter) Execute(ctx context.Context, publicID int64) (dto.GetNew
 		"publicID": publicID,
 	})
 	defer cancel()
-	res := resultForNewsletter{}
+	res := ResultForNewsletter{}
 
 	err := (*r).Scan(&res.ID, &res.Name)
 	if err != nil {

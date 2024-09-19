@@ -16,7 +16,7 @@ func NewGetClientIDOperation(pgConn pgx.Connection) *GetClientID {
 	}
 }
 
-type Result struct {
+type GetClientIDResult struct {
 	ID int64 `json:"id"`
 }
 
@@ -27,7 +27,7 @@ func (o *GetClientID) Execute(ctx context.Context, publicID int64) (int64, error
 	})
 	defer cancel()
 
-	var res Result
+	res := GetClientIDResult{}
 	err := (*r).Scan(&res.ID)
 	if err != nil {
 		return -1, err

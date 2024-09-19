@@ -24,7 +24,7 @@ func (o *CreateClient) Execute(ctx context.Context, p dto.CreateClient) (dto.Sav
 	r, cancel := o.pgConn.QueryRow(ctx, "CreateClient", o.sql(), pgx.NamedArgs{"email": p.Email, "hashedPassword": p.HashedPassword})
 	defer cancel()
 
-	var res CreateClientResult
+	res := CreateClientResult{}
 	err := (*r).Scan(
 		&res.PublicID,
 		&res.ClientID,

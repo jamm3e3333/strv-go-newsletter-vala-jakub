@@ -20,7 +20,7 @@ type Connection struct {
 
 type Config struct {
 	DBUrl      string
-	SAFileEnc  string
+	SAKeyEnc   string
 	IsTestMode bool
 }
 
@@ -42,7 +42,7 @@ func NewConnection(ctx context.Context, cfg Config, lg logger.Logger) *Connectio
 			lg.Fatal(err)
 		}
 	} else {
-		saKey, err := base64.StdEncoding.DecodeString(cfg.SAFileEnc)
+		saKey, err := base64.StdEncoding.DecodeString(cfg.SAKeyEnc)
 		if err != nil {
 			lg.Fatal(err)
 		}

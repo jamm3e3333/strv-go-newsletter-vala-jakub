@@ -77,7 +77,7 @@ func main() {
 		ctx,
 		firebase.Config{
 			DBUrl:      firebaseConfig.DBUrl,
-			SAFileEnc:  firebaseConfig.SAKeyFileEnc,
+			SAKeyEnc:   firebaseConfig.SAKeyEnc,
 			IsTestMode: firebaseConfig.IsTestingMode,
 		},
 		lg,

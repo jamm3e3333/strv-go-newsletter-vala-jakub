@@ -52,6 +52,15 @@ jobs:
           source: ".env"
           target: "~/"
 
+      - name: scp-db-migrations
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          source: "./db/migrations"
+          target: "~/db/migrations"
+
       - name: deploy-app
         uses: appleboy/ssh-action@v0.1.4
         with:
@@ -71,6 +80,8 @@ jobs:
                 --publish-rm 3000 \
                 --publish-add published=3000,target=3000 \
                 strv-newsletter
+            
+              STATUS=$?
             else
               echo "Service does not exist. Creating new service..."
               docker service create \
@@ -79,5 +90,15 @@ jobs:
                 --publish published=3000,target=3000 \
                 --env-file ~/.env \
                 jamm3e3333/strv-newsletter-go-vala-jakub:latest
+            
+              STATUS=$?  # Capture the exit status of the update command
+            fi
+            
+            if [ $STATUS -eq 0 ]; then
+              echo "STRV Newsletter service successful. Running migrations..."
+              goose postgres "$$DATABASE_URL" -dir ~/db/migrations -v up status
+            else
+              echo "STRV Newsletter service successful failed. Skipping migrations."
+              exit 1
             fi
         timeout-minutes: 2

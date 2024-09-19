@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"net/mail"
 	"reflect"
 	"testing"
 
@@ -81,9 +82,19 @@ func (s *ClientControllerTestSuite) Test_CreateClient_Success() {
 	gin.SetMode(gin.TestMode)
 	w := httptest.NewRecorder()
 
+	const (
+		clientEmail = "myman@myman.cz"
+		clientPass  = "MyMan12345"
+	)
+
+	emailParsed, err := mail.ParseAddress(clientEmail)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+
 	reqBody := map[string]string{
-		"email":    "myman@myman.cz",
-		"password": "MyMan12345",
+		"email":    clientEmail,
+		"password": clientPass,
 	}
 	body, err := json.Marshal(&reqBody)
 	if err != nil {
@@ -109,15 +120,113 @@ func (s *ClientControllerTestSuite) Test_CreateClient_Success() {
 	if !ok {
 		s.T().Fatal("Client token was not created")
 	}
-
 	s.Equal("string", reflect.TypeOf(encToken).Name(), "-------> assert token type ")
 
 	decToken, err := s.decryptToken.Execute(encToken)
 	if err != nil {
 		s.T().Fatal(err)
 	}
-
 	fmt.Println(decToken)
+
+	type clientResult struct {
+		ID       string `json:"id"`
+		Email    string `json:"email"`
+		PublicID string `json:"public_id"`
+	}
+
+	row, cancel := s.pgConn.QueryRow(
+		context.Background(),
+		"TestGetClient",
+		"SELECT id, email, public_id FROM client WHERE email = @email",
+		pgx.NamedArgs{"email": emailParsed.String()},
+	)
+	defer cancel()
+
+	clientRow := clientResult{}
+	err = (*row).Scan(&clientRow.ID, &clientRow.Email, &clientRow.PublicID)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	s.Equal(emailParsed.String(), clientRow.Email)
+
+	s.T().Cleanup(func() {
+		r, cancel, err := s.pgConn.Query(
+			context.Background(),
+			"TestDeleteClient",
+			"DELETE FROM client WHERE id = @clientID",
+			pgx.NamedArgs{"clientID": clientRow.ID},
+		)
+		if err != nil {
+			s.T().Fatal(err)
+		}
+		defer cancel()
+
+		if err := (*r).Err(); err != nil {
+			s.T().Fatal(err)
+		}
+	})
+}
+
+func (s *ClientControllerTestSuite) Test_CreateClient_Fail_InvalidEmail() {
+	gin.SetMode(gin.TestMode)
+	w := httptest.NewRecorder()
+
+	const (
+		clientEmail = "myman@myman"
+		clientPass  = "MyMan12345"
+	)
+	reqBody := map[string]string{
+		"email":    clientEmail,
+		"password": clientPass,
+	}
+	body, err := json.Marshal(&reqBody)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	r, _ := http.NewRequest(http.MethodPost, "/v1/client", bytes.NewBuffer(body))
+	r.Header.Set("Content-Type", "application/json")
+
+	ctx, engine := gin.CreateTestContext(w)
+	ctx.Request = r
+
+	engine.Handle("POST", "/v1/client", s.clientCTRL.CreateClient)
+	engine.HandleContext(ctx)
+
+	s.Equal(http.StatusBadRequest, w.Code)
+}
+
+func (s *ClientControllerTestSuite) Test_CreateClient_Fail_InvalidPassword() {
+	gin.SetMode(gin.TestMode)
+	w := httptest.NewRecorder()
+
+	const (
+		clientEmail = "myman@myman"
+		clientPass  = "MyMan"
+	)
+	reqBody := map[string]string{
+		"email":    clientEmail,
+		"password": clientPass,
+	}
+	body, err := json.Marshal(&reqBody)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	r, _ := http.NewRequest(http.MethodPost, "/v1/client", bytes.NewBuffer(body))
+	r.Header.Set("Content-Type", "application/json")
+
+	ctx, engine := gin.CreateTestContext(w)
+	ctx.Request = r
+
+	engine.Handle("POST", "/v1/client", s.clientCTRL.CreateClient)
+	engine.HandleContext(ctx)
+
+	s.Equal(http.StatusBadRequest, w.Code)
+	var response map[string]any
+	err = json.Unmarshal(w.Body.Bytes(), &response)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	s.Equal("password must be at least 8 characters long and contain at least one letter and one number", response["error"])
 }
 
 func TestClientControllerSuite(t *testing.T) {

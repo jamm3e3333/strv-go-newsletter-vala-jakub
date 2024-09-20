@@ -15,7 +15,7 @@ services:
       postgres:
         condition: service_healthy
       firebase-emulator:
-        condition: service_healthy
+        condition: service_started
     volumes:
       - ".:/go/src/github.com/jamm3e3333/strv-newsletter/:cached"
     environment:

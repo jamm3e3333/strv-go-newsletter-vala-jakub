@@ -19,7 +19,7 @@ help: ## Show all available commands (you are looking at it)
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  \033[36m%-25s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 ##@ Development
-.PHONY: build run up down
+.PHONY: build run up down up-detached
 
 generate-swagger-docs: ## Generate
 	swag init --generalInfo main.go --dir "cmd/,pkg/health/,pkg/net/http/ginprometheus" --output cmd/app/swagger --parseDependency
@@ -31,6 +31,9 @@ run: up ## alias
 
 up: ## Start up application container
 	docker compose up --build
+
+up-detached: # Start up application in the background
+	docker compose up --build -d
 
 down: ## Stop and remove the application containers
 	docker compose down --volumes

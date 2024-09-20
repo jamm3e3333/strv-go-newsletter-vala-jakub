@@ -12,8 +12,10 @@ services:
     ports:
       - "59110:3000"
     depends_on:
-      - postgres
-      - firebase-emulator
+      postgres:
+        condition: service_healthy
+      firebase-emulator:
+        condition: service_healthy
     volumes:
       - ".:/go/src/github.com/jamm3e3333/strv-newsletter/:cached"
     environment:

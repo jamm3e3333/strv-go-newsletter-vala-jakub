@@ -36,7 +36,7 @@ down: ## Stop and remove the application containers
 	docker compose down --volumes
 
 ##@ Migrations
-.PHONY: migration-create migration-up migration-down-by-one
+.PHONY: migration-create migration-up migration-down-by-one migration-down-all
 
 migration-create: ## Create a new migration (usage: make migratíon-create name=your_migration_name)
 	@if [ -z "$(name)" ]; then echo "Migration name not provided. Usage: make migration-create name=your_migration_name"; exit 1; fi

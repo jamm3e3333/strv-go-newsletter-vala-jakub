@@ -54,9 +54,6 @@ ENV APP_ENV='prod' \
 
 RUN adduser -D -s /bin/sh -u 241 app
 
-COPY --from=build "${PROJECT_ROOT}/target/strv-newsletter" "/bin/strv-newsletter"
-COPY --from=build "${PROJECT_ROOT}/db/migrations" "/db/migrations"
-
 RUN go install github.com/pressly/goose/v3/cmd/goose@latest
 USER app
 

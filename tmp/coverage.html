@@ -1,0 +1,5159 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>config: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/config/app_config.go (0.0%)</option>
+				
+				<option value="file1">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/config/email_config.go (0.0%)</option>
+				
+				<option value="file2">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/config/firebase_config.go (0.0%)</option>
+				
+				<option value="file3">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/config/jwt_config.go (0.0%)</option>
+				
+				<option value="file4">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/config/logger_config.go (0.0%)</option>
+				
+				<option value="file5">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/config/postgres_config.go (0.0%)</option>
+				
+				<option value="file6">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/setup/postgres/connections.go (0.0%)</option>
+				
+				<option value="file7">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/setup/prometheus/metrics.go (0.0%)</option>
+				
+				<option value="file8">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/swagger/docs.go (0.0%)</option>
+				
+				<option value="file9">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_client/handler.go (77.8%)</option>
+				
+				<option value="file10">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_newsletter/handler.go (0.0%)</option>
+				
+				<option value="file11">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_session/handler.go (80.0%)</option>
+				
+				<option value="file12">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_subscription/handler.go (0.0%)</option>
+				
+				<option value="file13">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/delete_subscription/handler.go (0.0%)</option>
+				
+				<option value="file14">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/query/list_newsletter/handler.go (0.0%)</option>
+				
+				<option value="file15">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/service/generate_unsubscribe_code.go (0.0%)</option>
+				
+				<option value="file16">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/service/hash_password.go (100.0%)</option>
+				
+				<option value="file17">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/service/verify_password.go (100.0%)</option>
+				
+				<option value="file18">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/assets/template/subscription.go (0.0%)</option>
+				
+				<option value="file19">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/firebase/create_newsletter.go (0.0%)</option>
+				
+				<option value="file20">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/firebase/create_subscription.go (0.0%)</option>
+				
+				<option value="file21">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/firebase/delete_subscription.go (0.0%)</option>
+				
+				<option value="file22">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/firebase/email_encoder.go (0.0%)</option>
+				
+				<option value="file23">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/jwt/create_client_token.go (92.9%)</option>
+				
+				<option value="file24">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/mailjet/send_sub_confirmation.go (0.0%)</option>
+				
+				<option value="file25">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/health_indicator.go (0.0%)</option>
+				
+				<option value="file26">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation/create_client.go (88.9%)</option>
+				
+				<option value="file27">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation/create_newsletter.go (0.0%)</option>
+				
+				<option value="file28">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation/create_newsletter_subscription.go (0.0%)</option>
+				
+				<option value="file29">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation/delete_newsletter_subscription.go (0.0%)</option>
+				
+				<option value="file30">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation/get_client_data.go (100.0%)</option>
+				
+				<option value="file31">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation/get_client_id.go (0.0%)</option>
+				
+				<option value="file32">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation/get_newsletter_id.go (0.0%)</option>
+				
+				<option value="file33">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation/get_subscribed_newsletter.go (0.0%)</option>
+				
+				<option value="file34">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation/is_newsletter_subscription_exist.go (0.0%)</option>
+				
+				<option value="file35">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation/list_newsletter.go (0.0%)</option>
+				
+				<option value="file36">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/prometheus/metrics.go (0.0%)</option>
+				
+				<option value="file37">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/module.go (0.0%)</option>
+				
+				<option value="file38">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/health/controller.go (0.0%)</option>
+				
+				<option value="file39">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/middleware/auth.go (0.0%)</option>
+				
+				<option value="file40">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/v1/client/controller.go (71.9%)</option>
+				
+				<option value="file41">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/v1/newsletter/controller.go (0.0%)</option>
+				
+				<option value="file42">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/v1/subscriber/controller.go (0.0%)</option>
+				
+				<option value="file43">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/jwt/decrypt_token.go (73.3%)</option>
+				
+				<option value="file44">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/main.go (0.0%)</option>
+				
+				<option value="file45">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/test/helper/blank_logger.go (25.0%)</option>
+				
+				<option value="file46">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/test/helper/test_allow_debug.go (100.0%)</option>
+				
+				<option value="file47">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/test/helper/test_dummy_metrics.go (100.0%)</option>
+				
+				<option value="file48">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/test/helper/test_postgres_config.go (76.9%)</option>
+				
+				<option value="file49">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/firebase/connection.go (0.0%)</option>
+				
+				<option value="file50">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/health/health.go (100.0%)</option>
+				
+				<option value="file51">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger/level.go (21.1%)</option>
+				
+				<option value="file52">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger/logger.go (44.7%)</option>
+				
+				<option value="file53">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger/meta.go (0.0%)</option>
+				
+				<option value="file54">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/mailjet/email.go (0.0%)</option>
+				
+				<option value="file55">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/gin/logger.go (0.0%)</option>
+				
+				<option value="file56">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/ginprometheus/prometheus.go (0.0%)</option>
+				
+				<option value="file57">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/ginprometheus/prometheus_handler.go (0.0%)</option>
+				
+				<option value="file58">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/server/server.go (0.0%)</option>
+				
+				<option value="file59">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx/connection_pool.go (49.4%)</option>
+				
+				<option value="file60">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx/transaction.go (0.0%)</option>
+				
+				<option value="file61">github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/shutdown/shutdown.go (0.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">no coverage</span>
+				<span class="cov1">low coverage</span>
+				<span class="cov2">*</span>
+				<span class="cov3">*</span>
+				<span class="cov4">*</span>
+				<span class="cov5">*</span>
+				<span class="cov6">*</span>
+				<span class="cov7">*</span>
+				<span class="cov8">*</span>
+				<span class="cov9">*</span>
+				<span class="cov10">high coverage</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package config
+
+import (
+        "strings"
+        "time"
+
+        "github.com/ilyakaznacheev/cleanenv"
+)
+
+type APPConfig struct {
+        Port               int32         `env:"CONFIG_HTTP_LISTEN_PORT" env-default:"8080"`
+        AppEnv             string        `env:"APP_ENV" env-default:"development"`
+        AllowOrigins       string        `env:"CONFIG_ALLOW_ORIGINS"`
+        ReadTimeout        time.Duration `env:"CONFIG_HTTP_READ_TIMEOUT"`
+        WriteTimeout       time.Duration `env:"CONFIG_HTTP_WRITE_TIMEOUT"`
+        ShutdownTimeout    time.Duration `env:"CONFIG_HTTP_SHUTDOWN_TIMEOUT"`
+        HealthCheckTimeout time.Duration `env:"CONFIG_HEALTH_CHECK_TIMEOUT"`
+        Timezone           string        `env:"CONFIG_TIMEZONE"`
+        AppName            string        `env:"CONFIG_APP_NAME" env-default:"strv_newsletter"`
+        HashSecret         string        `env:"CONFIG_HASH_SECRET"`
+}
+
+func CreateAPPConfig() (APPConfig, error) <span class="cov0" title="0">{
+        var cfg APPConfig
+        err := cleanenv.ReadEnv(&amp;cfg)
+        if err != nil </span><span class="cov0" title="0">{
+                return cfg, err
+        }</span>
+
+        <span class="cov0" title="0">return cfg, nil</span>
+}
+
+func (cfg APPConfig) AllowedOrigins() []string <span class="cov0" title="0">{
+        return strings.Split(cfg.AllowOrigins, ";")
+}</span>
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package config
+
+import (
+        "fmt"
+        "net/mail"
+
+        "github.com/ilyakaznacheev/cleanenv"
+)
+
+type EmailAddressField mail.Address
+
+func (f *EmailAddressField) SetValue(s string) error <span class="cov0" title="0">{
+        addr, err := mail.ParseAddress(s)
+        if err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("can't parse email address: %w", err)
+        }</span>
+
+        <span class="cov0" title="0">*f = EmailAddressField(*addr)
+        return nil</span>
+}
+
+type EmailConfig struct {
+        SenderEmailAddress    string `env:"CONFIG_EMAIL_SENDER_EMAIL_ADDRESS" env-default:"test.example@example.com"`
+        APIKey                string `env:"CONFIG_EMAIL_API_KEY"`
+        APISecret             string `env:"CONFIG_EMAIL_API_SECRET"`
+        UnsubURL              string `env:"CONFIG_UNSUBSCRIBE_URL"`
+        SenderEmailAddrParsed *mail.Address
+}
+
+func CreateEmailConfig() (EmailConfig, error) <span class="cov0" title="0">{
+        var cfg EmailConfig
+        err := cleanenv.ReadEnv(&amp;cfg)
+        if err != nil </span><span class="cov0" title="0">{
+                return cfg, err
+        }</span>
+
+        <span class="cov0" title="0">parsedEmail, err := mail.ParseAddress(cfg.SenderEmailAddress)
+        if err != nil </span><span class="cov0" title="0">{
+                return cfg, fmt.Errorf("can't parse email address: %w", err)
+        }</span>
+        <span class="cov0" title="0">cfg.SenderEmailAddrParsed = parsedEmail
+
+        return cfg, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package config
+
+import "github.com/ilyakaznacheev/cleanenv"
+
+type FirebaseConfig struct {
+        SAKeyEnc      string `env:"CONFIG_FIREBASE_SERVICE_ACCOUNT_KEY_ENCODED"`
+        DBUrl         string `env:"CONFIG_FIREBASE_DATABASE_URL"`
+        IsTestingMode bool   `env:"CONFIG_FIREBASE_IS_TESTING_MODE"`
+}
+
+func CreateFirebaseConfig() (FirebaseConfig, error) <span class="cov0" title="0">{
+        var cfg FirebaseConfig
+        err := cleanenv.ReadEnv(&amp;cfg)
+        if err != nil </span><span class="cov0" title="0">{
+                return cfg, err
+        }</span>
+
+        <span class="cov0" title="0">return cfg, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package config
+
+import (
+        "github.com/ilyakaznacheev/cleanenv"
+)
+
+const (
+        varJWTSecret = "CONFIG_JWT_SECRET"
+)
+
+type JWTConfig struct {
+        Secret string `env:"CONFIG_JWT_SECRET"`
+}
+
+func CreateJWTConfig() (JWTConfig, error) <span class="cov0" title="0">{
+        var cfg JWTConfig
+        err := cleanenv.ReadEnv(&amp;cfg)
+        if err != nil </span><span class="cov0" title="0">{
+                return cfg, err
+        }</span>
+        <span class="cov0" title="0">return cfg, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package config
+
+import (
+        "github.com/ilyakaznacheev/cleanenv"
+)
+
+type LoggerConfig struct {
+        Level   string `env:"CONFIG_LOG_LEVEL"`
+        DevMode bool   `env:"CONFIG_LOG_DEVEL_MODE"`
+}
+
+func CreateLoggerConfig() (LoggerConfig, error) <span class="cov0" title="0">{
+        var cfg LoggerConfig
+        err := cleanenv.ReadEnv(cfg)
+        if err != nil </span><span class="cov0" title="0">{
+                return cfg, err
+        }</span>
+        <span class="cov0" title="0">return cfg, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">package config
+
+import (
+        "fmt"
+        "time"
+
+        "github.com/ilyakaznacheev/cleanenv"
+)
+
+type PostgresConfig struct {
+        Host              string        `env:"CONFIG_DATABASE_HOST"`
+        Port              int32         `env:"CONFIG_DATABASE_PORT"`
+        User              string        `env:"CONFIG_DATABASE_USER"`
+        Password          string        `env:"CONFIG_DATABASE_PASSWORD"`
+        LogLevel          string        `env:"CONFIG_LOG_LEVEL"`
+        DBName            string        `env:"CONFIG_DATABASE_NAME"`
+        MaxConnLifetime   time.Duration `env:"CONFIG_DATABASE_POOL_MAX_CONN_LIFETIME"`
+        MaxConnIdleTIme   time.Duration `env:"CONFIG_DATABASE_POOL_MAX_CONN_IDLE_TIME"`
+        QueryTimeout      time.Duration `env:"CONFIG_DATABASE_QUERY_TIMEOUT"`
+        MaxConns          int32         `env:"CONFIG_DATABASE_POOL_MAX_CONNS"`
+        MinConns          int32         `env:"CONFIG_DATABASE_POOL_MIN_CONNS"`
+        HealthCheckPeriod time.Duration `env:"CONFIG_DATABASE_POOL_HEALTH_CHECK_PERIOD"`
+        SSLMode           string        `env:"CONFIG_DATABASE_SSL_MODE" env-default:"disable"`
+}
+
+func CreatePostgresConfig() (PostgresConfig, error) <span class="cov0" title="0">{
+        var cfg PostgresConfig
+        err := cleanenv.ReadEnv(&amp;cfg)
+        if err != nil </span><span class="cov0" title="0">{
+                return cfg, err
+        }</span>
+        <span class="cov0" title="0">return cfg, nil</span>
+}
+
+func (pc PostgresConfig) ConnectionURL() string <span class="cov0" title="0">{
+        return fmt.Sprintf(
+                "postgresql://%s:%s@%s:%d/%s?sslmode=%s",
+                pc.User,
+                pc.Password,
+                pc.Host,
+                pc.Port,
+                pc.DBName,
+                pc.SSLMode,
+        )
+}</span>
+</pre>
+		
+		<pre class="file" id="file6" style="display: none">package postgres
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/prometheus"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+func EstablishConnection(ctx context.Context, cfg pgx.Config, lg logger.Logger, mm *prometheus.PgMetrics) *pgx.ConnectionPool <span class="cov0" title="0">{
+        conn, err := pgx.NewConnectionPool(ctx, cfg, lg, mm.Cm)
+
+        if err != nil </span><span class="cov0" title="0">{
+                lg.Fatal("database connection error")
+        }</span>
+
+        <span class="cov0" title="0">conn.RegisterMetrics(pgx.RegisterMetricsOptions{
+                Qm: mm.Qm,
+                Tm: mm.Tm,
+        })
+
+        return conn</span>
+}
+</pre>
+		
+		<pre class="file" id="file7" style="display: none">package prometheus
+
+import (
+        "sync"
+
+        promInfra "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/prometheus"
+        "github.com/prometheus/client_golang/prometheus"
+)
+
+var (
+        appInfo         prometheus.Labels = make(map[string]string)
+        dbConn          prometheus.Labels = map[string]string{"system": "postgres"}
+        uptimeTimestamp float64
+)
+
+func NewMetricsOnce(subsystem string) func() *promInfra.Metrics <span class="cov0" title="0">{
+        var once sync.Once // initialization will run only once
+        var metricsPtr *promInfra.Metrics = nil
+        return func() *promInfra.Metrics </span><span class="cov0" title="0">{
+                once.Do(func() </span><span class="cov0" title="0">{
+                        metricsPtr = newMetrics(subsystem)
+                }</span>)
+
+                <span class="cov0" title="0">return metricsPtr</span>
+        }
+}
+
+func newMetrics(subsystem string) *promInfra.Metrics <span class="cov0" title="0">{
+        appInfoGauge := prometheus.NewGauge(prometheus.GaugeOpts{
+                Subsystem:   subsystem,
+                Name:        "application_info",
+                ConstLabels: appInfo,
+        })
+        prometheus.MustRegister(appInfoGauge)
+        appInfoGauge.Set(uptimeTimestamp)
+
+        queryCounter := prometheus.NewCounterVec(
+                prometheus.CounterOpts{
+                        Subsystem: subsystem,
+                        Name:      "pg_queries",
+                        Help:      "Number of queries executed on PG partitioned by success/error result and function name",
+                },
+                []string{"result", "pg_func_name"},
+        )
+        prometheus.MustRegister(queryCounter)
+
+        transactionCounter := prometheus.NewCounterVec(
+                prometheus.CounterOpts{
+                        Subsystem: subsystem,
+                        Name:      "pg_transactions",
+                        Help:      "Number of transactions executed on PG partitioned by commit/rollback result and transaction name",
+                },
+                []string{"result", "pg_transaction_name"},
+        )
+        prometheus.MustRegister(transactionCounter)
+
+        queryDurationHistogram := prometheus.NewHistogramVec(
+                prometheus.HistogramOpts{
+                        Buckets:   []float64{0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1, 1.5},
+                        Subsystem: subsystem,
+                        Name:      "pg_query_duration",
+                        Help:      "Duration of queries to PG partitioned by function name",
+                },
+                []string{"pg_func_name"},
+        )
+        prometheus.MustRegister(queryDurationHistogram)
+
+        dbConnectionGauge := prometheus.NewGauge(
+                prometheus.GaugeOpts{
+                        Subsystem:   subsystem,
+                        Name:        "open_connections",
+                        ConstLabels: dbConn,
+                        Help:        "Count of currently open connections to postgres DB",
+                })
+        prometheus.MustRegister(dbConnectionGauge)
+        dbConnectionGauge.Set(0)
+
+        transactionDurationHistogram := prometheus.NewHistogramVec(
+                prometheus.HistogramOpts{
+                        Buckets:   []float64{0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1, 1.5},
+                        Subsystem: subsystem,
+                        Name:      "pg_transaction_duration",
+                        Help:      "Duration of PG transactions partitioned by transaction name",
+                }, []string{"pg_transaction_name"},
+        )
+        prometheus.MustRegister(transactionDurationHistogram)
+
+        return promInfra.NewMetrics(
+                &amp;promInfra.PgMetrics{
+                        Qm: &amp;promInfra.QueryMetrics{
+                                QueryCounter:           queryCounter,
+                                QueryDurationHistogram: queryDurationHistogram,
+                        },
+                        Tm: &amp;promInfra.TransactionMetrics{
+                                TransactionCounter:           transactionCounter,
+                                TransactionDurationHistogram: transactionDurationHistogram,
+                        },
+                        Cm: &amp;promInfra.ConnectionMetrics{DbConnectionGauge: dbConnectionGauge},
+                },
+        )
+}</span>
+</pre>
+		
+		<pre class="file" id="file8" style="display: none">// Package swagger Code generated by swaggo/swag. DO NOT EDIT
+package swagger
+
+import "github.com/swaggo/swag"
+
+const docTemplate = `{
+    "schemes": {{ marshal .Schemes }},
+    "swagger": "2.0",
+    "info": {
+        "description": "{{escape .Description}}",
+        "title": "{{.Title}}",
+        "contact": {
+            "name": "STRV"
+        },
+        "version": "{{.Version}}"
+    },
+    "host": "{{.Host}}",
+    "basePath": "{{.BasePath}}",
+    "paths": {
+        "/health/liveness": {
+            "get": {
+                "description": "Health check for liveness probe",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Health"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/health.Result"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/health.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/health/readiness": {
+            "get": {
+                "description": "Health check of the application",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Health"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/health.Result"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/health.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/metrics": {
+            "get": {
+                "description": "Expose Prometheus metrics",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "Metrics"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Prometheus metrics",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/client": {
+            "post": {
+                "description": "Creates a new client account with an email and password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Create a new client",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "application/json",
+                        "description": "Content-Type",
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Client data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/client.CreateClientReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{\"token\": \"token\"}",
+                        "schema": {
+                            "$ref": "#/definitions/client.CreateClientRes"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"error\": \"bad request\"}",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "{\"error\": \"bad request\"}",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "{\"error\": \"bad request\"}",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/newsletter": {
+            "get": {
+                "description": "Get a paginated list of newsletters",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Newsletter"
+                ],
+                "summary": "List newsletters with pagination",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer \u003ctoken\u003e",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "maximum": 100,
+                        "minimum": 5,
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Number of newsletters per page",
+                        "name": "pageSize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of newsletters",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/newsletter.CreateNewsletterReq"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new newsletter with the specified name and optional description",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Newsletter"
+                ],
+                "summary": "Create a new newsletter",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer \u003ctoken\u003e",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application/json",
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Newsletter details",
+                        "name": "CreateNewsletterReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/newsletter.CreateNewsletterReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/newsletter/subscriber": {
+            "post": {
+                "description": "Registers a new email subscription to a newsletter",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Subscriber"
+                ],
+                "summary": "Create a new subscription",
+                "parameters": [
+                    {
+                        "description": "Content-Type header",
+                        "name": "header",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/subscriber.Header"
+                        }
+                    },
+                    {
+                        "description": "Subscription details",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/subscriber.CreateSubscriptionReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Subscription created successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/newsletter/subscriber/unsubscribe": {
+            "get": {
+                "description": "Removes an email subscription using a verification code",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Subscriber"
+                ],
+                "summary": "Unsubscribe from a newsletter",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "example": 12345,
+                        "description": "Newsletter Public ID",
+                        "name": "newsletter_public_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"ABC123\"",
+                        "description": "Verification Code",
+                        "name": "code",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"user@example.com\"",
+                        "description": "Email address",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully unsubscribed",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/session": {
+            "post": {
+                "description": "Creates a new session for a user by validating the email and password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Create a new session",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "application/json",
+                        "description": "Content-Type",
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Client data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/client.CreateSessionReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{\"token\": \"token\"}",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "{\"error\": \"invalid credentials\"}",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "client.CreateClientReq": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "client.CreateClientRes": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "client.CreateSessionReq": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "gin.H": {
+            "type": "object",
+            "additionalProperties": {}
+        },
+        "health.ComponentStatus": {
+            "type": "object",
+            "properties": {
+                "component": {
+                    "type": "string",
+                    "example": "main"
+                },
+                "status": {
+                    "enum": [
+                        "up",
+                        "down"
+                    ],
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/health.Status"
+                        }
+                    ],
+                    "example": "up"
+                }
+            }
+        },
+        "health.Result": {
+            "type": "object",
+            "properties": {
+                "components": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/health.ComponentStatus"
+                    }
+                },
+                "status": {
+                    "enum": [
+                        "up",
+                        "down"
+                    ],
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/health.Status"
+                        }
+                    ],
+                    "example": "up"
+                }
+            }
+        },
+        "health.Status": {
+            "type": "string",
+            "enum": [
+                "up",
+                "down",
+                "timeout"
+            ],
+            "x-enum-varnames": [
+                "StatusUp",
+                "StatusDown",
+                "StatusTimeout"
+            ]
+        },
+        "newsletter.CreateNewsletterReq": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "subscriber.CreateSubscriptionReq": {
+            "type": "object",
+            "required": [
+                "email",
+                "newsletter_public_id"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "newsletter_public_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "subscriber.Header": {
+            "type": "object",
+            "required": [
+                "value"
+            ],
+            "properties": {
+                "value": {
+                    "type": "string",
+                    "example": "application/json"
+                }
+            }
+        }
+    }
+}`
+
+// SwaggerInfo holds exported Swagger Info so clients can modify it
+var SwaggerInfo = &amp;swag.Spec{
+        Version:          "2.0",
+        Host:             "",
+        BasePath:         "",
+        Schemes:          []string{},
+        Title:            "STRV Newsletter API",
+        Description:      "API provides endpoints for newsletter",
+        InfoInstanceName: "swagger",
+        SwaggerTemplate:  docTemplate,
+        LeftDelim:        "{{",
+        RightDelim:       "}}",
+}
+
+func init() <span class="cov0" title="0">{
+        swag.Register(SwaggerInfo.InstanceName(), SwaggerInfo)
+}</span>
+</pre>
+		
+		<pre class="file" id="file9" style="display: none">package create_client
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+)
+
+type UserPasswordHasher interface {
+        Execute(password string) string
+}
+
+type TokenEncrypter interface {
+        Execute(publicID int64) (*string, error)
+}
+
+type CreateClientOperation interface {
+        Execute(ctx context.Context, p dto.CreateClient) (dto.SavedClient, error)
+}
+
+type CreateClient struct {
+        hashPassword UserPasswordHasher
+        createToken  TokenEncrypter
+        createClient CreateClientOperation
+}
+
+func NewCreateClientHandler(hashPassword UserPasswordHasher, tokenEncrypter TokenEncrypter, createClient CreateClientOperation) *CreateClient <span class="cov8" title="1">{
+        return &amp;CreateClient{
+                hashPassword: hashPassword,
+                createToken:  tokenEncrypter,
+                createClient: createClient,
+        }
+}</span>
+
+func (h *CreateClient) Handle(ctx context.Context, c *Command) (*string, error) <span class="cov8" title="1">{
+        passwd := h.hashPassword.Execute(c.Password)
+        client, err := h.createClient.Execute(ctx, dto.CreateClient{Email: c.Email, HashedPassword: passwd})
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov8" title="1">token, err := h.createToken.Execute(client.PublicID)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov8" title="1">return token, err</span>
+}
+</pre>
+		
+		<pre class="file" id="file10" style="display: none">package create_newsletter
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+)
+
+type CreateNewsletterOperation interface {
+        Execute(ctx context.Context, p dto.CreateNewsletter) (int64, error)
+}
+
+type CreatePublicNewsletterOp interface {
+        Execute(ctx context.Context, p dto.CreatePublicNewsletter) error
+}
+
+type CreateNewsletter struct {
+        createNewsletter    CreateNewsletterOperation
+        createPubNewsletter CreatePublicNewsletterOp
+}
+
+func NewCreateNewsletterHandler(createNewsletter CreateNewsletterOperation, createPubNewsletter CreatePublicNewsletterOp) *CreateNewsletter <span class="cov0" title="0">{
+        return &amp;CreateNewsletter{
+                createNewsletter:    createNewsletter,
+                createPubNewsletter: createPubNewsletter,
+        }
+}</span>
+
+func (h *CreateNewsletter) Handle(ctx context.Context, c *Command) error <span class="cov0" title="0">{
+        newsletterPubID, err := h.createNewsletter.Execute(ctx, dto.CreateNewsletter{
+                Name:        c.Name,
+                ClientID:    c.ClientID,
+                Description: c.Description,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">err = h.createPubNewsletter.Execute(ctx, dto.CreatePublicNewsletter{
+                Name:               c.Name,
+                NewsletterPublicID: newsletterPubID,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file11" style="display: none">package create_session
+
+import (
+        "context"
+        "errors"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+)
+
+type PasswordVerifier interface {
+        Execute(password, hashedPassword string) bool
+}
+
+type GetClientDataOperation interface {
+        GetForEmail(ctx context.Context, email string) (dto.ClientData, error)
+}
+
+type TokenEncrypter interface {
+        Execute(publicID int64) (*string, error)
+}
+
+type CreateSessionHandler struct {
+        verifyPassword PasswordVerifier
+        getClientData  GetClientDataOperation
+        createToken    TokenEncrypter
+}
+
+func NewCreateSessionHandler(verifyPassword PasswordVerifier, getClientData GetClientDataOperation, createToken TokenEncrypter) *CreateSessionHandler <span class="cov1" title="1">{
+        return &amp;CreateSessionHandler{
+                verifyPassword: verifyPassword,
+                getClientData:  getClientData,
+                createToken:    createToken,
+        }
+}</span>
+
+func (h *CreateSessionHandler) Handle(ctx context.Context, c Command) (*string, error) <span class="cov10" title="2">{
+        client, err := h.getClientData.GetForEmail(ctx, c.Email)
+        if err != nil </span><span class="cov1" title="1">{
+                return nil, err
+        }</span>
+
+        <span class="cov1" title="1">if !h.verifyPassword.Execute(c.Password, client.HashedPassword) </span><span class="cov0" title="0">{
+                return nil, errors.New("invalid password")
+        }</span>
+
+        <span class="cov1" title="1">token, err := h.createToken.Execute(client.PublicID)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov1" title="1">return token, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file12" style="display: none">package create_subscription
+
+import (
+        "context"
+        "fmt"
+        "net/url"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/assets/template"
+)
+
+const (
+        UnsubVerificationCodeLen int32 = 16
+)
+
+type CreateSubscriptionOperation interface {
+        Execute(ctx context.Context, p dto.CreateSubscription) error
+}
+
+type GetNewsletterOperation interface {
+        Execute(ctx context.Context, publicID int64) (dto.GetNewsletter, error)
+}
+
+type CreateNewsletterSubscriptionOperation interface {
+        Execute(ctx context.Context, p dto.CreateNewsletterSubscription) error
+}
+
+type SendSubConfirmationOperation interface {
+        Execute(ctx context.Context, p dto.SendSubConfirmation) error
+}
+
+type IsNewsletterSubExistOperation interface {
+        Execute(ctx context.Context, p dto.GetNewsletterSub) (bool, error)
+}
+
+type UnsubVerificationCodeGen = func(int32) (string, error)
+
+type CreateSubscription struct {
+        createSubscription           CreateSubscriptionOperation
+        getNewsletterID              GetNewsletterOperation
+        createNewsletterSubscription CreateNewsletterSubscriptionOperation
+        unsubVerificationCodeGen     UnsubVerificationCodeGen
+        sendSubConfirmation          SendSubConfirmationOperation
+        isNewsletterSubExist         IsNewsletterSubExistOperation
+        unsubURL                     string
+}
+
+func NewCreateSubscriptionHandler(
+        createSubscription CreateSubscriptionOperation,
+        getNewsletterID GetNewsletterOperation,
+        createNewsletterSubscription CreateNewsletterSubscriptionOperation,
+        unsubVerificationCodeGen UnsubVerificationCodeGen,
+        sendSubConfirmation SendSubConfirmationOperation,
+        isNewsletterSubExist IsNewsletterSubExistOperation,
+        unsubURL string,
+) *CreateSubscription <span class="cov0" title="0">{
+        return &amp;CreateSubscription{
+                createSubscription:           createSubscription,
+                getNewsletterID:              getNewsletterID,
+                createNewsletterSubscription: createNewsletterSubscription,
+                unsubVerificationCodeGen:     unsubVerificationCodeGen,
+                sendSubConfirmation:          sendSubConfirmation,
+                isNewsletterSubExist:         isNewsletterSubExist,
+                unsubURL:                     unsubURL,
+        }
+}</span>
+
+func (h *CreateSubscription) Handle(ctx context.Context, c Command) error <span class="cov0" title="0">{
+        newsletter, err := h.getNewsletterID.Execute(ctx, c.NewsletterPublicID)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">verifCode, err := h.unsubVerificationCodeGen(UnsubVerificationCodeLen)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">isExist, err := h.isNewsletterSubExist.Execute(ctx, dto.GetNewsletterSub{
+                NewsletterID: newsletter.ID,
+                Email:        c.Email.String(),
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">if !isExist </span><span class="cov0" title="0">{
+                err = h.createNewsletterSubscription.Execute(ctx, dto.CreateNewsletterSubscription{
+                        Email:        c.Email.String(),
+                        NewsletterID: newsletter.ID,
+                        VerifCode:    verifCode,
+                })
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+
+                <span class="cov0" title="0">params := url.Values{}
+                params.Add("email", c.Email.Address)
+                params.Add("code", verifCode)
+                params.Add("newsletter_public_id", fmt.Sprintf("%d", c.NewsletterPublicID))
+                unsubLink := fmt.Sprintf("%s?%s", h.unsubURL, params.Encode())
+
+                fmt.Println("unsub_link", unsubLink)
+                err = h.sendSubConfirmation.Execute(ctx, dto.SendSubConfirmation{
+                        RecipientEmailAddr: c.Email,
+                        Subject:            template.GetConfirmSubSubject(c.NewsletterPublicID),
+                        Text:               template.GetConfirmSubTxt(newsletter.Name, unsubLink),
+                        HTML:               template.GetConfirmSubHTML(newsletter.Name, unsubLink),
+                })
+                if err != nil </span><span class="cov0" title="0">{
+                        fmt.Println("error sending confirmation email:", err.Error())
+                }</span>
+
+                <span class="cov0" title="0">err = h.createSubscription.Execute(ctx, dto.CreateSubscription{
+                        Email:              c.Email.String(),
+                        NewsletterPublicID: c.NewsletterPublicID,
+                })
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+        }
+
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file13" style="display: none">package delete_subscription
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+)
+
+type GetSubbedNewsletterIDOp interface {
+        Execute(ctx context.Context, p dto.GetSubscribedNewsletter) (int64, error)
+}
+type DeleteSubscriptionOperation interface {
+        Execute(ctx context.Context, p dto.DeleteSubscription) error
+}
+
+type DeleteNewsletterSubscription interface {
+        Execute(ctx context.Context, p dto.DeleteNewsletterSubscription) error
+}
+
+type DeleteSubscription struct {
+        getSubbedNewsletterID GetSubbedNewsletterIDOp
+        deleteSubscription    DeleteSubscriptionOperation
+        deleteNewsletterSub   DeleteNewsletterSubscription
+}
+
+func NewDeleteSubscriptionHandler(getSubbedNewsletterID GetSubbedNewsletterIDOp, delSub DeleteSubscriptionOperation, delNewsletterSub DeleteNewsletterSubscription) *DeleteSubscription <span class="cov0" title="0">{
+        return &amp;DeleteSubscription{
+                getSubbedNewsletterID: getSubbedNewsletterID,
+                deleteSubscription:    delSub,
+                deleteNewsletterSub:   delNewsletterSub,
+        }
+}</span>
+
+func (h *DeleteSubscription) Execute(ctx context.Context, c Command) error <span class="cov0" title="0">{
+        newsletterID, err := h.getSubbedNewsletterID.Execute(ctx, dto.GetSubscribedNewsletter{
+                Email:              c.Email.String(),
+                NewsletterPublicID: c.NewsletterPublicID,
+                VerifCode:          c.VerificationCode,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">err = h.deleteNewsletterSub.Execute(ctx, dto.DeleteNewsletterSubscription{
+                Email:        c.Email.String(),
+                NewsletterID: newsletterID,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">err = h.deleteSubscription.Execute(ctx, dto.DeleteSubscription{
+                Email:              c.Email.String(),
+                NewsletterPublicID: c.NewsletterPublicID,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file14" style="display: none">package list_newsletter
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+)
+
+type ListNewsletterOperation interface {
+        Execute(ctx context.Context, p dto.ListNewsletter) ([]dto.Newsletter, error)
+}
+
+type ListNewsletter struct {
+        listNewsletter ListNewsletterOperation
+}
+
+func NewListNewsletterHandler(listNewsletter ListNewsletterOperation) *ListNewsletter <span class="cov0" title="0">{
+        return &amp;ListNewsletter{
+                listNewsletter: listNewsletter,
+        }
+}</span>
+
+func (o *ListNewsletter) Execute(ctx context.Context, q Query) ([]dto.Newsletter, error) <span class="cov0" title="0">{
+        newsletters, err := o.listNewsletter.Execute(ctx, dto.ListNewsletter{
+                ClientID: q.ClientID,
+                Page:     q.Page,
+                PageSize: q.PageSize,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">return newsletters, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file15" style="display: none">package service
+
+import (
+        "crypto/rand"
+        "encoding/hex"
+)
+
+func GenerateUnsubscribeCode(n int32) (string, error) <span class="cov0" title="0">{
+        bytes := make([]byte, n)
+        if _, err := rand.Read(bytes); err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+
+        <span class="cov0" title="0">return hex.EncodeToString(bytes), nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file16" style="display: none">package service
+
+import (
+        "crypto/hmac"
+        "crypto/sha256"
+        "encoding/hex"
+)
+
+type HashPassword struct {
+        secret string
+}
+
+func NewHashPassword(secret string) *HashPassword <span class="cov1" title="1">{
+        return &amp;HashPassword{secret: secret}
+}</span>
+
+func (s *HashPassword) Execute(password string) string <span class="cov10" title="2">{
+        secret := []byte(s.secret)
+        h := hmac.New(sha256.New, secret)
+        h.Write([]byte(password))
+
+        return hex.EncodeToString(h.Sum(nil))
+}</span>
+</pre>
+		
+		<pre class="file" id="file17" style="display: none">package service
+
+import (
+        "crypto/hmac"
+        "crypto/sha256"
+        "encoding/hex"
+)
+
+type VerifyPassword struct {
+        secret string
+}
+
+func NewVerifyPassword(secret string) *VerifyPassword <span class="cov8" title="1">{
+        return &amp;VerifyPassword{secret: secret}
+}</span>
+
+func (s *VerifyPassword) Execute(password, hashedPassword string) bool <span class="cov8" title="1">{
+        secret := []byte(s.secret)
+        h := hmac.New(sha256.New, secret)
+        h.Write([]byte(password))
+
+        hash := hex.EncodeToString(h.Sum(nil))
+
+        return hmac.Equal([]byte(hashedPassword), []byte(hash))
+}</span>
+</pre>
+		
+		<pre class="file" id="file18" style="display: none">package template
+
+import "fmt"
+
+var (
+        confirmSubHTML    = `&lt;h3&gt;Dear user, you're now subscribed to the newsletter: %s! To unsubscribe, click on a link here %s!&lt;/h3&gt;&lt;br /&gt;`
+        confirmSubText    = `Dear user, you're now subscribed to the newsletter: %s! To unsubscribe, click on link here: %s`
+        confirmSubSubject = "STRV Newsletter subscription %d"
+)
+
+func GetConfirmSubHTML(newsletterName, unsubLink string) string <span class="cov0" title="0">{
+        return fmt.Sprintf(confirmSubHTML, newsletterName, unsubLink)
+}</span>
+
+func GetConfirmSubTxt(newsletterName, unsubLink string) string <span class="cov0" title="0">{
+        return fmt.Sprintf(confirmSubText, newsletterName, unsubLink)
+}</span>
+
+func GetConfirmSubSubject(newsletterName int64) string <span class="cov0" title="0">{
+        return fmt.Sprintf(confirmSubSubject, newsletterName)
+}</span>
+</pre>
+		
+		<pre class="file" id="file19" style="display: none">package firebase
+
+import (
+        "context"
+        "fmt"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/firebase"
+)
+
+type CreatePubNewsletter struct {
+        fbConn firebase.Connector
+}
+
+func NewCreatePubNewsletter(fbConn firebase.Connector) *CreatePubNewsletter <span class="cov0" title="0">{
+        return &amp;CreatePubNewsletter{
+                fbConn: fbConn,
+        }
+}</span>
+
+func (c *CreatePubNewsletter) Execute(ctx context.Context, p dto.CreatePublicNewsletter) error <span class="cov0" title="0">{
+        err := c.fbConn.Create(ctx, "CreateNewsletter", "newsletter", map[string]any{
+                fmt.Sprintf("%d", p.NewsletterPublicID): true,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file20" style="display: none">package firebase
+
+import (
+        "context"
+        "fmt"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/firebase"
+)
+
+type CreateSubscription struct {
+        fbConn firebase.Connector
+}
+
+func NewCreateSubscription(fbConn firebase.Connector) *CreateSubscription <span class="cov0" title="0">{
+        return &amp;CreateSubscription{
+                fbConn: fbConn,
+        }
+}</span>
+
+func (c *CreateSubscription) Execute(ctx context.Context, p dto.CreateSubscription) error <span class="cov0" title="0">{
+        encodedEmail := encodeEmail(p.Email)
+        path := fmt.Sprintf("subscriber/%s/newsletter", encodedEmail)
+        err := c.fbConn.Create(ctx, "CreateSubscription", path, map[string]any{
+                fmt.Sprintf("%d", p.NewsletterPublicID): true,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file21" style="display: none">package firebase
+
+import (
+        "context"
+        "fmt"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/firebase"
+)
+
+type DeleteSubscription struct {
+        fbConn firebase.Connector
+}
+
+func NewDeleteSubscriptionOp(fbConn firebase.Connector) *DeleteSubscription <span class="cov0" title="0">{
+        return &amp;DeleteSubscription{
+                fbConn: fbConn,
+        }
+}</span>
+
+func (c *DeleteSubscription) Execute(ctx context.Context, p dto.DeleteSubscription) error <span class="cov0" title="0">{
+        encodedEmail := encodeEmail(p.Email)
+        path := fmt.Sprintf("subscriber/%s/newsletter/%d", encodedEmail, p.NewsletterPublicID)
+        err := c.fbConn.Delete(ctx, "DeleteSubscription", path)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file22" style="display: none">package firebase
+
+import (
+        "fmt"
+        "regexp"
+        "strconv"
+)
+
+// describe encodeEmail Each illegal character `[.#$\[\]]` is replaced with an underscore followed by its two-digit hexadecimal ASCII code.
+func encodeEmail(email string) string <span class="cov0" title="0">{
+        pattern := regexp.MustCompile(`[.#$\[\]]`)
+
+        return pattern.ReplaceAllStringFunc(email, func(m string) string </span><span class="cov0" title="0">{
+                return "_" + fmt.Sprintf("%X", m[0])
+        }</span>)
+}
+
+/*
+        describe decodeEmail The function finds all sequences that match the pattern _(\w{2}).
+
+It then converts the hexadecimal code back to the original character.
+*/
+func decodeEmail(encodedEmail string) string <span class="cov0" title="0">{
+        pattern := regexp.MustCompile(`_(\w{2})`)
+
+        return pattern.ReplaceAllStringFunc(encodedEmail, func(m string) string </span><span class="cov0" title="0">{
+                hexCode := m[1:] // Remove the underscore
+                charCode, err := strconv.ParseInt(hexCode, 16, 32)
+                if err != nil </span><span class="cov0" title="0">{
+                        // Handle error (you may want to log or return an error)
+                        return m
+                }</span>
+                <span class="cov0" title="0">return string(rune(charCode))</span>
+        })
+}
+</pre>
+		
+		<pre class="file" id="file23" style="display: none">package jwt
+
+import (
+        "strconv"
+        "time"
+
+        "github.com/lestrrat-go/jwx/jwa"
+        jwtgo "github.com/lestrrat-go/jwx/jwt"
+)
+
+const ClientIDClaim string = "client_id"
+
+type CreateClientToken struct {
+        secret     string
+        expiration time.Duration
+}
+
+func NewCreateClientToken(secret string) *CreateClientToken <span class="cov1" title="1">{
+        return &amp;CreateClientToken{secret: secret, expiration: time.Minute * 5}
+}</span>
+
+func (c *CreateClientToken) Execute(publicID int64) (*string, error) <span class="cov10" title="2">{
+        secretKey := []byte(c.secret)
+        subStr := strconv.Itoa(int(publicID))
+
+        token := jwtgo.New()
+        _ = token.Set(jwtgo.IssuedAtKey, time.Now())
+        _ = token.Set(jwtgo.ExpirationKey, time.Now().Add(c.expiration))
+        _ = token.Set(jwtgo.SubjectKey, subStr)
+        _ = token.Set(ClientIDClaim, subStr)
+        _ = token.Set(jwtgo.NotBeforeKey, time.Now())
+
+        signed, err := jwtgo.Sign(token, jwa.HS256, secretKey)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov10" title="2">jwtToken := string(signed)
+
+        return &amp;jwtToken, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file24" style="display: none">package mailjet
+
+import (
+        "context"
+        "net/mail"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/mailjet"
+)
+
+type SendSubConfirmation struct {
+        emailSender       mailjet.MailClientSender
+        senderMailAddress *mail.Address
+        isLocalEnv        bool
+}
+
+func NewSendSubConfirmation(emailSender mailjet.MailClientSender, senderMail *mail.Address, isLocalEnv bool) *SendSubConfirmation <span class="cov0" title="0">{
+        return &amp;SendSubConfirmation{
+                emailSender:       emailSender,
+                senderMailAddress: senderMail,
+                isLocalEnv:        isLocalEnv,
+        }
+}</span>
+
+func (s *SendSubConfirmation) Execute(ctx context.Context, p dto.SendSubConfirmation) error <span class="cov0" title="0">{
+        if s.isLocalEnv </span><span class="cov0" title="0">{
+                return nil
+        }</span>
+        <span class="cov0" title="0">mailParams := mailjet.SendEmailParams{
+                Recipient: mailjet.Recipient{
+                        Email: p.RecipientEmailAddr,
+                        Name:  p.RecipientEmailAddr.Name,
+                },
+                Sender: mailjet.Sender{
+                        Email: s.senderMailAddress,
+                        Name:  s.senderMailAddress.Name,
+                },
+                Subject: p.Subject,
+                Text:    p.Text,
+                HTML:    p.HTML,
+        }
+        err := s.emailSender.Send(ctx, mailParams)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file25" style="display: none">package pg
+
+import (
+        "context"
+
+        healthcheck "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/health"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type HealthIndicator struct {
+        ctx  context.Context
+        conn pgx.Connection
+        lg   logger.Logger
+}
+
+func NewHealthIndicator(ctx context.Context, conn pgx.Connection, lg logger.Logger) *HealthIndicator <span class="cov0" title="0">{
+        return &amp;HealthIndicator{
+                ctx:  ctx,
+                conn: conn,
+                lg:   lg,
+        }
+}</span>
+
+func (i *HealthIndicator) ComponentName() string <span class="cov0" title="0">{
+        return "pg-strv-newsletter"
+}</span>
+
+func (i *HealthIndicator) Status() healthcheck.Status <span class="cov0" title="0">{
+        qr, cancel := i.conn.QueryRow(i.ctx, "health-status", "SELECT 1 AS ok", pgx.NamedArgs{})
+        defer cancel()
+        var ok int64
+        err := (*qr).Scan(&amp;ok)
+        if err != nil </span><span class="cov0" title="0">{
+                i.lg.Error("strv-newsletter postgres connection is down and threw %s!", err)
+
+                return healthcheck.StatusDown
+        }</span>
+
+        <span class="cov0" title="0">if ok == 0 </span><span class="cov0" title="0">{
+                i.lg.Error("strv-newsletter postgres connection is down!")
+
+                return healthcheck.StatusDown
+        }</span>
+
+        <span class="cov0" title="0">return healthcheck.StatusUp</span>
+}
+</pre>
+		
+		<pre class="file" id="file26" style="display: none">package operation
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type CreateClient struct {
+        pgConn pgx.Connection
+}
+
+type CreateClientResult struct {
+        PublicID int64 `db:"public_id"`
+        ClientID int64 `db:"id"`
+}
+
+func NewCreateClientOperation(pgConn pgx.Connection) *CreateClient <span class="cov8" title="1">{
+        return &amp;CreateClient{pgConn: pgConn}
+}</span>
+
+func (o *CreateClient) Execute(ctx context.Context, p dto.CreateClient) (dto.SavedClient, error) <span class="cov8" title="1">{
+        r, cancel := o.pgConn.QueryRow(ctx, "CreateClient", o.sql(), pgx.NamedArgs{"email": p.Email, "hashedPassword": p.HashedPassword})
+        defer cancel()
+
+        res := CreateClientResult{}
+        err := (*r).Scan(
+                &amp;res.PublicID,
+                &amp;res.ClientID,
+        )
+        if err != nil </span><span class="cov0" title="0">{
+                return dto.SavedClient{}, err
+        }</span>
+
+        <span class="cov8" title="1">return dto.SavedClient{
+                ID:       res.ClientID,
+                PublicID: res.PublicID,
+        }, nil</span>
+}
+
+func (o *CreateClient) sql() string <span class="cov8" title="1">{
+        return `
+INSERT INTO client (email, hashed_password)
+                values(@email, @hashedPassword)
+        RETURNING
+                public_id, id;
+`
+}</span>
+</pre>
+		
+		<pre class="file" id="file27" style="display: none">package operation
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type CreateNewsletter struct {
+        pgConn pgx.Connection
+}
+
+func NewCreateNewsletterOperation(pgConn pgx.Connection) *CreateNewsletter <span class="cov0" title="0">{
+        return &amp;CreateNewsletter{
+                pgConn: pgConn,
+        }
+}</span>
+
+type CreateNewsletterResult struct {
+        PublicID int64 `db:"public_id"`
+}
+
+func (o *CreateNewsletter) Execute(ctx context.Context, p dto.CreateNewsletter) (int64, error) <span class="cov0" title="0">{
+        r, cancel := o.pgConn.QueryRow(ctx, "CreateNewsletter", o.sql(), pgx.NamedArgs{
+                "clientID":    p.ClientID,
+                "name":        p.Name,
+                "description": p.Description,
+        })
+        defer cancel()
+
+        res := &amp;CreateNewsletterResult{}
+        err := (*r).Scan(&amp;res.PublicID)
+        if err != nil </span><span class="cov0" title="0">{
+                return -1, err
+        }</span>
+
+        <span class="cov0" title="0">return res.PublicID, nil</span>
+}
+
+func (o *CreateNewsletter) sql() string <span class="cov0" title="0">{
+        return `
+INSERT INTO newsletter (client_id, name, description)
+                values(@clientID, @name, @description) RETURNING public_id;
+`
+}</span>
+</pre>
+		
+		<pre class="file" id="file28" style="display: none">package operation
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type CreateNewsletterSubscription struct {
+        pgConn pgx.Connection
+}
+
+func NewCreateNewsletterSubscription(pgConn pgx.Connection) *CreateNewsletterSubscription <span class="cov0" title="0">{
+        return &amp;CreateNewsletterSubscription{
+                pgConn: pgConn,
+        }
+}</span>
+
+func (o *CreateNewsletterSubscription) Execute(ctx context.Context, p dto.CreateNewsletterSubscription) error <span class="cov0" title="0">{
+        r, cancel, err := o.pgConn.Query(ctx, "CreateNewsletterSubscription", o.sql(), pgx.NamedArgs{
+                "email":        p.Email,
+                "newsletterID": p.NewsletterID,
+                "code":         p.VerifCode,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">defer cancel()
+
+        if err := (*r).Err(); err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (o *CreateNewsletterSubscription) sql() string <span class="cov0" title="0">{
+        return `
+INSERT INTO newsletter_subscribers (email, newsletter_id, unsubscribe_verification_code)
+                values(@email, @newsletterID, @code);
+`
+}</span>
+</pre>
+		
+		<pre class="file" id="file29" style="display: none">package operation
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type DeleteNewsletterSub struct {
+        pgConn pgx.Connection
+}
+
+func NewDeleteNewsletterSub(pgConn pgx.Connection) *DeleteNewsletterSub <span class="cov0" title="0">{
+        return &amp;DeleteNewsletterSub{
+                pgConn: pgConn,
+        }
+}</span>
+
+func (o *DeleteNewsletterSub) Execute(ctx context.Context, p dto.DeleteNewsletterSubscription) error <span class="cov0" title="0">{
+        r, cancel, err := o.pgConn.Query(ctx, "DeleteNewsletterSubscription", o.sql(), pgx.NamedArgs{
+                "email":         p.Email,
+                "newsletter_id": p.NewsletterID,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">defer cancel()
+
+        if err := (*r).Err(); err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (o *DeleteNewsletterSub) sql() string <span class="cov0" title="0">{
+        return `
+DELETE FROM newsletter_subscribers WHERE email = @email AND newsletter_id = @newsletter_id;
+`
+}</span>
+</pre>
+		
+		<pre class="file" id="file30" style="display: none">package operation
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type GetClientData struct {
+        pgConn pgx.Connection
+}
+
+func NewGetClientDataOperation(pgConn pgx.Connection) *GetClientData <span class="cov1" title="1">{
+        return &amp;GetClientData{pgConn: pgConn}
+}</span>
+
+type GetClientDataResult struct {
+        Email          string `db:"email"`
+        HashedPassword string `db:"hashed_password"`
+        PublicID       int64  `db:"public_id"`
+}
+
+func (o *GetClientData) GetForEmail(ctx context.Context, email string) (dto.ClientData, error) <span class="cov10" title="2">{
+        r, cancel := o.pgConn.QueryRow(ctx, "GetClientData", o.sql(), pgx.NamedArgs{"email": email})
+        defer cancel()
+
+        res := GetClientDataResult{}
+        err := (*r).Scan(
+                &amp;res.Email,
+                &amp;res.HashedPassword,
+                &amp;res.PublicID,
+        )
+        if err != nil </span><span class="cov1" title="1">{
+                return dto.ClientData{}, err
+        }</span>
+
+        <span class="cov1" title="1">return dto.ClientData{
+                Email:          res.Email,
+                HashedPassword: res.HashedPassword,
+                PublicID:       res.PublicID,
+        }, nil</span>
+}
+
+func (o *GetClientData) sql() string <span class="cov10" title="2">{
+        return `
+SELECT
+        email,
+        hashed_password,
+        public_id
+FROM
+        client
+WHERE
+        email = @email;
+`
+}</span>
+</pre>
+		
+		<pre class="file" id="file31" style="display: none">package operation
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type GetClientID struct {
+        pgConn pgx.Connection
+}
+
+func NewGetClientIDOperation(pgConn pgx.Connection) *GetClientID <span class="cov0" title="0">{
+        return &amp;GetClientID{
+                pgConn: pgConn,
+        }
+}</span>
+
+type GetClientIDResult struct {
+        ID int64 `json:"id"`
+}
+
+func (o *GetClientID) Execute(ctx context.Context, publicID int64) (int64, error) <span class="cov0" title="0">{
+
+        r, cancel := o.pgConn.QueryRow(ctx, "GetClientID", o.sql(), pgx.NamedArgs{
+                "publicID": publicID,
+        })
+        defer cancel()
+
+        res := GetClientIDResult{}
+        err := (*r).Scan(&amp;res.ID)
+        if err != nil </span><span class="cov0" title="0">{
+                return -1, err
+        }</span>
+
+        <span class="cov0" title="0">return res.ID, nil</span>
+}
+
+func (o *GetClientID) sql() string <span class="cov0" title="0">{
+        return `
+SELECT
+        id
+FROM
+        client
+WHERE
+        public_id = @publicID;
+`
+}</span>
+</pre>
+		
+		<pre class="file" id="file32" style="display: none">package operation
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type GetNewsletter struct {
+        pgConn pgx.Connection
+}
+
+func NewGetNewsletterOp(pgConn pgx.Connection) *GetNewsletter <span class="cov0" title="0">{
+        return &amp;GetNewsletter{
+                pgConn: pgConn,
+        }
+}</span>
+
+type ResultForNewsletter struct {
+        ID   int64  `db:"id"`
+        Name string `db:"name"`
+}
+
+func (o *GetNewsletter) Execute(ctx context.Context, publicID int64) (dto.GetNewsletter, error) <span class="cov0" title="0">{
+        r, cancel := o.pgConn.QueryRow(ctx, "GetNewsletter", o.sql(), pgx.NamedArgs{
+                "publicID": publicID,
+        })
+        defer cancel()
+        res := ResultForNewsletter{}
+
+        err := (*r).Scan(&amp;res.ID, &amp;res.Name)
+        if err != nil </span><span class="cov0" title="0">{
+                return dto.GetNewsletter{}, err
+        }</span>
+
+        <span class="cov0" title="0">return dto.GetNewsletter{
+                ID:   res.ID,
+                Name: res.Name,
+        }, nil</span>
+}
+
+func (o *GetNewsletter) sql() string <span class="cov0" title="0">{
+        return `
+SELECT
+        id,
+        name
+FROM
+        newsletter
+WHERE
+        public_id = @publicID;
+`
+}</span>
+</pre>
+		
+		<pre class="file" id="file33" style="display: none">package operation
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type GetSubscribedNewsletterID struct {
+        pgConn pgx.Connection
+}
+
+func NewGetSubscribedNewsletterIDOp(pgConn pgx.Connection) *GetSubscribedNewsletterID <span class="cov0" title="0">{
+        return &amp;GetSubscribedNewsletterID{
+                pgConn: pgConn,
+        }
+}</span>
+
+type SubbedNewsletterRes struct {
+        ID int64 `db:"newsletter_id"`
+}
+
+func (o *GetSubscribedNewsletterID) Execute(ctx context.Context, p dto.GetSubscribedNewsletter) (int64, error) <span class="cov0" title="0">{
+        r, cancel := o.pgConn.QueryRow(ctx, "GetSubscribedNewsletterID", o.sql(), pgx.NamedArgs{
+                "newsletterPublicID": p.NewsletterPublicID,
+                "email":              p.Email,
+                "code":               p.VerifCode,
+        })
+        defer cancel()
+
+        res := SubbedNewsletterRes{}
+        err := (*r).Scan(&amp;res.ID)
+        if err != nil </span><span class="cov0" title="0">{
+                return -1, err
+        }</span>
+
+        <span class="cov0" title="0">return res.ID, nil</span>
+}
+
+func (o *GetSubscribedNewsletterID) sql() string <span class="cov0" title="0">{
+        return `
+SELECT
+        n.id
+FROM
+        newsletter_subscribers ns
+        INNER JOIN newsletter n ON n.id = ns.newsletter_id
+WHERE
+        n.public_id = @newsletterPublicID
+        AND ns.email = @email
+        AND unsubscribe_verification_code = @code;
+`
+}</span>
+</pre>
+		
+		<pre class="file" id="file34" style="display: none">package operation
+
+import (
+        "context"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type IsNewsletterSubExist struct {
+        pgConn pgx.Connection
+}
+
+func NewIsNewsletterSubExistOp(pgConn pgx.Connection) *IsNewsletterSubExist <span class="cov0" title="0">{
+        return &amp;IsNewsletterSubExist{
+                pgConn: pgConn,
+        }
+}</span>
+
+type NewsletterSubCount struct {
+        Count int64 `db:"count"`
+}
+
+func (o *IsNewsletterSubExist) Execute(ctx context.Context, p dto.GetNewsletterSub) (bool, error) <span class="cov0" title="0">{
+        r, cancel := o.pgConn.QueryRow(ctx, "IsNewsletterSubExist", o.sql(), pgx.NamedArgs{
+                "newsletterID": p.NewsletterID,
+                "email":        p.Email,
+        })
+        defer cancel()
+
+        res := NewsletterSubCount{}
+        err := (*r).Scan(&amp;res.Count)
+        if err != nil </span><span class="cov0" title="0">{
+                return false, err
+        }</span>
+        <span class="cov0" title="0">return res.Count &gt; 0, nil</span>
+}
+
+func (o *IsNewsletterSubExist) sql() string <span class="cov0" title="0">{
+        return `
+SELECT
+        count(*)
+FROM
+        newsletter_subscribers ns
+WHERE
+        ns.email = @email
+        AND ns.newsletter_id = @newsletterID;
+`
+}</span>
+</pre>
+		
+		<pre class="file" id="file35" style="display: none">package operation
+
+import (
+        "context"
+        "time"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type ListNewsletter struct {
+        pgConn pgx.Connection
+}
+
+func NewListNewsletterOperation(pgConn pgx.Connection) *ListNewsletter <span class="cov0" title="0">{
+        return &amp;ListNewsletter{
+                pgConn: pgConn,
+        }
+}</span>
+
+type NewsletterResult struct {
+        PublicID       int64     `db:"public_id"`
+        Name           string    `db:"name"`
+        ClientPublicID int64     `db:"client_public_id"`
+        Description    *string   `db:"description"`
+        TotalCount     int64     `db:"total_count"`
+        CreatedAt      time.Time `db:"created_at"`
+}
+
+func (o *ListNewsletter) Execute(ctx context.Context, p dto.ListNewsletter) ([]dto.Newsletter, error) <span class="cov0" title="0">{
+        offset := (p.Page - 1) * p.PageSize
+        limit := p.PageSize
+
+        r, cancel, err := o.pgConn.Query(ctx, "ListNewsletter", o.sql(), pgx.NamedArgs{
+                "clientID": p.ClientID,
+                "limit":    limit,
+                "offset":   offset,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">defer cancel()
+
+        if err := (*r).Err(); err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">var newsletters []dto.Newsletter
+        for (*r).Next() </span><span class="cov0" title="0">{
+                n := NewsletterResult{}
+                err := (*r).Scan(
+                        &amp;n.PublicID,
+                        &amp;n.Description,
+                        &amp;n.Name,
+                        &amp;n.CreatedAt,
+                        &amp;n.ClientPublicID,
+                        &amp;n.TotalCount,
+                )
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, err
+                }</span>
+                <span class="cov0" title="0">newsletters = append(newsletters, dto.Newsletter{
+                        ClientPublicID: n.ClientPublicID,
+                        PublicID:       n.PublicID,
+                        TotalCount:     n.TotalCount,
+                        Name:           n.Name,
+                        Description:    n.Description,
+                        CreatedAt:      n.CreatedAt,
+                })</span>
+        }
+
+        <span class="cov0" title="0">return newsletters, nil</span>
+}
+
+func (o *ListNewsletter) sql() string <span class="cov0" title="0">{
+        return `
+SELECT
+    nl.public_id,
+    nl.description,
+    nl.name,
+    nl.created_at,
+    cc.public_id AS client_public_id,
+    COUNT(*) OVER() AS total_count
+FROM
+    client cc
+    JOIN newsletter nl ON nl.client_id = cc.id
+WHERE
+    cc.id = @clientID
+ORDER BY
+    nl.created_at
+LIMIT @limit OFFSET @offset;
+`
+}</span>
+</pre>
+		
+		<pre class="file" id="file36" style="display: none">package prometheus
+
+import (
+        "github.com/prometheus/client_golang/prometheus"
+)
+
+type RequestMetrics struct {
+        RequestCounter           *prometheus.CounterVec
+        RequestDurationHistogram *prometheus.HistogramVec
+}
+
+type QueryMetrics struct {
+        QueryCounter           *prometheus.CounterVec
+        QueryDurationHistogram *prometheus.HistogramVec
+}
+
+type TransactionMetrics struct {
+        TransactionCounter           *prometheus.CounterVec
+        TransactionDurationHistogram *prometheus.HistogramVec
+}
+
+type ConnectionMetrics struct {
+        DbConnectionGauge prometheus.Gauge
+}
+
+type PgMetrics struct {
+        Qm *QueryMetrics
+        Tm *TransactionMetrics
+        Cm *ConnectionMetrics
+}
+
+func (m *RequestMetrics) IncRequestCounter(labels ...string) <span class="cov0" title="0">{
+        m.RequestCounter.WithLabelValues(labels...).Inc()
+}</span>
+
+func (m *RequestMetrics) ObserveRequestDuration(timestampDiff float64, labels ...string) <span class="cov0" title="0">{
+        m.RequestDurationHistogram.WithLabelValues(labels...).Observe(timestampDiff)
+}</span>
+
+func (m *QueryMetrics) IncQueryCounter(labels ...string) <span class="cov0" title="0">{
+        m.QueryCounter.WithLabelValues(labels...).Inc()
+}</span>
+
+func (m *TransactionMetrics) IncTransactionCounter(labels ...string) <span class="cov0" title="0">{
+        m.TransactionCounter.WithLabelValues(labels...).Inc()
+}</span>
+
+func (m *QueryMetrics) ObserveQueryDurationHistogram(timestampDiff float64, labels ...string) <span class="cov0" title="0">{
+        m.QueryDurationHistogram.WithLabelValues(labels...).Observe(timestampDiff)
+}</span>
+
+func (m *ConnectionMetrics) IncDbConnGauge() <span class="cov0" title="0">{
+        m.DbConnectionGauge.Inc()
+}</span>
+
+func (m *ConnectionMetrics) DecDbConnGauge() <span class="cov0" title="0">{
+        m.DbConnectionGauge.Dec()
+}</span>
+
+func (m *TransactionMetrics) ObserveTransactionDurationHistogram(timestampDiff float64, labels ...string) <span class="cov0" title="0">{
+        m.TransactionDurationHistogram.WithLabelValues(labels...).Observe(timestampDiff)
+}</span>
+
+type Metrics struct {
+        Pm *PgMetrics
+}
+
+func NewMetrics(
+        pm *PgMetrics,
+) *Metrics <span class="cov0" title="0">{
+        return &amp;Metrics{
+                Pm: pm,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file37" style="display: none">package internal
+
+import (
+        "net/mail"
+        "strings"
+
+        "github.com/gin-gonic/gin"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_client"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_newsletter"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_session"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_subscription"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/delete_subscription"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/query/list_newsletter"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/service"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/firebase"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/jwt"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/mailjet"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg/operation"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/middleware"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/v1/client"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/v1/newsletter"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/v1/subscriber"
+        jwtui "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/jwt"
+        firebasepkg "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/firebase"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+        emailclient "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/mailjet"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+)
+
+type ModuleParams struct {
+        HashSecret      string
+        JWTSecret       string
+        EmailSenderAddr *mail.Address
+        EmailUnsubURL   string
+        AppENV          string
+        PGConn          pgx.Connection
+        FirebaseConn    firebasepkg.Connector
+        Logger          logger.Logger
+        MailClient      emailclient.MailClientSender
+}
+
+func RegisterModule(ge *gin.Engine, p ModuleParams) <span class="cov0" title="0">{
+        hashPaswd := service.NewHashPassword(p.HashSecret)
+        verifyPasswd := service.NewVerifyPassword(p.HashSecret)
+
+        createToken := jwt.NewCreateClientToken(p.JWTSecret)
+
+        getClientData := operation.NewGetClientDataOperation(p.PGConn)
+        createClient := operation.NewCreateClientOperation(p.PGConn)
+        createNewsletter := operation.NewCreateNewsletterOperation(p.PGConn)
+        listNewsletter := operation.NewListNewsletterOperation(p.PGConn)
+        getNewsletterID := operation.NewGetNewsletterOp(p.PGConn)
+        createNewsletterSub := operation.NewCreateNewsletterSubscription(p.PGConn)
+        isNewsletterSubExist := operation.NewIsNewsletterSubExistOp(p.PGConn)
+        getSubbedNewsletterID := operation.NewGetSubscribedNewsletterIDOp(p.PGConn)
+        delSub := firebase.NewDeleteSubscriptionOp(p.FirebaseConn)
+        delNewsletterSub := operation.NewDeleteNewsletterSub(p.PGConn)
+
+        createSub := firebase.NewCreateSubscription(p.FirebaseConn)
+        createPubNewsletter := firebase.NewCreatePubNewsletter(p.FirebaseConn)
+
+        sendSubConfirm := mailjet.NewSendSubConfirmation(
+                p.MailClient,
+                p.EmailSenderAddr,
+                strings.Contains(p.AppENV, "local"),
+        )
+
+        createClientHan := create_client.NewCreateClientHandler(hashPaswd, createToken, createClient)
+        createSessHan := create_session.NewCreateSessionHandler(verifyPasswd, getClientData, createToken)
+
+        createNewsletterHan := create_newsletter.NewCreateNewsletterHandler(createNewsletter, createPubNewsletter)
+        listNewsletterHan := list_newsletter.NewListNewsletterHandler(listNewsletter)
+        createSubHan := create_subscription.NewCreateSubscriptionHandler(
+                createSub,
+                getNewsletterID,
+                createNewsletterSub,
+                service.GenerateUnsubscribeCode,
+                sendSubConfirm,
+                isNewsletterSubExist,
+                p.EmailUnsubURL,
+        )
+        deleteSubHandler := delete_subscription.NewDeleteSubscriptionHandler(getSubbedNewsletterID, delSub, delNewsletterSub)
+
+        clientCTRL := client.NewController(createClientHan, createSessHan)
+        newsletterCTRL := newsletter.NewController(createNewsletterHan, listNewsletterHan)
+        createSubCTRL := subscriber.NewController(createSubHan, deleteSubHandler)
+
+        decryptToken := jwtui.NewDecryptToken(p.JWTSecret)
+        getClientID := operation.NewGetClientIDOperation(p.PGConn)
+        authMiddleware := middleware.AuthMiddleware(getClientID, decryptToken)
+
+        clientCTRL.Register(ge)
+        newsletterCTRL.Register(ge, authMiddleware)
+        createSubCTRL.Register(ge)
+}</span>
+</pre>
+		
+		<pre class="file" id="file38" style="display: none">package health
+
+import (
+        "net/http"
+
+        "github.com/gin-gonic/gin"
+        healthcheck "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/health"
+)
+
+type CheckHandler interface {
+        Handle() *healthcheck.Result
+}
+
+type Controller struct {
+        readinessService CheckHandler
+        livenessService  CheckHandler
+        engine           *gin.Engine
+}
+
+func NewController(rs CheckHandler, ls CheckHandler, e *gin.Engine) *Controller <span class="cov0" title="0">{
+        return &amp;Controller{rs, ls, e}
+}</span>
+
+func (c *Controller) Register(ctx *gin.Engine) <span class="cov0" title="0">{
+        ctx.GET("health/readiness", c.HandleHealthCheckReadiness)
+        ctx.GET("health/liveness", c.HandleHealthCheckLiveness)
+}</span>
+
+// HandleHealthCheckReadiness @Summary Health check for readiness probe
+// @Description Health check of the application
+// @Tags Health
+// @Produce json
+// @Success 200 {object} healthcheck.Result
+// @Success 503 {object} healthcheck.Result
+// @Router /health/readiness [get]
+func (c *Controller) HandleHealthCheckReadiness(ctx *gin.Context) <span class="cov0" title="0">{
+        code := http.StatusOK
+
+        result := c.readinessService.Handle()
+
+        if result.Status != healthcheck.StatusUp </span><span class="cov0" title="0">{
+                code = http.StatusServiceUnavailable
+        }</span>
+
+        <span class="cov0" title="0">ctx.JSON(code, result)</span>
+}
+
+// HandleHealthCheckLiveness @Summary Health check for liveness probe
+// @Description Health check for liveness probe
+// @Tags Health
+// @Produce json
+// @Success 200 {object} healthcheck.Result
+// @Success 503 {object} healthcheck.Result
+// @Router /health/liveness [get]
+func (c *Controller) HandleHealthCheckLiveness(ctx *gin.Context) <span class="cov0" title="0">{
+        code := http.StatusOK
+
+        result := c.livenessService.Handle()
+
+        if result.Status != healthcheck.StatusUp </span><span class="cov0" title="0">{
+                code = http.StatusServiceUnavailable
+        }</span>
+
+        <span class="cov0" title="0">ctx.JSON(code, result)</span>
+}
+</pre>
+		
+		<pre class="file" id="file39" style="display: none">package middleware
+
+import (
+        "context"
+        "net/http"
+        "strings"
+
+        "github.com/gin-gonic/gin"
+)
+
+const ClientCTXKey = "clientID"
+
+type GetClientIDOperation interface {
+        Execute(ctx context.Context, publicID int64) (int64, error)
+}
+
+type ClientTokenDecrypter interface {
+        Execute(token string) (int64, error)
+}
+
+func AuthMiddleware(getClientID GetClientIDOperation, decryptToken ClientTokenDecrypter) gin.HandlerFunc <span class="cov0" title="0">{
+        return func(c *gin.Context) </span><span class="cov0" title="0">{
+                authHeader := c.GetHeader("Authorization")
+                if !strings.HasPrefix(authHeader, "Bearer ") || len(authHeader) &lt;= 7 </span><span class="cov0" title="0">{
+                        sendUnauthorized(c)
+                        return
+                }</span>
+                <span class="cov0" title="0">bearerToken := authHeader[7:]
+
+                publicClientID, err := decryptToken.Execute(bearerToken)
+                if err != nil </span><span class="cov0" title="0">{
+                        sendUnauthorized(c)
+                        return
+                }</span>
+
+                <span class="cov0" title="0">clientID, err := getClientID.Execute(c, publicClientID)
+
+                c.Set(ClientCTXKey, clientID)
+                c.Next()</span>
+        }
+}
+
+func sendUnauthorized(c *gin.Context) <span class="cov0" title="0">{
+        c.JSON(http.StatusForbidden, gin.H{"error": "Unauthorized"})
+        c.Abort()
+}</span>
+</pre>
+		
+		<pre class="file" id="file40" style="display: none">package client
+
+import (
+        "context"
+        "errors"
+        "net/http"
+        "net/mail"
+        "regexp"
+
+        "github.com/gin-gonic/gin"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_client"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_session"
+)
+
+var (
+        passwordRegexPattern = `^[0-9a-zA-Z$&amp;+,:;=?@#|'&lt;&gt;.\-^*()%!]{6,20}$`
+        emailRegexPattern    = `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+)
+
+type CreateClientHandler interface {
+        Handle(ctx context.Context, c *create_client.Command) (*string, error)
+}
+
+type CreateSessionHandler interface {
+        Handle(ctx context.Context, c create_session.Command) (*string, error)
+}
+
+type Controller struct {
+        createClientHandler  CreateClientHandler
+        createSessionHandler CreateSessionHandler
+}
+
+func NewController(createClient CreateClientHandler, createSession CreateSessionHandler) *Controller <span class="cov1" title="1">{
+        return &amp;Controller{
+                createClientHandler:  createClient,
+                createSessionHandler: createSession,
+        }
+}</span>
+
+func (c *Controller) Register(ge *gin.Engine) <span class="cov0" title="0">{
+        ge.POST("/v1/client", c.CreateClient)
+        ge.POST("/v1/session", c.CreateSession)
+}</span>
+
+type Header struct {
+        Value string `header:"Content-Type" example:"application/json" binding:"required"`
+}
+
+type CreateClientReq struct {
+        Email    string `json:"email" binding:"required"`
+        Password string `json:"password" binding:"required"`
+}
+
+type CreateClientRes struct {
+        Token string `json:"token"`
+}
+
+func (r CreateClientReq) ValidatePassword() error <span class="cov10" title="3">{
+        passwordRegex := regexp.MustCompile(passwordRegexPattern)
+        if ok := passwordRegex.MatchString(r.Password); !ok </span><span class="cov1" title="1">{
+                return errors.New("password must be at least 8 characters long and contain at least one letter and one number")
+        }</span>
+
+        <span class="cov6" title="2">return nil</span>
+}
+
+func (r CreateClientReq) ValidateEmail() error <span class="cov6" title="2">{
+        emailRegex := regexp.MustCompile(emailRegexPattern)
+        if ok := emailRegex.MatchString(r.Email); !ok </span><span class="cov1" title="1">{
+                return errors.New("invalid email")
+        }</span>
+
+        <span class="cov1" title="1">return nil</span>
+}
+
+// CreateClient godoc
+// @Summary Create a new client
+// @Description Creates a new client account with an email and password
+// @Tags Client
+// @Accept json
+// @Produce json
+// @Param Content-Type header string true "Content-Type" example(application/json)
+// @Param data body CreateClientReq true "Client data"
+// @Success 201 {object} CreateClientRes "{"token": "token"}"
+// @Failure 400 {object} map[string]string "{"error": "bad request"}"
+// @Failure 422 {object} map[string]string "{"error": "bad request"}"
+// @Failure 500 {object} map[string]string "{"error": "bad request"}"
+// @Router /v1/client [post]
+func (c *Controller) CreateClient(ctx *gin.Context) <span class="cov10" title="3">{
+        var h Header
+        err := ctx.ShouldBindHeader(&amp;h)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov10" title="3">var req CreateClientReq
+        err = ctx.ShouldBindBodyWithJSON(&amp;req)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov10" title="3">err = req.ValidatePassword()
+        if err != nil </span><span class="cov1" title="1">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov6" title="2">err = req.ValidateEmail()
+        if err != nil </span><span class="cov1" title="1">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+        <span class="cov1" title="1">email, err := mail.ParseAddress(req.Email)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        // TODO: add error mapping
+        <span class="cov1" title="1">token, err := c.createClientHandler.Handle(ctx, &amp;create_client.Command{
+                Email:    email.String(),
+                Password: req.Password,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusInternalServerError, gin.H{"error": "INTERNAL_SERVER_ERROR"})
+                return
+        }</span>
+
+        <span class="cov1" title="1">ctx.JSON(http.StatusCreated, CreateClientRes{Token: *token})</span>
+}
+
+type CreateSessionReq struct {
+        Email    string `json:"email" binding:"required"`
+        Password string `json:"password" binding:"required"`
+}
+
+type CreateSessionRes struct {
+        Token string `json:"token"`
+}
+
+// CreateSession godoc
+// @Summary Create a new session
+// @Description Creates a new session for a user by validating the email and password
+// @Tags Sessions
+// @Accept json
+// @Produce json
+// @Param Content-Type header string true "Content-Type" example(application/json)
+// @Param data body CreateSessionReq true "Client data"
+// @Success 201 {object} map[string]string "{"token": "token"}"
+// @Failure 400 {object} map[string]string "{"error": "invalid credentials"}"
+// @Router /v1/session [post]
+func (c *Controller) CreateSession(ctx *gin.Context) <span class="cov6" title="2">{
+        var h Header
+        err := ctx.ShouldBindHeader(&amp;h)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov6" title="2">var req CreateSessionReq
+        err = ctx.ShouldBindBodyWithJSON(&amp;req)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov6" title="2">email, err := mail.ParseAddress(req.Email)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov6" title="2">token, err := c.createSessionHandler.Handle(ctx, create_session.Command{
+                Email:    email.String(),
+                Password: req.Password,
+        })
+        if err != nil </span><span class="cov1" title="1">{
+                ctx.AbortWithStatus(http.StatusUnauthorized)
+                return
+        }</span>
+
+        <span class="cov1" title="1">ctx.JSON(http.StatusCreated, CreateSessionRes{Token: *token})</span>
+}
+</pre>
+		
+		<pre class="file" id="file41" style="display: none">package newsletter
+
+import (
+        "context"
+        "net/http"
+
+        "github.com/gin-gonic/gin"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_newsletter"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/dto"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/query/list_newsletter"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/middleware"
+)
+
+type CreateNewsletterHandler interface {
+        Handle(ctx context.Context, c *create_newsletter.Command) error
+}
+
+type ListNewsletterHandler interface {
+        Execute(ctx context.Context, q list_newsletter.Query) ([]dto.Newsletter, error)
+}
+
+type Controller struct {
+        createNewsletterHan CreateNewsletterHandler
+        listNewsletterHan   ListNewsletterHandler
+}
+
+func NewController(createNewsletterHan CreateNewsletterHandler, listNewsletterHan ListNewsletterHandler) *Controller <span class="cov0" title="0">{
+        return &amp;Controller{
+                createNewsletterHan: createNewsletterHan,
+                listNewsletterHan:   listNewsletterHan,
+        }
+}</span>
+
+func (c *Controller) Register(ge *gin.Engine, authMiddleware gin.HandlerFunc) <span class="cov0" title="0">{
+        ge.POST("/v1/newsletter", authMiddleware, c.createNewsletter)
+        ge.GET("/v1/newsletter", authMiddleware, c.listNewsletter)
+}</span>
+
+type Header struct {
+        Value string `header:"Content-Type" example:"application/json" binding:"required"`
+}
+
+type CreateNewsletterReq struct {
+        Name        string  `json:"name" binding:"required"`
+        Description *string `json:"description"`
+}
+
+// @Summary Create a new newsletter
+// @Description Create a new newsletter with the specified name and optional description
+// @Tags Newsletter
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer &lt;token&gt;"
+// @Param Content-Type header string true "application/json"
+// @Param CreateNewsletterReq body CreateNewsletterReq true "Newsletter details"
+// @Success 201 {object} string "Created"
+// @Failure 400 {object} map[string]string "Bad Request"
+// @Failure 500 {object} map[string]string "Internal Server Error"
+// @Router /v1/newsletter [post]
+func (c *Controller) createNewsletter(ctx *gin.Context) <span class="cov0" title="0">{
+        var h Header
+        err := ctx.ShouldBindHeader(&amp;h)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov0" title="0">clientID := ctx.GetInt64(middleware.ClientCTXKey)
+
+        var req CreateNewsletterReq
+        err = ctx.ShouldBindBodyWithJSON(&amp;req)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov0" title="0">err = c.createNewsletterHan.Handle(ctx, &amp;create_newsletter.Command{
+                ClientID:    clientID,
+                Name:        req.Name,
+                Description: req.Description,
+        })
+
+        // TODO: map error
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusInternalServerError, gin.H{"error": "INTERNAL_SERVER_ERROR"})
+                return
+        }</span>
+
+        <span class="cov0" title="0">ctx.AbortWithStatus(http.StatusCreated)</span>
+}
+
+type ListNewsletterQP struct {
+        Page     int32 `form:"page" json:"page" binding:"required"`
+        PageSize int32 `form:"page_size" json:"page_size" binding:"required"`
+}
+
+type ListNewsletterRes struct {
+        Data       []Newsletter `json:"data"`
+        TotalCount int64        `json:"total_count"`
+}
+
+type Newsletter struct {
+        Name           string  `json:"name"`
+        Description    *string `json:"description"`
+        PublicID       int64   `json:"public_id"`
+        ClientPublicID int64   `json:"client_public_id"`
+}
+
+// @Summary List newsletters with pagination
+// @Description Get a paginated list of newsletters
+// @Tags Newsletter
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer &lt;token&gt;"
+// @Param page query int true "Page number" default(1)
+// @Param pageSize query int true "Number of newsletters per page" default(10) minimum(5) maximum(100)
+// @Success 200 {object} []CreateNewsletterReq "List of newsletters"
+// @Failure 400 {object} map[string]string "Bad Request"
+// @Failure 500 {object} map[string]string "Internal Server Error"
+// @Router /v1/newsletter [get]
+func (c *Controller) listNewsletter(ctx *gin.Context) <span class="cov0" title="0">{
+        var q ListNewsletterQP
+        err := ctx.ShouldBindQuery(&amp;q)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+        <span class="cov0" title="0">clientID := ctx.GetInt64(middleware.ClientCTXKey)
+        newsletters, err := c.listNewsletterHan.Execute(ctx, list_newsletter.Query{
+                ClientID: clientID,
+                Page:     q.Page,
+                PageSize: q.PageSize,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusInternalServerError, gin.H{"error": "INTERNAL_SERVER_ERROR"})
+                return
+        }</span>
+
+        <span class="cov0" title="0">if len(newsletters) &lt;= 0 </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusOK, ListNewsletterRes{
+                        Data:       []Newsletter{},
+                        TotalCount: 0,
+                })
+                return
+        }</span>
+
+        <span class="cov0" title="0">newslettersRes := make([]Newsletter, len(newsletters))
+        for i, v := range newsletters </span><span class="cov0" title="0">{
+                newslettersRes[i] = Newsletter{
+                        Name:           v.Name,
+                        Description:    v.Description,
+                        PublicID:       v.PublicID,
+                        ClientPublicID: v.ClientPublicID,
+                }
+        }</span>
+
+        <span class="cov0" title="0">ctx.JSON(http.StatusOK, ListNewsletterRes{
+                Data:       newslettersRes,
+                TotalCount: newsletters[0].TotalCount,
+        })</span>
+}
+</pre>
+		
+		<pre class="file" id="file42" style="display: none">package subscriber
+
+import (
+        "context"
+        "net/http"
+        "net/mail"
+
+        "github.com/gin-gonic/gin"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/create_subscription"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/application/command/delete_subscription"
+)
+
+type CreateSubscriptionHandler interface {
+        Handle(ctx context.Context, c create_subscription.Command) error
+}
+
+type DeleteSubscriptionHandler interface {
+        Execute(ctx context.Context, c delete_subscription.Command) error
+}
+
+type Controller struct {
+        createSubHan CreateSubscriptionHandler
+        deleteSubHan DeleteSubscriptionHandler
+}
+
+func NewController(createSubHan CreateSubscriptionHandler, deleteSubHandler DeleteSubscriptionHandler) *Controller <span class="cov0" title="0">{
+        return &amp;Controller{createSubHan: createSubHan, deleteSubHan: deleteSubHandler}
+}</span>
+
+func (c *Controller) Register(ge *gin.Engine) <span class="cov0" title="0">{
+        ge.POST("/v1/newsletter/subscriber", c.createSubscription)
+        ge.GET("/v1/newsletter/subscriber/unsubscribe", c.deleteSubscription)
+}</span>
+
+type Header struct {
+        Value string `header:"Content-Type" example:"application/json" binding:"required"`
+}
+
+type CreateSubscriptionReq struct {
+        Email              string `json:"email" binding:"required"`
+        NewsletterPublicID int64  `json:"newsletter_public_id" binding:"required"`
+}
+
+// createSubscription handles the subscription creation.
+// @Summary      Create a new subscription
+// @Description  Registers a new email subscription to a newsletter
+// @Tags         Subscriber
+// @Accept       json
+// @Produce      json
+// @Param        header body Header true "Content-Type header"
+// @Param        body body CreateSubscriptionReq true "Subscription details"
+// @Success      201  {string}  string  "Subscription created successfully"
+// @Failure      400  {object}  gin.H   "Bad Request"
+// @Failure      500  {object}  gin.H   "Internal Server Error"
+// @Router       /v1/newsletter/subscriber [post]
+func (c *Controller) createSubscription(ctx *gin.Context) <span class="cov0" title="0">{
+        var h Header
+        err := ctx.ShouldBindHeader(&amp;h)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov0" title="0">var req CreateSubscriptionReq
+        err = ctx.ShouldBindBodyWithJSON(&amp;req)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov0" title="0">email, err := mail.ParseAddress(req.Email)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov0" title="0">err = c.createSubHan.Handle(ctx, create_subscription.Command{
+                Email:              email,
+                NewsletterPublicID: req.NewsletterPublicID,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusInternalServerError, gin.H{"error": "INTERNAL_SERVER_ERROR"})
+                return
+        }</span>
+
+        <span class="cov0" title="0">ctx.AbortWithStatus(http.StatusCreated)</span>
+}
+
+type DeleteSubscriptionQP struct {
+        NewsletterPublicID int64  `form:"newsletter_public_id" json:"newsletter_public_id" binding:"required"`
+        Code               string `form:"code" json:"code" binding:"required"`
+        Email              string `form:"email" json:"email" binding:"required"`
+}
+
+// deleteSubscription handles unsubscribing from a newsletter.
+// @Summary      Unsubscribe from a newsletter
+// @Description  Removes an email subscription using a verification code
+// @Tags         Subscriber
+// @Accept       json
+// @Produce      json
+// @Param        newsletter_public_id  query  int64  true  "Newsletter Public ID"  example(12345)
+// @Param        code                  query  string true  "Verification Code"     example("ABC123")
+// @Param        email                 query  string true  "Email address"         example("user@example.com")
+// @Success      200  {string}  string  "Successfully unsubscribed"
+// @Failure      400  {object}  gin.H   "Bad Request"
+// @Failure      500  {object}  gin.H   "Internal Server Error"
+// @Router       /v1/newsletter/subscriber/unsubscribe [get]
+func (c *Controller) deleteSubscription(ctx *gin.Context) <span class="cov0" title="0">{
+        var qp DeleteSubscriptionQP
+        err := ctx.ShouldBindQuery(&amp;qp)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+        <span class="cov0" title="0">emailParsed, err := mail.ParseAddress(qp.Email)
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+                return
+        }</span>
+
+        <span class="cov0" title="0">err = c.deleteSubHan.Execute(ctx, delete_subscription.Command{
+                NewsletterPublicID: qp.NewsletterPublicID,
+                Email:              emailParsed,
+                VerificationCode:   qp.Code,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                ctx.JSON(http.StatusInternalServerError, gin.H{"error": "INTERNAL_SERVER_ERROR"})
+                return
+        }</span>
+
+        <span class="cov0" title="0">ctx.AbortWithStatus(http.StatusOK)</span>
+}
+</pre>
+		
+		<pre class="file" id="file43" style="display: none">package jwt
+
+import (
+        "errors"
+        "strconv"
+        "time"
+
+        "github.com/lestrrat-go/jwx/jwa"
+        jwtgo "github.com/lestrrat-go/jwx/jwt"
+)
+
+var (
+        InvalidTokenErr = errors.New("invalid token")
+)
+
+const ClientIDClaim string = "client_id"
+
+type DecryptToken struct {
+        secret string
+}
+
+func NewDecryptToken(secret string) *DecryptToken <span class="cov1" title="1">{
+        return &amp;DecryptToken{secret: secret}
+}</span>
+
+func (d *DecryptToken) Execute(token string) (int64, error) <span class="cov10" title="2">{
+        s := []byte(d.secret)
+        t, err := jwtgo.ParseString(
+                token,
+                jwtgo.WithValidate(true),
+                jwtgo.WithVerify(jwa.HS256, s),
+                jwtgo.WithAcceptableSkew(time.Second*5),
+        )
+        if err != nil </span><span class="cov0" title="0">{
+                return -1, err
+        }</span>
+
+        <span class="cov10" title="2">clientIDUntyped, ok := t.Get(ClientIDClaim)
+        if !ok </span><span class="cov0" title="0">{
+                return -1, InvalidTokenErr
+        }</span>
+
+        <span class="cov10" title="2">clientIDStr, ok := clientIDUntyped.(string)
+        if !ok </span><span class="cov0" title="0">{
+                return -1, InvalidTokenErr
+        }</span>
+
+        <span class="cov10" title="2">clientID, err := strconv.Atoi(clientIDStr)
+        if err != nil </span><span class="cov0" title="0">{
+                return -1, err
+        }</span>
+
+        <span class="cov10" title="2">return int64(clientID), nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file44" style="display: none">package main
+
+import (
+        "context"
+        "time"
+
+        "github.com/gin-contrib/cors"
+        "github.com/gin-contrib/pprof"
+        "github.com/gin-gonic/gin"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/config"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/setup/postgres"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/setup/prometheus"
+        _ "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/app/swagger"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/infrastructure/pg"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/cmd/internal/ui/http/health"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/firebase"
+        healthcheck "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/health"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/mailjet"
+        pkgGin "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/gin"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/ginprometheus"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/net/http/server"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/pgx"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/shutdown"
+        swaggerFiles "github.com/swaggo/files"
+        ginSwagger "github.com/swaggo/gin-swagger"
+        "github.com/swaggo/swag"
+)
+
+// Swagger API setup:
+// @title STRV Newsletter API
+// @version 2.0
+// @description API provides endpoints for newsletter
+// @contact.name STRV
+func main() <span class="cov0" title="0">{
+        ctx := shutdown.SetupShutdownContext()
+
+        var (
+                appConfig, errAPPConfig           = config.CreateAPPConfig()
+                loggerConfig, errLoggerConfig     = config.CreateLoggerConfig()
+                jwtConfig, errJWTConfig           = config.CreateJWTConfig()
+                pgConfig, errPGConfig             = config.CreatePostgresConfig()
+                firebaseConfig, errFirebaseConfig = config.CreateFirebaseConfig()
+                emailConfig, errEmailConfig       = config.CreateEmailConfig()
+        )
+
+        for _, err := range []error{
+                errAPPConfig,
+                errLoggerConfig,
+                errPGConfig,
+                errJWTConfig,
+                errFirebaseConfig,
+                errEmailConfig,
+        } </span><span class="cov0" title="0">{
+                if err != nil </span><span class="cov0" title="0">{
+                        panic(err)</span>
+                }
+        }
+
+        <span class="cov0" title="0">location, _ := time.LoadLocation(appConfig.Timezone)
+        time.Local = location
+
+        lg := logger.New(logger.ParseLevel(loggerConfig.Level), loggerConfig.DevMode)
+
+        mm := prometheus.NewMetricsOnce(appConfig.AppName)()
+        pc := postgres.EstablishConnection(ctx, pgx.Config{
+                ConnectionURL:     pgConfig.ConnectionURL(),
+                LogLevel:          pgConfig.LogLevel,
+                MaxConnLifetime:   pgConfig.MaxConnLifetime,
+                MaxConnIdleTime:   pgConfig.MaxConnIdleTIme,
+                QueryTimeout:      pgConfig.QueryTimeout,
+                DefaultMaxConns:   pgConfig.MaxConns,
+                DefaultMinConns:   pgConfig.MinConns,
+                HealthCheckPeriod: pgConfig.HealthCheckPeriod,
+        }, lg, mm.Pm)
+
+        fbConn := firebase.NewConnection(
+                ctx,
+                firebase.Config{
+                        DBUrl:      firebaseConfig.DBUrl,
+                        SAKeyEnc:   firebaseConfig.SAKeyEnc,
+                        IsTestMode: firebaseConfig.IsTestingMode,
+                },
+                lg,
+        )
+
+        // Http server
+        lg.Info("Initializing http server...")
+
+        gin.DisableConsoleColor()
+        gin.SetMode(gin.ReleaseMode)
+
+        ge := gin.New()
+        pprof.Register(ge)
+
+        // Register logger middleware
+        ge.Use(
+                cors.New(cors.Config{
+                        AllowOrigins:     appConfig.AllowedOrigins(),
+                        AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+                        AllowCredentials: true,
+                }),
+                pkgGin.LoggerMiddleware(pkgGin.NewLoggerMiddlewareConfig(
+                        []string{"/metrics", "/health/liveness", "/health/readiness", "/status", "/api/*any"},
+                ), lg),
+        )
+
+        // Register prometheus endpoint and request/response metrics
+        ge.GET("/metrics", ginprometheus.Handler())
+        ge.Use(ginprometheus.Measure(ginprometheus.Config{
+                Subsystem: appConfig.AppName,
+                Labels:    []ginprometheus.Label{},
+        }))
+        lg.Info("gin prometheus initialized")
+
+        // TODO: add recovery middleware
+
+        // Initialize Swagger
+        gsc := ginSwagger.Config{
+                URL:                      "doc.json",
+                DocExpansion:             "list",
+                InstanceName:             swag.Name,
+                Title:                    "STRV Newsletter API",
+                DefaultModelsExpandDepth: 2,
+                DeepLinking:              true,
+                PersistAuthorization:     false,
+                Oauth2DefaultClientID:    "",
+        }
+        ge.GET("/api/*any", ginSwagger.CustomWrapHandler(&amp;gsc, swaggerFiles.Handler))
+        lg.Info("swagger initialized")
+
+        // Initialize health check
+        livenessHCh := healthcheck.NewHealthCheck(appConfig.HealthCheckTimeout, lg)
+        livenessHCh.RegisterIndicator(pg.NewHealthIndicator(ctx, pc, lg))
+
+        readinessHCh := healthcheck.NewHealthCheck(appConfig.HealthCheckTimeout, lg)
+
+        hc := health.NewController(readinessHCh, livenessHCh, ge)
+        hc.Register(ge)
+        lg.Info("health check controller initialized")
+
+        mailClient := mailjet.NewEmailClient(lg, mailjet.Config{
+                APIKey:    emailConfig.APIKey,
+                APISecret: emailConfig.APISecret,
+        })
+        internal.RegisterModule(ge, internal.ModuleParams{
+                HashSecret:      appConfig.HashSecret,
+                JWTSecret:       jwtConfig.Secret,
+                EmailSenderAddr: emailConfig.SenderEmailAddrParsed,
+                PGConn:          pc,
+                FirebaseConn:    fbConn,
+                Logger:          lg,
+                MailClient:      mailClient,
+                EmailUnsubURL:   emailConfig.UnsubURL,
+                AppENV:          appConfig.AppEnv,
+        })
+
+        for _, v := range ge.Routes() </span><span class="cov0" title="0">{
+                lg.Info("[HTTP] Route: %s %s initialized.", v.Method, v.Path)
+        }</span>
+        <span class="cov0" title="0">lg.Info("Internal module initialized.")
+        lg.Info("[HTTP] Gin initialized.")
+
+        srv := server.NewServer(ge, appConfig.ReadTimeout, appConfig.WriteTimeout, appConfig.Port, appConfig.ShutdownTimeout)
+        lg.Info("[HTTP] Server initialized.")
+
+        lg.Info("[HTTP] Start listening on port %d.", appConfig.Port)
+        httpErrChan := srv.Run()
+
+        select </span>{
+        case err := &lt;-httpErrChan:<span class="cov0" title="0">
+                lg.Error("http server error, %s", err)
+                shutdown.SignalShutdown()</span>
+        case &lt;-ctx.Done():<span class="cov0" title="0">
+                if err := srv.Shutdown(context.Background()); err != nil </span><span class="cov0" title="0">{
+                        lg.Error("err shutting down http server, error: %v", err)
+                }</span>
+                <span class="cov0" title="0">lg.Info("shutdown signaled")</span>
+        }
+}
+</pre>
+		
+		<pre class="file" id="file45" style="display: none">package helper
+
+import (
+        "context"
+        "fmt"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+)
+
+type BlankLogger struct {
+}
+
+func NewBlankLogger() *BlankLogger <span class="cov1" title="1">{
+        return &amp;BlankLogger{}
+}</span>
+
+func (b *BlankLogger) Trace(_ any, _ ...any) {<span class="cov0" title="0">
+}</span>
+func (b *BlankLogger) Debug(_ any, _ ...any) {<span class="cov0" title="0">
+}</span>
+func (b *BlankLogger) Info(_ any, _ ...any) {<span class="cov0" title="0">
+}</span>
+func (b *BlankLogger) Warn(_ any, _ ...any) {<span class="cov0" title="0">
+}</span>
+func (b *BlankLogger) Error(message any, args ...any) <span class="cov0" title="0">{
+        fmt.Printf("[ERROR_TEST] %s, %v\n", message, args)
+}</span>
+func (b *BlankLogger) Fatal(_ any, _ ...any) {<span class="cov0" title="0">
+}</span>
+func (b *BlankLogger) WithFields(_ []logger.Meta) *logger.ZeroLogger <span class="cov0" title="0">{
+        return nil
+}</span>
+func (b *BlankLogger) WithAPM(_ context.Context) logger.Logger <span class="cov0" title="0">{
+        return NewBlankLogger()
+}</span>
+
+func (b *BlankLogger) TraceWithMetadata(_ string, _ map[string]any) {<span class="cov0" title="0">}</span>
+func (b *BlankLogger) DebugWithMetadata(_ string, _ map[string]any) {<span class="cov0" title="0">}</span>
+func (b *BlankLogger) InfoWithMetadata(_ string, _ map[string]any)  {<span class="cov10" title="8">}</span>
+func (b *BlankLogger) WarnWithMetadata(_ string, _ map[string]any)  {<span class="cov0" title="0">}</span>
+func (b *BlankLogger) ErrorWithMetadata(_ string, _ map[string]any) {<span class="cov0" title="0">}</span>
+func (b *BlankLogger) FatalWithMetadata(_ string, _ map[string]any) {<span class="cov0" title="0">}</span>
+</pre>
+		
+		<pre class="file" id="file46" style="display: none">package helper
+
+func AllowDebug() bool <span class="cov8" title="1">{
+        return false
+}</span>
+</pre>
+		
+		<pre class="file" id="file47" style="display: none">package helper
+
+type DummyMetrics struct {
+}
+
+func NewDummyMetrics() *DummyMetrics <span class="cov1" title="1">{
+        return &amp;DummyMetrics{}
+}</span>
+
+func (m *DummyMetrics) IncQueryCounter(_ ...string) {<span class="cov0" title="0">
+}</span>
+
+func (m *DummyMetrics) ObserveQueryDurationHistogram(_ float64, _ ...string) {<span class="cov0" title="0">
+}</span>
+
+func (m *DummyMetrics) IncDbConnGauge() {<span class="cov10" title="3">
+}</span>
+
+func (m *DummyMetrics) DecDbConnGauge() {<span class="cov0" title="0">
+}</span>
+
+func (m *DummyMetrics) IncTransactionCounter(_ ...string) {<span class="cov0" title="0">
+}</span>
+
+func (m *DummyMetrics) ObserveTransactionDurationHistogram(_ float64, _ ...string) {<span class="cov0" title="0">
+}</span>
+</pre>
+		
+		<pre class="file" id="file48" style="display: none">package helper
+
+import (
+        "time"
+)
+
+type PostgresConfig struct{}
+
+func NewPostgresConfig() *PostgresConfig <span class="cov8" title="1">{
+        return &amp;PostgresConfig{}
+}</span>
+
+func (tpg *PostgresConfig) ConnectionURL() string <span class="cov8" title="1">{
+        connURL := "postgres://postgres:postgres@postgres/strv-newsletter?sslmode=disable"
+        if AllowDebug() </span><span class="cov0" title="0">{
+                connURL = "postgres://postgres:postgres@localhost:54320/strv-newsletter?sslmode=disable"
+        }</span>
+
+        <span class="cov8" title="1">return connURL</span>
+}
+
+func (tpg *PostgresConfig) LogLevel() string <span class="cov0" title="0">{
+        return "debug"
+}</span>
+
+func (tpg *PostgresConfig) MaxConnLifetime() time.Duration <span class="cov8" title="1">{
+        return 10 * time.Second
+}</span>
+
+func (tpg *PostgresConfig) MaxConnIdleTime() time.Duration <span class="cov8" title="1">{
+        return 10 * time.Second
+}</span>
+
+func (tpg *PostgresConfig) DefaultMaxConns() int32 <span class="cov8" title="1">{
+        return 10
+}</span>
+
+func (tpg *PostgresConfig) DefaultMinConns() int32 <span class="cov8" title="1">{
+        return 1
+}</span>
+
+func (tpg *PostgresConfig) HealthCheckPeriod() time.Duration <span class="cov8" title="1">{
+        return 10 * time.Second
+}</span>
+
+func (tpg *PostgresConfig) QueryTimeout() time.Duration <span class="cov8" title="1">{
+        return 5 * time.Second
+}</span>
+
+func (tpg *PostgresConfig) AppName() string <span class="cov0" title="0">{
+        return "testing_app"
+}</span>
+</pre>
+		
+		<pre class="file" id="file49" style="display: none">package firebase
+
+import (
+        "context"
+        "encoding/base64"
+        "fmt"
+        "os"
+
+        firebase "firebase.google.com/go/v4"
+        "firebase.google.com/go/v4/db"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+        "google.golang.org/api/option"
+)
+
+const (
+        TestDBUrl      = "https://strv-newsletter-go-vala-jakub-vala-local.firebaseio.com"
+        FBEmulatorHost = "firebase-emulator:9000/?ns=strv-newsletter-go-vala-jakub-vala-local"
+)
+
+type Connection struct {
+        *db.Client
+
+        lg logger.Logger
+}
+
+type Config struct {
+        DBUrl      string
+        SAKeyEnc   string
+        IsTestMode bool
+}
+
+// NewConnection TODO: add metrics
+func NewConnection(ctx context.Context, cfg Config, lg logger.Logger) *Connection <span class="cov0" title="0">{
+        var app *firebase.App
+
+        if cfg.IsTestMode </span><span class="cov0" title="0">{
+                err := os.Setenv("FIREBASE_DATABASE_EMULATOR_HOST", FBEmulatorHost)
+                if err != nil </span><span class="cov0" title="0">{
+                        lg.Fatal(err)
+                }</span>
+
+                <span class="cov0" title="0">fbCfg := &amp;firebase.Config{
+                        DatabaseURL: TestDBUrl,
+                }
+                app, err = firebase.NewApp(ctx, fbCfg)
+                if err != nil </span><span class="cov0" title="0">{
+                        lg.Fatal(err)
+                }</span>
+        } else<span class="cov0" title="0"> {
+                saKey, err := base64.StdEncoding.DecodeString(cfg.SAKeyEnc)
+                if err != nil </span><span class="cov0" title="0">{
+                        lg.Fatal(err)
+                }</span>
+                <span class="cov0" title="0">opt := option.WithCredentialsJSON(saKey)
+                fbCfg := &amp;firebase.Config{
+                        DatabaseURL: cfg.DBUrl,
+                }
+
+                app, err = firebase.NewApp(ctx, fbCfg, opt)
+                if err != nil </span><span class="cov0" title="0">{
+                        lg.Fatal(err)
+                }</span>
+        }
+
+        <span class="cov0" title="0">client, err := app.Database(ctx)
+        if err != nil </span><span class="cov0" title="0">{
+                lg.Fatal(err)
+        }</span>
+
+        <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                lg.Fatal(err)
+        }</span>
+
+        <span class="cov0" title="0">return &amp;Connection{
+                client,
+                lg,
+        }</span>
+}
+
+func (c *Connection) Create(ctx context.Context, opName, path string, data map[string]any) error <span class="cov0" title="0">{
+        if err := c.NewRef(path).Update(ctx, data); err != nil </span><span class="cov0" title="0">{
+                c.lg.ErrorWithMetadata(
+                        fmt.Sprintf("firebase op `%s` error", opName),
+                        map[string]any{
+                                "error": err.Error(),
+                                "name":  opName,
+                                "path":  path,
+                        },
+                )
+                return err
+        }</span>
+
+        <span class="cov0" title="0">c.lg.InfoWithMetadata(fmt.Sprintf("success operation `%s`", opName), map[string]any{"path": path, "name": opName})
+        return nil</span>
+}
+
+func (c *Connection) Delete(ctx context.Context, opName, path string) error <span class="cov0" title="0">{
+        err := c.NewRef(path).Delete(ctx)
+        if err != nil </span><span class="cov0" title="0">{
+                c.lg.ErrorWithMetadata(
+                        fmt.Sprintf("firebase op `%s` error", opName),
+                        map[string]any{
+                                "error": err.Error(),
+                                "name":  opName,
+                                "path":  path,
+                        },
+                )
+                return err
+        }</span>
+
+        <span class="cov0" title="0">c.lg.InfoWithMetadata(fmt.Sprintf("success operation `%s`", opName), map[string]any{"path": path, "name": opName})
+        return nil</span>
+}
+
+func (c *Connection) GetForData(ctx context.Context, path, opName string, data any) error <span class="cov0" title="0">{
+        if err := c.NewRef(path).Get(ctx, data); err != nil </span><span class="cov0" title="0">{
+                c.lg.ErrorWithMetadata(
+                        fmt.Sprintf("firebase op `%s` error", opName),
+                        map[string]any{
+                                "error": err.Error(),
+                                "name":  opName,
+                                "path":  path,
+                        })
+                return err
+
+        }</span>
+
+        <span class="cov0" title="0">c.lg.InfoWithMetadata(
+                fmt.Sprintf("success operation `%s`", opName),
+                map[string]any{"data": data, "path": path, "name": opName},
+        )
+        return nil</span>
+}
+
+func (c *Connection) Update(ctx context.Context, path, opName string, data map[string]any) error <span class="cov0" title="0">{
+        err := c.NewRef(path).Update(ctx, data)
+        if err != nil </span><span class="cov0" title="0">{
+                c.lg.ErrorWithMetadata(
+                        fmt.Sprintf("firebase op `%s` error", opName),
+                        map[string]any{
+                                "error": err.Error(),
+                                "name":  opName,
+                                "path":  path,
+                        })
+                return err
+        }</span>
+
+        <span class="cov0" title="0">c.lg.InfoWithMetadata(
+                fmt.Sprintf("success operation `%s`", opName),
+                map[string]any{"data": data, "path": path, "name": opName},
+        )
+        return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file50" style="display: none">package health
+
+import (
+        "sync"
+        "time"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+)
+
+type Indicator interface {
+        ComponentName() string
+        Status() Status
+}
+
+type Health struct {
+        Indicators []Indicator
+        timeout    time.Duration
+        logger     logger.Logger
+}
+
+type Result struct {
+        Status     Status             `json:"status" example:"up" enums:"up,down"`
+        Components []*ComponentStatus `json:"components"`
+}
+
+type ComponentStatus struct {
+        ComponentName string `json:"component" example:"main"`
+        Status        Status `json:"status" example:"up" enums:"up,down"`
+}
+
+func NewHealthCheck(timeout time.Duration, logger logger.Logger) *Health <span class="cov7" title="5">{
+        return &amp;Health{
+                Indicators: make([]Indicator, 0),
+                timeout:    timeout,
+                logger:     logger,
+        }
+}</span>
+
+func (h *Health) RegisterIndicator(i Indicator) <span class="cov10" title="9">{
+        h.Indicators = append(h.Indicators, i)
+}</span>
+
+func (h *Health) Handle() *Result <span class="cov7" title="5">{
+        overallStatus := StatusUp
+        componentsStatuses := make([]*ComponentStatus, 0)
+
+        timeoutChan := time.After(h.timeout)
+
+        var wg sync.WaitGroup
+        var lock sync.Mutex
+        var once sync.Once
+
+        for _, i := range h.Indicators </span><span class="cov10" title="9">{
+                wg.Add(1)
+                go func(i Indicator) </span><span class="cov10" title="9">{
+                        defer func() </span><span class="cov9" title="8">{
+                                lock.Unlock()
+                                wg.Done()
+                        }</span>()
+
+                        <span class="cov10" title="9">s := i.Status()
+
+                        if s != StatusUp </span><span class="cov3" title="2">{
+                                once.Do(func() </span><span class="cov3" title="2">{
+                                        overallStatus = StatusDown
+                                }</span>)
+                        }
+
+                        <span class="cov9" title="8">lock.Lock()
+                        componentsStatuses = append(componentsStatuses, &amp;ComponentStatus{
+                                ComponentName: i.ComponentName(),
+                                Status:        s,
+                        })</span>
+                }(i)
+        }
+
+        <span class="cov7" title="5">doneChan := make(chan interface{})
+        go func(wg *sync.WaitGroup) </span><span class="cov7" title="5">{
+                wg.Wait()
+                doneChan &lt;- struct{}{}
+        }</span>(&amp;wg)
+
+        <span class="cov7" title="5">select </span>{
+        case &lt;-doneChan:<span class="cov6" title="4">
+                return &amp;Result{
+                        Status:     overallStatus,
+                        Components: componentsStatuses,
+                }</span>
+        case &lt;-timeoutChan:<span class="cov1" title="1">
+                h.logger.Error("Health check had a timeout after %v!", h.timeout)
+
+                return &amp;Result{
+                        Status:     StatusTimeout,
+                        Components: componentsStatuses,
+                }</span>
+        }
+}
+</pre>
+		
+		<pre class="file" id="file51" style="display: none">package logger
+
+import (
+        "strings"
+
+        "github.com/rs/zerolog"
+)
+
+// Level defines log levels.
+type Level int8
+
+const (
+        // DebugLevel defines debug log level.
+        DebugLevel Level = iota
+        // InfoLevel defines info log level.
+        InfoLevel
+        // WarnLevel defines warn log level.
+        WarnLevel
+        // ErrorLevel defines error log level.
+        ErrorLevel
+        // FatalLevel defines fatal log level.
+        FatalLevel
+
+        // TraceLevel defines trace log level.
+        TraceLevel Level = -1
+        // Values less than TraceLevel are handled as numbers.
+)
+
+const (
+        traceLevelValue = "trace"
+        debugLevelValue = "debug"
+        infoLevelValue  = "info"
+        warnLevelValue  = "warn"
+        errorLevelValue = "error"
+        fatalLevelValue = "fatal"
+)
+
+func (l Level) String() string <span class="cov0" title="0">{
+        switch l </span>{
+        case TraceLevel:<span class="cov0" title="0">
+                return traceLevelValue</span>
+        case DebugLevel:<span class="cov0" title="0">
+                return debugLevelValue</span>
+        case WarnLevel:<span class="cov0" title="0">
+                return warnLevelValue</span>
+        case ErrorLevel:<span class="cov0" title="0">
+                return errorLevelValue</span>
+        case FatalLevel:<span class="cov0" title="0">
+                return fatalLevelValue</span>
+        default:<span class="cov0" title="0">
+                return infoLevelValue</span>
+        }
+}
+
+// ParseLevel will parse a string to the Level with InfoLevel as default and safe fallback value
+func ParseLevel(level string) Level <span class="cov10" title="5">{
+        var l Level
+
+        switch strings.ToLower(level) </span>{
+        case fatalLevelValue:<span class="cov0" title="0">
+                l = FatalLevel</span>
+        case errorLevelValue:<span class="cov0" title="0">
+                l = ErrorLevel</span>
+        case warnLevelValue:<span class="cov0" title="0">
+                l = WarnLevel</span>
+        case infoLevelValue:<span class="cov0" title="0">
+                l = InfoLevel</span>
+        case debugLevelValue:<span class="cov10" title="5">
+                l = DebugLevel</span>
+        case traceLevelValue:<span class="cov0" title="0">
+                l = TraceLevel</span>
+        default:<span class="cov0" title="0">
+                l = InfoLevel</span>
+        }
+        <span class="cov10" title="5">return l</span>
+}
+
+func (l *ZeroLogger) GetLevel() Level <span class="cov0" title="0">{
+        return Level(zerolog.GlobalLevel())
+}</span>
+
+func (l *ZeroLogger) SetLevel(lvl Level) <span class="cov0" title="0">{
+        zerolog.SetGlobalLevel(zerolog.Level(lvl))
+}</span>
+</pre>
+		
+		<pre class="file" id="file52" style="display: none">package logger
+
+import (
+        "fmt"
+        "io"
+        "os"
+        "sync"
+        "time"
+
+        "github.com/rs/zerolog"
+)
+
+const (
+        timestampFieldName = "@timestamp"
+        timeFieldFormat    = time.RFC3339Nano
+)
+
+var once sync.Once
+
+type Logger interface {
+        Trace(message any, args ...any)
+        Debug(message any, args ...any)
+        Info(message any, args ...any)
+        Warn(message any, args ...any)
+        Error(message any, args ...any)
+        Fatal(message any, args ...any)
+        WithFields(meta []Meta) *ZeroLogger
+        DebugWithMetadata(message string, metadata map[string]any)
+        InfoWithMetadata(message string, metadata map[string]any)
+        WarnWithMetadata(message string, metadata map[string]any)
+        ErrorWithMetadata(message string, metadata map[string]any)
+        FatalWithMetadata(message string, metadata map[string]any)
+}
+
+type ZeroLogger struct {
+        logger          *zerolog.Logger
+        writers         []io.Writer
+        developmentMode bool
+}
+
+var (
+        _ Logger = (*ZeroLogger)(nil)
+)
+
+func New(lvl Level, develFlag bool, additionalWriters ...io.Writer) *ZeroLogger <span class="cov10" title="5">{
+        var multiWriter zerolog.LevelWriter
+        var writers []io.Writer
+
+        writers = additionalWriters
+
+        var consoleWriter zerolog.ConsoleWriter
+        if develFlag </span><span class="cov0" title="0">{
+                consoleWriter = zerolog.ConsoleWriter{Out: os.Stdout, NoColor: false, TimeFormat: "15:04:05"}
+                writers = append(writers, consoleWriter)
+        }</span> else<span class="cov10" title="5"> {
+                writers = append(writers, os.Stdout)
+        }</span>
+
+        <span class="cov10" title="5">zerolog.SetGlobalLevel(zerolog.Level(lvl))
+
+        multiWriter = zerolog.MultiLevelWriter(writers...)
+        innerLog := zerolog.New(multiWriter).With().Timestamp().Logger().Level(zerolog.TraceLevel)
+
+        zerolog.TimestampFieldName = timestampFieldName
+        zerolog.TimeFieldFormat = timeFieldFormat
+
+        return &amp;ZeroLogger{
+                logger:          &amp;innerLog,
+                writers:         writers,
+                developmentMode: develFlag,
+        }</span>
+}
+
+func (l *ZeroLogger) Trace(message any, args ...any) <span class="cov0" title="0">{
+        l.msg(TraceLevel, message, args...)
+}</span>
+
+func (l *ZeroLogger) Debug(message any, args ...any) <span class="cov0" title="0">{
+        l.msg(DebugLevel, message, args...)
+}</span>
+
+func (l *ZeroLogger) Info(message any, args ...any) <span class="cov0" title="0">{
+        l.msg(InfoLevel, message, args...)
+}</span>
+
+func (l *ZeroLogger) Warn(message any, args ...any) <span class="cov0" title="0">{
+        l.msg(WarnLevel, message, args...)
+}</span>
+
+func (l *ZeroLogger) Error(message any, args ...any) <span class="cov1" title="1">{
+        l.msg(ErrorLevel, message, args...)
+}</span>
+
+func (l *ZeroLogger) Fatal(message any, args ...any) <span class="cov0" title="0">{
+        l.msg(FatalLevel, message, args...)
+        os.Exit(1)
+}</span>
+
+func (l *ZeroLogger) DebugWithMetadata(message string, metadata map[string]any) <span class="cov0" title="0">{
+        l.logWithMetadata(zerolog.DebugLevel, message, metadata)
+}</span>
+
+func (l *ZeroLogger) InfoWithMetadata(message string, metadata map[string]any) <span class="cov0" title="0">{
+        l.logWithMetadata(zerolog.InfoLevel, message, metadata)
+}</span>
+
+func (l *ZeroLogger) WarnWithMetadata(message string, metadata map[string]any) <span class="cov0" title="0">{
+        l.logWithMetadata(zerolog.WarnLevel, message, metadata)
+}</span>
+
+func (l *ZeroLogger) ErrorWithMetadata(message string, metadata map[string]any) <span class="cov0" title="0">{
+        l.logWithMetadata(zerolog.ErrorLevel, message, metadata)
+}</span>
+
+func (l *ZeroLogger) FatalWithMetadata(message string, metadata map[string]any) <span class="cov0" title="0">{
+        l.logWithMetadata(zerolog.FatalLevel, message, metadata)
+}</span>
+
+func (l *ZeroLogger) IsDevelopmentMode() bool <span class="cov0" title="0">{
+        return l.developmentMode
+}</span>
+
+func (l *ZeroLogger) getEventAtLevel(level Level) *zerolog.Event <span class="cov1" title="1">{
+        var e *zerolog.Event
+
+        switch level </span>{
+        case FatalLevel:<span class="cov0" title="0">
+                e = l.logger.Fatal()</span>
+        case ErrorLevel:<span class="cov1" title="1">
+                e = l.logger.Error()</span>
+        case WarnLevel:<span class="cov0" title="0">
+                e = l.logger.Warn()</span>
+        case DebugLevel:<span class="cov0" title="0">
+                e = l.logger.Debug()</span>
+        case TraceLevel:<span class="cov0" title="0">
+                e = l.logger.Trace()</span>
+        default:<span class="cov0" title="0"> // default covers the info level
+                e = l.logger.Info()</span>
+        }
+
+        <span class="cov1" title="1">return e</span>
+}
+
+func (l *ZeroLogger) log(level Level, message string, args ...any) <span class="cov1" title="1">{
+        if len(args) == 0 </span><span class="cov0" title="0">{
+                l.getEventAtLevel(level).Msg(message)
+                return
+        }</span>
+
+        <span class="cov1" title="1">l.getEventAtLevel(level).Msgf(message, args...)</span>
+}
+
+func (l *ZeroLogger) msg(level Level, message any, args ...any) <span class="cov1" title="1">{
+        switch msgType := message.(type) </span>{
+        case error:<span class="cov0" title="0">
+                l.log(level, msgType.Error(), args...)</span>
+        case string:<span class="cov1" title="1">
+                l.log(level, msgType, args...)</span>
+        default:<span class="cov0" title="0">
+                if len(args) == 0 </span><span class="cov0" title="0">{
+                        l.log(level, fmt.Sprintf("%v", message))
+                        return
+                }</span>
+                <span class="cov0" title="0">l.log(level, fmt.Sprintf("%v %v", message, args))</span>
+        }
+}
+</pre>
+		
+		<pre class="file" id="file53" style="display: none">package logger
+
+import (
+        "github.com/rs/zerolog"
+)
+
+const (
+        uuidField    = "uuid"
+        packageField = "package"
+        funcField    = "func"
+)
+
+func (l *ZeroLogger) WithUUID(uuid string) *ZeroLogger <span class="cov0" title="0">{
+        return l.WithField(uuidField, uuid)
+}</span>
+
+func (l *ZeroLogger) WithFuncName(funcName string) *ZeroLogger <span class="cov0" title="0">{
+        return l.WithField(funcField, funcName)
+}</span>
+
+func (l *ZeroLogger) WithPackage(text string) *ZeroLogger <span class="cov0" title="0">{
+        return l.WithField(packageField, text)
+}</span>
+
+type Meta struct {
+        key, val string
+}
+
+func NewMeta(key, val string) Meta <span class="cov0" title="0">{
+        return Meta{key: key, val: val}
+}</span>
+
+func (l *ZeroLogger) WithField(key, val string) *ZeroLogger <span class="cov0" title="0">{
+        out := l.logger.With().Str(key, val).Logger().Level(l.logger.GetLevel())
+
+        return &amp;ZeroLogger{
+                logger:          &amp;out,
+                writers:         l.writers,
+                developmentMode: l.developmentMode,
+        }
+}</span>
+
+func (l *ZeroLogger) WithFields(meta []Meta) *ZeroLogger <span class="cov0" title="0">{
+        if len(meta) == 0 </span><span class="cov0" title="0">{
+                return l
+        }</span>
+
+        <span class="cov0" title="0">lCtx := l.logger.With()
+        for _, m := range meta </span><span class="cov0" title="0">{
+                lCtx = lCtx.Str(m.key, m.val)
+        }</span>
+
+        <span class="cov0" title="0">out := lCtx.Logger()
+
+        return &amp;ZeroLogger{
+                logger:          &amp;out,
+                writers:         l.writers,
+                developmentMode: l.developmentMode,
+        }</span>
+}
+
+func (l *ZeroLogger) logWithMetadata(severity zerolog.Level, message string, metadata map[string]any) <span class="cov0" title="0">{
+        event := l.logger.WithLevel(severity)
+        flatten("", metadata, func(key string, value any) </span><span class="cov0" title="0">{
+                event = event.Interface(key, value)
+        }</span>)
+        <span class="cov0" title="0">event.Msg(message)</span>
+}
+
+func flatten(prefix string, metadata map[string]any, visit func(key string, value any)) <span class="cov0" title="0">{
+        for k, v := range metadata </span><span class="cov0" title="0">{
+                if nested, ok := v.(map[string]any); ok </span><span class="cov0" title="0">{
+                        flatten(prefix+k+".", nested, visit)
+                }</span> else<span class="cov0" title="0"> {
+                        visit(prefix+k, v)
+                }</span>
+        }
+}
+</pre>
+		
+		<pre class="file" id="file54" style="display: none">package mailjet
+
+import (
+        "context"
+        "fmt"
+        "net/mail"
+        "time"
+
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+        "github.com/mailjet/mailjet-apiv3-go/v4"
+)
+
+type EmailClient struct {
+        apiKey    string
+        apiSecret string
+        lg        logger.Logger
+}
+
+type Config struct {
+        APIKey    string
+        APISecret string
+}
+
+func NewEmailClient(lg logger.Logger, config Config) *EmailClient <span class="cov0" title="0">{
+        return &amp;EmailClient{
+                apiKey:    config.APIKey,
+                apiSecret: config.APISecret,
+                lg:        lg,
+        }
+}</span>
+
+type Recipient struct {
+        Email *mail.Address
+        Name  string
+}
+
+type Sender struct {
+        Email *mail.Address
+        Name  string
+}
+
+type SendEmailParams struct {
+        Recipient Recipient
+        Sender    Sender
+        Subject   string
+        Text      string
+        HTML      string
+}
+
+func (e *EmailClient) Send(ctx context.Context, p SendEmailParams) error <span class="cov0" title="0">{
+        ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+        defer cancel()
+
+        mailjetClient := mailjet.NewMailjetClient(e.apiKey, e.apiSecret)
+        messagesInfo := []mailjet.InfoMessagesV31{
+                {
+                        From: &amp;mailjet.RecipientV31{
+                                Email: p.Sender.Email.String(),
+                                Name:  p.Sender.Name,
+                        },
+                        To: &amp;mailjet.RecipientsV31{
+                                mailjet.RecipientV31{
+                                        Email: p.Recipient.Email.String(),
+                                        Name:  p.Recipient.Name,
+                                },
+                        },
+                        Subject:  p.Subject,
+                        TextPart: p.Text,
+                        HTMLPart: p.HTML,
+                },
+        }
+        messages := mailjet.MessagesV31{Info: messagesInfo}
+        res, err := mailjetClient.SendMailV31(&amp;messages)
+        if err != nil </span><span class="cov0" title="0">{
+                e.lg.ErrorWithMetadata("email sending failed", map[string]any{
+                        "recipient": p.Recipient.Email.String(),
+                        "subject":   p.Subject,
+                        "sender":    p.Sender.Email.String(),
+                        "text":      p.Text,
+                        "error":     err.Error(),
+                })
+                return err
+        }</span>
+
+        <span class="cov0" title="0">e.lg.InfoWithMetadata("email sent", map[string]any{
+                "recipient": p.Recipient.Email.String(),
+                "subject":   p.Subject,
+                "sender":    p.Sender.Email.String(),
+                "text":      p.Text,
+                "response":  fmt.Sprintf("%+v", res),
+        })
+        return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file55" style="display: none">package gin
+
+import (
+        "bytes"
+        "encoding/json"
+        "fmt"
+        "io"
+
+        ginpkg "github.com/gin-gonic/gin"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+        "github.com/rs/zerolog/log"
+)
+
+type RequestResponseLog struct {
+        Request  *Request  `json:"request"`
+        Response *Response `json:"response"`
+        Message  string    `json:"message"`
+}
+
+type Request struct {
+        Method     string          `json:"method"`
+        URI        string          `json:"uri"`
+        Body       json.RawMessage `json:"body"`
+        RemoteAddr string          `json:"remote_addr"`
+        UserAgent  string          `json:"user_agent"`
+}
+
+type Response struct {
+        Status int             `json:"status"`
+        Body   json.RawMessage `json:"body"`
+}
+
+type bodyWriter struct {
+        ginpkg.ResponseWriter
+        bodyBuf *bytes.Buffer
+}
+
+func (w *bodyWriter) Write(b []byte) (int, error) <span class="cov0" title="0">{
+        w.bodyBuf.Write(b)
+        return w.ResponseWriter.Write(b)
+}</span>
+
+type LoggerMiddlewareConfig struct {
+        ignoredPaths map[string]bool
+}
+
+func NewLoggerMiddlewareConfig(
+        ignoredPaths []string,
+) *LoggerMiddlewareConfig <span class="cov0" title="0">{
+        l := &amp;LoggerMiddlewareConfig{
+                ignoredPaths: map[string]bool{},
+        }
+
+        for _, p := range ignoredPaths </span><span class="cov0" title="0">{
+                l.ignoredPaths[p] = true
+        }</span>
+
+        <span class="cov0" title="0">return l</span>
+}
+
+func LoggerMiddleware(config *LoggerMiddlewareConfig, lg logger.Logger) ginpkg.HandlerFunc <span class="cov0" title="0">{
+        return func(c *ginpkg.Context) </span><span class="cov0" title="0">{
+                var requestBodyBytes []byte
+                var requestBodyBytesLogging *bytes.Buffer
+                var responseBodyWriter *bodyWriter
+
+                if _, ok := config.ignoredPaths[c.FullPath()]; ok </span><span class="cov0" title="0">{
+                        c.Next()
+                        return
+                }</span>
+
+                <span class="cov0" title="0">if c.Request.Body != nil </span><span class="cov0" title="0">{
+                        requestBodyBytes, _ = io.ReadAll(c.Request.Body)
+                        requestBodyBytesLogging = bytes.NewBuffer(requestBodyBytes)
+                }</span>
+
+                <span class="cov0" title="0">c.Request.Body = io.NopCloser(bytes.NewBuffer(requestBodyBytes))
+
+                responseBodyWriter = &amp;bodyWriter{
+                        bodyBuf:        bytes.NewBufferString(""),
+                        ResponseWriter: c.Writer}
+                c.Writer = responseBodyWriter
+
+                c.Next()
+
+                var requestBody map[string]any
+                if requestBodyBytesLogging != nil &amp;&amp; requestBodyBytesLogging.Len() &gt; 0 </span><span class="cov0" title="0">{
+                        if err := json.Unmarshal(requestBodyBytesLogging.Bytes(), &amp;requestBody); err != nil </span><span class="cov0" title="0">{
+                                log.Error().Msg(fmt.Sprintf("middleware.logger: error unmarshalling request body: %s", err))
+                        }</span>
+                }
+                <span class="cov0" title="0">requestMapMetadata := map[string]any{
+                        "method":      c.Request.Method,
+                        "uri":         c.Request.RequestURI,
+                        "body":        requestBody,
+                        "remote_addr": c.Request.RemoteAddr,
+                        "user_agent":  c.Request.UserAgent(),
+                }
+                var responseBody map[string]any
+                if len(responseBodyWriter.bodyBuf.Bytes()) &gt; 0 </span><span class="cov0" title="0">{
+                        if err := json.Unmarshal(responseBodyWriter.bodyBuf.Bytes(), &amp;responseBody); err != nil </span><span class="cov0" title="0">{
+                                log.Error().Msg(fmt.Sprintf("middleware.logger: error unmarshalling response body: %s", err))
+                        }</span>
+                }
+                <span class="cov0" title="0">responseMapMetadata := map[string]any{
+                        "status": c.Writer.Status(),
+                        "body":   responseBody,
+                }
+                lg.InfoWithMetadata("HTTP Request / Response", map[string]any{
+                        "request":  requestMapMetadata,
+                        "response": responseMapMetadata,
+                })</span>
+        }
+}
+</pre>
+		
+		<pre class="file" id="file56" style="display: none">package ginprometheus
+
+import (
+        "io"
+        "net/http"
+        "strconv"
+        "time"
+
+        "github.com/gin-gonic/gin"
+        "github.com/prometheus/client_golang/prometheus"
+)
+
+const (
+        LabelURL        = "url"
+        LabelMethod     = "method"
+        LabelStatusCode = "code"
+)
+
+var defaultLabels = []Label{
+        {LabelURL, getURLForLabel},
+        {LabelMethod, getMethodForLabel},
+        {LabelStatusCode, getStatusForLabel},
+}
+
+var defaultRequestDurationBuckets = []float64{0.05, 0.1, 0.2, 0.4, 0.6, 1.0, 1.5, 2.0}
+
+func getStatusForLabel(c *gin.Context) string <span class="cov0" title="0">{
+        return strconv.Itoa(c.Writer.Status())
+}</span>
+
+func getURLForLabel(c *gin.Context) string <span class="cov0" title="0">{
+        return c.FullPath()
+}</span>
+
+func getMethodForLabel(c *gin.Context) string <span class="cov0" title="0">{
+        // we filter only standard methods to prevent
+        // metrics cardinality explosion
+        switch c.Request.Method </span>{
+        case http.MethodGet:<span class="cov0" title="0"></span>
+        case http.MethodHead:<span class="cov0" title="0"></span>
+        case http.MethodPost:<span class="cov0" title="0"></span>
+        case http.MethodPut:<span class="cov0" title="0"></span>
+        case http.MethodPatch:<span class="cov0" title="0"></span>
+        case http.MethodDelete:<span class="cov0" title="0"></span>
+        case http.MethodConnect:<span class="cov0" title="0"></span>
+        case http.MethodOptions:<span class="cov0" title="0"></span>
+        case http.MethodTrace:<span class="cov0" title="0"></span>
+        default:<span class="cov0" title="0">
+                return "other"</span>
+        }
+
+        <span class="cov0" title="0">return c.Request.Method</span>
+}
+
+type CustomLabelFunc func(c *gin.Context) string
+
+type Label struct {
+        Name string
+        Func CustomLabelFunc
+}
+
+type Config struct {
+        Namespace string
+        Subsystem string
+        Labels    []Label
+
+        RequestDurationHistogramBuckets []float64
+        RequestSizeSummaryObjectvies    map[float64]float64
+        ResponseSizeSummaryObjectvies   map[float64]float64
+}
+
+type metricsHandler struct {
+        Config
+
+        labelFuncs []CustomLabelFunc
+
+        reqCount           *prometheus.CounterVec
+        reqDurationSeconds *prometheus.HistogramVec
+        reqSize            *prometheus.SummaryVec
+        respSize           *prometheus.SummaryVec
+}
+
+func buildLabels(labels ...Label) ([]string, []CustomLabelFunc) <span class="cov0" title="0">{
+        labelPosition := make(map[string]int)
+        labelNames := make([]string, 0, len(labels))
+        labelFuncs := make([]CustomLabelFunc, 0, len(labels))
+
+        for _, l := range labels </span><span class="cov0" title="0">{
+                if pos, ok := labelPosition[l.Name]; ok </span><span class="cov0" title="0">{
+                        labelFuncs[pos] = l.Func
+                        continue</span>
+                }
+
+                <span class="cov0" title="0">labelNames = append(labelNames, l.Name)
+                labelFuncs = append(labelFuncs, l.Func)
+                labelPosition[l.Name] = len(labelFuncs) - 1</span>
+        }
+
+        <span class="cov0" title="0">return labelNames, labelFuncs</span>
+}
+
+func concatLabels(labelSlices ...[]Label) []Label <span class="cov0" title="0">{
+        size := 0
+        for _, l := range labelSlices </span><span class="cov0" title="0">{
+                size += len(l)
+        }</span>
+
+        <span class="cov0" title="0">labels := make([]Label, 0, size)
+
+        for _, l := range labelSlices </span><span class="cov0" title="0">{
+                labels = append(labels, l...)
+        }</span>
+
+        <span class="cov0" title="0">return labels</span>
+}
+
+func Measure(config Config) gin.HandlerFunc <span class="cov0" title="0">{
+        return MeasureWith(prometheus.DefaultRegisterer, config)
+}</span>
+
+func MeasureWith(r prometheus.Registerer, config Config) gin.HandlerFunc <span class="cov0" title="0">{
+        m := &amp;metricsHandler{
+                Config: config,
+        }
+        labels := concatLabels(defaultLabels, m.Labels)
+        labelNames, labelFuncs := buildLabels(labels...)
+        m.labelFuncs = labelFuncs
+
+        m.reqCount = prometheus.NewCounterVec(
+                prometheus.CounterOpts{
+                        Namespace: m.Namespace,
+                        Subsystem: m.Subsystem,
+                        Name:      "requests_total",
+                        Help:      "Total number of requests",
+                },
+                labelNames,
+        )
+        reqDurationBuckets := m.RequestDurationHistogramBuckets
+        if reqDurationBuckets == nil </span><span class="cov0" title="0">{
+                reqDurationBuckets = defaultRequestDurationBuckets
+        }</span>
+        <span class="cov0" title="0">m.reqDurationSeconds = prometheus.NewHistogramVec(
+                prometheus.HistogramOpts{
+                        Namespace: m.Namespace,
+                        Subsystem: m.Subsystem,
+                        Name:      "request_duration_seconds",
+                        Help:      "Duration of HTTP handler exection",
+
+                        Buckets: reqDurationBuckets,
+                },
+                labelNames,
+        )
+        m.reqSize = prometheus.NewSummaryVec(
+                prometheus.SummaryOpts{
+                        Namespace: m.Namespace,
+                        Subsystem: m.Subsystem,
+                        Name:      "request_size_bytes",
+                        Help:      "Estimated number of bytes processed by HTTP handler",
+
+                        Objectives: m.RequestSizeSummaryObjectvies,
+                },
+                labelNames,
+        )
+        m.respSize = prometheus.NewSummaryVec(
+                prometheus.SummaryOpts{
+                        Namespace: m.Namespace,
+                        Subsystem: m.Subsystem,
+                        Name:      "response_size_bytes",
+                        Help:      "Size of HTTP response body returned to the client",
+
+                        Objectives: m.ResponseSizeSummaryObjectvies,
+                },
+                labelNames,
+        )
+
+        metrics := []prometheus.Collector{
+                m.reqCount,
+                m.reqDurationSeconds,
+                m.reqSize,
+                m.respSize,
+        }
+        for _, m := range metrics </span><span class="cov0" title="0">{
+                r.MustRegister(m)
+        }</span>
+
+        <span class="cov0" title="0">return m.record</span>
+}
+
+func (m *metricsHandler) record(c *gin.Context) <span class="cov0" title="0">{
+        requestStart := time.Now()
+
+        requestBodySize, ok := getRequestStaticBodySize(c.Request)
+        var requestBodySizeCounter *countingReader
+        if !ok </span><span class="cov0" title="0">{
+                requestBodySizeCounter = &amp;countingReader{
+                        r: c.Request.Body,
+                }
+                c.Request.Body = requestBodySizeCounter
+        }</span>
+
+        <span class="cov0" title="0">c.Next()
+
+        if requestBodySizeCounter != nil </span><span class="cov0" title="0">{
+                requestBodySize = requestBodySizeCounter.Count
+        }</span>
+
+        <span class="cov0" title="0">requestSize := estimateRequestSize(c.Request, requestBodySize)
+        requestDurationSeconds := time.Since(requestStart).Seconds()
+
+        responseSize := c.Writer.Size()
+        if responseSize &lt; 0 </span><span class="cov0" title="0">{
+                responseSize = 0
+        }</span>
+
+        <span class="cov0" title="0">labels := make([]string, len(m.labelFuncs))
+        for i, labelFn := range m.labelFuncs </span><span class="cov0" title="0">{
+                labels[i] = labelFn(c)
+        }</span>
+
+        <span class="cov0" title="0">m.reqDurationSeconds.WithLabelValues(labels...).Observe(requestDurationSeconds)
+        m.reqCount.WithLabelValues(labels...).Inc()
+        m.reqSize.WithLabelValues(labels...).Observe(float64(requestSize))
+        m.respSize.WithLabelValues(labels...).Observe(float64(responseSize))</span>
+}
+
+func getRequestStaticBodySize(req *http.Request) (n int64, ok bool) <span class="cov0" title="0">{
+        if req.ContentLength &gt;= 0 </span><span class="cov0" title="0">{
+                return req.ContentLength, true
+        }</span>
+        <span class="cov0" title="0">return -1, false</span>
+}
+
+func estimateRequestSize(r *http.Request, bodySize int64) int64 <span class="cov0" title="0">{
+        s := 0
+
+        s += len(r.Method)
+
+        s += len(r.Proto)
+
+        for name, values := range r.Header </span><span class="cov0" title="0">{
+                s += len(name)
+                for _, v := range values </span><span class="cov0" title="0">{
+                        s += len(v)
+                }</span>
+        }
+
+        <span class="cov0" title="0">s += len(r.URL.RawPath)
+        s += len(r.URL.RawQuery)
+
+        return int64(s) + bodySize</span>
+}
+
+type countingReader struct {
+        r     io.Reader
+        Count int64
+}
+
+func (cr *countingReader) Read(buf []byte) (n int, err error) <span class="cov0" title="0">{
+        n, err = cr.r.Read(buf)
+        cr.Count += int64(n)
+        return
+}</span>
+
+func (cr *countingReader) Close() error <span class="cov0" title="0">{
+        switch r := cr.r.(type) </span>{
+        case io.ReadCloser:<span class="cov0" title="0">
+                return r.Close()</span>
+        }
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file57" style="display: none">package ginprometheus
+
+import (
+        "github.com/gin-gonic/gin"
+        "github.com/prometheus/client_golang/prometheus"
+        "github.com/prometheus/client_golang/prometheus/promhttp"
+)
+
+// Handler @Summary Prometheus metrics
+// @Description Expose Prometheus metrics
+// @Tags Metrics
+// @Produce text/plain
+// @Success 200 {string} string "Prometheus metrics"
+// @Router /metrics [get]
+func Handler() gin.HandlerFunc <span class="cov0" title="0">{
+        return HandlerFor(prometheus.DefaultGatherer)
+}</span>
+
+func HandlerFor(g prometheus.Gatherer) gin.HandlerFunc <span class="cov0" title="0">{
+        return gin.WrapH(promhttp.HandlerFor(g, promhttp.HandlerOpts{}))
+}</span>
+</pre>
+		
+		<pre class="file" id="file58" style="display: none">package server
+
+import (
+        "context"
+        "net/http"
+        "strconv"
+        "time"
+)
+
+type Server struct {
+        hs              *http.Server
+        errChan         chan error
+        shutdownTimeout time.Duration
+}
+
+func NewServer(
+        handler http.Handler,
+        rt time.Duration,
+        wt time.Duration,
+        port int32,
+        st time.Duration,
+) *Server <span class="cov0" title="0">{
+        hs := http.Server{
+                Handler:      handler,
+                ReadTimeout:  rt,
+                WriteTimeout: wt,
+                Addr:         ":" + strconv.Itoa(int(port)),
+        }
+
+        s := Server{
+                hs:              &amp;hs,
+                errChan:         make(chan error),
+                shutdownTimeout: st,
+        }
+
+        return &amp;s
+}</span>
+
+func (s *Server) Run() &lt;-chan error <span class="cov0" title="0">{
+        go func() </span><span class="cov0" title="0">{
+                defer close(s.errChan)
+                s.errChan &lt;- s.hs.ListenAndServe()
+        }</span>()
+
+        <span class="cov0" title="0">return s.errChan</span>
+}
+
+func (s *Server) Shutdown(ctx context.Context) error <span class="cov0" title="0">{
+        ctx, cancel := context.WithTimeout(ctx, s.shutdownTimeout)
+        defer cancel()
+
+        return s.hs.Shutdown(ctx)
+}</span>
+
+func (s *Server) Addr() string <span class="cov0" title="0">{
+        return s.hs.Addr
+}</span>
+</pre>
+		
+		<pre class="file" id="file59" style="display: none">package pgx
+
+import (
+        "context"
+        "errors"
+        "fmt"
+        "time"
+
+        "github.com/jackc/pgx/v5"
+        "github.com/jackc/pgx/v5/pgxpool"
+        "github.com/jamm3e3333/strv-go-newsletter-vala-jakub/pkg/logger"
+)
+
+type NamedArgs = pgx.NamedArgs
+
+var ErrNoRows = pgx.ErrNoRows
+
+type TxOptions struct {
+        IsoLevel       TxIsoLevel
+        AccessMode     TxAccessMode
+        DeferrableMode TxDeferrableMode
+
+        // BeginQuery is for custom tx options
+        BeginQuery string
+}
+
+type TxIsoLevel = string
+
+const (
+        Serializable    TxIsoLevel = "serializable"
+        RepeatableRead  TxIsoLevel = "repeatable read"
+        ReadCommitted   TxIsoLevel = "read committed"
+        ReadUncommitted TxIsoLevel = "read uncommitted"
+)
+
+type TxAccessMode string
+
+const (
+        ReadWrite TxAccessMode = "read write"
+        ReadOnly  TxAccessMode = "read only"
+)
+
+type TxDeferrableMode string
+
+const (
+        Deferrable    TxDeferrableMode = "deferrable"
+        NotDeferrable TxDeferrableMode = "not deferrable"
+)
+
+const (
+        queryError          = "error"
+        querySuccess        = "success"
+        transactionCommit   = "commit"
+        transactionRollback = "rollback"
+)
+
+type ConnectionPool struct {
+        pool         *pgxpool.Pool
+        metrics      MonitoringMetrics
+        log          logger.Logger
+        queryTimeout time.Duration
+}
+
+type RegisterMetricsOptions struct {
+        Qm QueryMetrics
+        Tm TransactionMetrics
+}
+
+func (c *ConnectionPool) RegisterMetrics(rmo RegisterMetricsOptions) <span class="cov0" title="0">{
+        if rmo.Qm != nil </span><span class="cov0" title="0">{
+                c.metrics.qm = rmo.Qm
+        }</span>
+
+        <span class="cov0" title="0">if rmo.Tm != nil </span><span class="cov0" title="0">{
+                c.metrics.tm = rmo.Tm
+        }</span>
+}
+
+func afterConnWithMet(cm ConnectionMetrics) func(ctx context.Context, connCfg *pgx.Conn) error <span class="cov1" title="1">{
+        return func(ctx context.Context, connCfg *pgx.Conn) error </span><span class="cov7" title="3">{
+                cm.IncDbConnGauge()
+                return nil
+        }</span>
+}
+
+func beforeCloseWithMet(cm ConnectionMetrics) func(*pgx.Conn) <span class="cov1" title="1">{
+        return func(*pgx.Conn) </span><span class="cov0" title="0">{
+                cm.DecDbConnGauge()
+        }</span>
+}
+
+func NewConnectionPool(
+        ctx context.Context,
+        cfg Config,
+        log logger.Logger,
+        cm ConnectionMetrics,
+) (*ConnectionPool, error) <span class="cov1" title="1">{
+        connConfig, err := pgx.ParseConfig(cfg.ConnectionURL)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("conn ParseConfig %s : %v", cfg.ConnectionURL, err)
+        }</span>
+
+        <span class="cov1" title="1">connConfig.DefaultQueryExecMode = pgx.QueryExecModeCacheStatement
+
+        poolCfg, err := pgxpool.ParseConfig(cfg.ConnectionURL)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("conn pool ParseConfig %s : %v", cfg.ConnectionURL, err)
+        }</span>
+        <span class="cov1" title="1">poolCfg.ConnConfig = connConfig
+        poolCfg.MaxConnLifetime = cfg.MaxConnLifetime
+        poolCfg.MaxConnIdleTime = cfg.MaxConnIdleTime
+        poolCfg.MaxConns = cfg.DefaultMaxConns
+        poolCfg.MinConns = cfg.DefaultMinConns
+        poolCfg.HealthCheckPeriod = cfg.HealthCheckPeriod
+
+        poolCfg.AfterConnect = afterConnWithMet(cm)
+        poolCfg.BeforeClose = beforeCloseWithMet(cm)
+
+        connPool, err := pgxpool.NewWithConfig(ctx, poolCfg)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("unable to connect to database %s : %v", cfg.ConnectionURL, err)
+        }</span>
+
+        <span class="cov1" title="1">c := ConnectionPool{
+                pool:         connPool,
+                log:          log,
+                queryTimeout: cfg.QueryTimeout,
+        }
+
+        return &amp;c, nil</span>
+}
+
+func (c *ConnectionPool) WithTransaction(ctx context.Context, name string, txOptions TxOptions, f func(tx ConnectionTx) error) (context.CancelFunc, error) <span class="cov0" title="0">{
+        start := time.Now()
+
+        ctx, cancel := context.WithTimeout(ctx, c.queryTimeout)
+        tx, err := c.pool.BeginTx(ctx, pgx.TxOptions{})
+
+        if err != nil </span><span class="cov0" title="0">{
+                c.log.ErrorWithMetadata("unable to start transaction", map[string]any{
+                        "error": err.Error(),
+                        "name":  name,
+                })
+                return cancel, err
+        }</span>
+
+        <span class="cov0" title="0">tErr := f(&amp;Transaction{
+                tx: &amp;tx,
+                c:  c,
+        })
+
+        if tErr != nil </span><span class="cov0" title="0">{
+                if c.metrics.tm != nil </span><span class="cov0" title="0">{
+                        c.metrics.tm.IncTransactionCounter(transactionRollback, name)
+                }</span>
+                <span class="cov0" title="0">c.log.ErrorWithMetadata("unexpected error during rollback", map[string]any{
+                        "error": tErr.Error(),
+                        "name":  name,
+                })
+
+                if rollbackErr := tx.Rollback(ctx); rollbackErr != nil &amp;&amp; !errors.Is(rollbackErr, pgx.ErrTxClosed) </span><span class="cov0" title="0">{
+                        c.log.ErrorWithMetadata("unexpected error during rollback", map[string]any{
+                                "error": rollbackErr.Error(),
+                                "name":  name,
+                        })
+                        return cancel, rollbackErr
+                }</span>
+
+                <span class="cov0" title="0">return cancel, tErr</span>
+        } else<span class="cov0" title="0"> {
+                if c.metrics.tm != nil </span><span class="cov0" title="0">{
+                        c.metrics.tm.IncTransactionCounter(transactionCommit, name)
+                }</span>
+        }
+
+        <span class="cov0" title="0">diff := time.Since(start)
+
+        if c.metrics.tm != nil </span><span class="cov0" title="0">{
+                c.metrics.tm.ObserveTransactionDurationHistogram(diff.Seconds(), name)
+        }</span>
+
+        <span class="cov0" title="0">c.log.InfoWithMetadata("transaction success", map[string]any{
+                "name": name,
+        })
+        return cancel, tx.Commit(ctx)</span>
+}
+
+func (c *ConnectionPool) Query(
+        ctx context.Context,
+        dbFuncName string,
+        sql string,
+        namedArgs pgx.NamedArgs,
+) (rows *pgx.Rows, cancel context.CancelFunc, err error) <span class="cov7" title="3">{
+        start := time.Now()
+        defer func() </span><span class="cov7" title="3">{
+                diff := time.Since(start)
+                if err != nil </span><span class="cov0" title="0">{
+                        if c.metrics.qm != nil </span><span class="cov0" title="0">{
+                                c.metrics.qm.IncQueryCounter(queryError, dbFuncName)
+                        }</span>
+                        <span class="cov0" title="0">c.log.ErrorWithMetadata("pg query error", map[string]any{
+                                "error": err.Error(),
+                                "func":  dbFuncName,
+                                "sql":   sql,
+                        })</span>
+                } else<span class="cov7" title="3"> {
+                        if c.metrics.qm != nil </span><span class="cov0" title="0">{
+                                c.metrics.qm.ObserveQueryDurationHistogram(diff.Seconds(), dbFuncName)
+                                c.metrics.qm.IncQueryCounter(querySuccess, dbFuncName)
+                        }</span>
+                        <span class="cov7" title="3">c.log.InfoWithMetadata("pg query success", map[string]any{
+                                "func": dbFuncName,
+                                "sql":  sql,
+                        })</span>
+                }
+        }()
+
+        <span class="cov7" title="3">ctx, cancel = context.WithTimeout(ctx, c.queryTimeout)
+
+        r, err := c.pool.Query(ctx, sql, namedArgs)
+        if err != nil </span><span class="cov0" title="0">{
+                if c.metrics.qm != nil </span><span class="cov0" title="0">{
+                        c.metrics.qm.IncQueryCounter(queryError, dbFuncName)
+                }</span>
+
+                <span class="cov0" title="0">return nil, cancel, err</span>
+        }
+
+        <span class="cov7" title="3">err = r.Err()
+        if err != nil </span><span class="cov0" title="0">{
+                return
+        }</span>
+
+        <span class="cov7" title="3">diff := time.Since(start)
+        if c.metrics.qm != nil </span><span class="cov0" title="0">{
+                c.metrics.qm.ObserveQueryDurationHistogram(diff.Seconds(), dbFuncName)
+                c.metrics.qm.IncQueryCounter(querySuccess, dbFuncName)
+        }</span>
+
+        <span class="cov7" title="3">return &amp;r, cancel, nil</span>
+}
+
+func (c *ConnectionPool) QueryRow(
+        ctx context.Context,
+        dbFuncName string,
+        sql string,
+        namedArgs pgx.NamedArgs,
+) (*pgx.Row, context.CancelFunc) <span class="cov10" title="5">{
+        start := time.Now()
+
+        ctx, cancel := context.WithTimeout(ctx, c.queryTimeout)
+
+        r := c.pool.QueryRow(ctx, sql, namedArgs)
+
+        diff := time.Since(start)
+        if c.metrics.qm != nil </span><span class="cov0" title="0">{
+                c.metrics.qm.ObserveQueryDurationHistogram(diff.Seconds(), dbFuncName)
+                c.metrics.qm.IncQueryCounter(querySuccess, dbFuncName)
+        }</span>
+
+        <span class="cov10" title="5">c.log.InfoWithMetadata("pg query operation", map[string]any{
+                "func": dbFuncName,
+                "sql":  sql,
+        })
+        return &amp;r, cancel</span>
+}
+</pre>
+		
+		<pre class="file" id="file60" style="display: none">package pgx
+
+import (
+        "context"
+        "time"
+
+        "github.com/jackc/pgx/v5"
+)
+
+type Transaction struct {
+        tx *pgx.Tx
+        c  *ConnectionPool
+}
+
+func (t *Transaction) QueryRow(
+        ctx context.Context,
+        dbFuncName string,
+        sql string,
+        namedArgs pgx.NamedArgs,
+) *pgx.Row <span class="cov0" title="0">{
+        start := time.Now()
+        r := (*t.tx).QueryRow(ctx, sql, namedArgs)
+        diff := time.Since(start)
+
+        if t.c.metrics.qm != nil </span><span class="cov0" title="0">{
+                t.c.metrics.qm.ObserveQueryDurationHistogram(diff.Seconds(), dbFuncName)
+                t.c.metrics.qm.IncQueryCounter(querySuccess, dbFuncName)
+        }</span>
+
+        <span class="cov0" title="0">return &amp;r</span>
+}
+
+func (t *Transaction) Query(
+        ctx context.Context,
+        dbFuncName string,
+        sql string,
+        namedArgs pgx.NamedArgs,
+) (*pgx.Rows, error) <span class="cov0" title="0">{
+        start := time.Now()
+        r, err := (*t.tx).Query(ctx, sql, namedArgs)
+
+        if err != nil </span><span class="cov0" title="0">{
+                if t.c.metrics.qm != nil </span><span class="cov0" title="0">{
+                        t.c.metrics.qm.IncQueryCounter(queryError, dbFuncName)
+                }</span>
+
+                <span class="cov0" title="0">return nil, err</span>
+        }
+        <span class="cov0" title="0">err = r.Err()
+        if err != nil </span><span class="cov0" title="0">{
+                if t.c.metrics.qm != nil </span><span class="cov0" title="0">{
+                        t.c.metrics.qm.IncQueryCounter(queryError, dbFuncName)
+                }</span>
+
+                <span class="cov0" title="0">return nil, err</span>
+        }
+
+        <span class="cov0" title="0">diff := time.Since(start)
+
+        if t.c.metrics.qm != nil </span><span class="cov0" title="0">{
+                t.c.metrics.qm.ObserveQueryDurationHistogram(diff.Seconds(), dbFuncName)
+                t.c.metrics.qm.IncQueryCounter(querySuccess, dbFuncName)
+        }</span>
+
+        <span class="cov0" title="0">return &amp;r, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file61" style="display: none">package shutdown
+
+import (
+        "context"
+        "os"
+        "os/signal"
+        "syscall"
+)
+
+var (
+        initiated       = false
+        shutdownChan    chan os.Signal
+        shutdownSignals = []os.Signal{syscall.SIGINT, syscall.SIGTERM}
+)
+
+func SetupShutdownContext() context.Context <span class="cov0" title="0">{
+        if initiated </span><span class="cov0" title="0">{
+                panic("cannot create signal context twice")</span>
+        }
+
+        <span class="cov0" title="0">initiated = true
+        shutdownChan = make(chan os.Signal, 1)
+
+        ctx, cancel := context.WithCancel(context.Background())
+        signal.Notify(shutdownChan, shutdownSignals...)
+        go func() </span><span class="cov0" title="0">{
+                &lt;-shutdownChan
+                cancel()
+        }</span>()
+
+        <span class="cov0" title="0">return ctx</span>
+}
+
+func SignalShutdown() bool <span class="cov0" title="0">{
+        if shutdownChan != nil </span><span class="cov0" title="0">{
+                select </span>{
+                case shutdownChan &lt;- shutdownSignals[0]:<span class="cov0" title="0">
+                        return true</span>
+                default:<span class="cov0" title="0"></span>
+                }
+        }
+
+        <span class="cov0" title="0">return false</span>
+}
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

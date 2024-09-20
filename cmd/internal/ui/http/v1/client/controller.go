@@ -177,7 +177,7 @@ func (c *Controller) CreateSession(ctx *gin.Context) {
 		Password: req.Password,
 	})
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		ctx.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
 

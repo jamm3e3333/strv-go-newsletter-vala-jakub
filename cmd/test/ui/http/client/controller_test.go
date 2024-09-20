@@ -38,6 +38,13 @@ type ClientControllerTestSuite struct {
 	decryptToken *jwt.DecryptToken
 	clientCTRL   *client.Controller
 	pgConn       pgx.Connection
+	passwdHahser *service.HashPassword
+}
+
+type clientResult struct {
+	ID       string `json:"id"`
+	Email    string `json:"email"`
+	PublicID string `json:"public_id"`
 }
 
 func (s *ClientControllerTestSuite) SetupSuite() {
@@ -63,6 +70,8 @@ func (s *ClientControllerTestSuite) SetupSuite() {
 	getClientData := operation.NewGetClientDataOperation(s.pgConn)
 
 	hashPasswd := service.NewHashPassword(hashSecret)
+	s.passwdHahser = hashPasswd
+
 	verifyPasswd := service.NewVerifyPassword(hashSecret)
 	createToken := jwtinfra.NewCreateClientToken(jwtSecret)
 
@@ -126,13 +135,6 @@ func (s *ClientControllerTestSuite) Test_CreateClient_Success() {
 	if err != nil {
 		s.T().Fatal(err)
 	}
-	fmt.Println(decToken)
-
-	type clientResult struct {
-		ID       string `json:"id"`
-		Email    string `json:"email"`
-		PublicID string `json:"public_id"`
-	}
 
 	row, cancel := s.pgConn.QueryRow(
 		context.Background(),
@@ -148,6 +150,7 @@ func (s *ClientControllerTestSuite) Test_CreateClient_Success() {
 		s.T().Fatal(err)
 	}
 	s.Equal(emailParsed.String(), clientRow.Email)
+	s.Equal(fmt.Sprintf("%d", decToken), clientRow.PublicID)
 
 	s.T().Cleanup(func() {
 		r, cancel, err := s.pgConn.Query(
@@ -227,6 +230,133 @@ func (s *ClientControllerTestSuite) Test_CreateClient_Fail_InvalidPassword() {
 		s.T().Fatal(err)
 	}
 	s.Equal("password must be at least 8 characters long and contain at least one letter and one number", response["error"])
+}
+
+func (s *ClientControllerTestSuite) Test_CreateSession_Success() {
+	gin.SetMode(gin.TestMode)
+	w := httptest.NewRecorder()
+
+	const (
+		clientEmail = "myman@myman.cz"
+		clientPass  = "MyMan12345"
+	)
+
+	emailParsed, err := mail.ParseAddress(clientEmail)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+
+	row, cancel, err := s.pgConn.Query(
+		context.Background(),
+		"TestCreateClient",
+		"INSERT INTO client (email, hashed_password) VALUES (@email, @password);",
+		pgx.NamedArgs{"email": emailParsed.String(), "password": s.passwdHahser.Execute(clientPass)},
+	)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	defer cancel()
+
+	if err := (*row).Err(); err != nil {
+		s.T().Fatal(err)
+	}
+
+	reqBody := map[string]string{
+		"email":    clientEmail,
+		"password": clientPass,
+	}
+	body, err := json.Marshal(&reqBody)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	r, _ := http.NewRequest(http.MethodPost, "/v1/session", bytes.NewBuffer(body))
+	r.Header.Set("Content-Type", "application/json")
+
+	ctx, engine := gin.CreateTestContext(w)
+	ctx.Request = r
+
+	engine.Handle("POST", "/v1/session", s.clientCTRL.CreateSession)
+	engine.HandleContext(ctx)
+
+	s.Equal(http.StatusCreated, w.Code)
+
+	var result map[string]any
+	err = json.Unmarshal(w.Body.Bytes(), &result)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	encToken, ok := result["token"].(string)
+	if !ok {
+		s.T().Fatal("Client token was not created")
+	}
+	s.Equal("string", reflect.TypeOf(encToken).Name(), "-------> assert token type ")
+
+	decToken, err := s.decryptToken.Execute(encToken)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+
+	getClientRow, cancel := s.pgConn.QueryRow(
+		context.Background(),
+		"TestGetClient",
+		"SELECT id, email, public_id FROM client WHERE email = @email",
+		pgx.NamedArgs{"email": emailParsed.String()},
+	)
+	defer cancel()
+
+	clientRow := clientResult{}
+	err = (*getClientRow).Scan(&clientRow.ID, &clientRow.Email, &clientRow.PublicID)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	s.Equal(emailParsed.String(), clientRow.Email)
+	s.Equal(fmt.Sprintf("%d", decToken), clientRow.PublicID)
+
+	s.T().Cleanup(func() {
+		r, cancel, err := s.pgConn.Query(
+			context.Background(),
+			"TestDeleteClient",
+			"DELETE FROM client WHERE id = @clientID",
+			pgx.NamedArgs{"clientID": clientRow.ID},
+		)
+		if err != nil {
+			s.T().Fatal(err)
+		}
+		defer cancel()
+
+		if err := (*r).Err(); err != nil {
+			s.T().Fatal(err)
+		}
+	})
+}
+
+func (s *ClientControllerTestSuite) Test_CreateSession_Fail_WrongCredentials() {
+	gin.SetMode(gin.TestMode)
+	w := httptest.NewRecorder()
+
+	const (
+		clientEmail = "myman@myman.cz"
+		clientPass  = "MyMan12345"
+	)
+
+	reqBody := map[string]string{
+		"email":    clientEmail,
+		"password": clientPass,
+	}
+	body, err := json.Marshal(&reqBody)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	r, _ := http.NewRequest(http.MethodPost, "/v1/session", bytes.NewBuffer(body))
+	r.Header.Set("Content-Type", "application/json")
+
+	ctx, engine := gin.CreateTestContext(w)
+	ctx.Request = r
+
+	engine.Handle("POST", "/v1/session", s.clientCTRL.CreateSession)
+	engine.HandleContext(ctx)
+
+	s.Equal(http.StatusUnauthorized, w.Code)
 }
 
 func TestClientControllerSuite(t *testing.T) {

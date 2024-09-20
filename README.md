@@ -110,6 +110,15 @@ That way subscribers to the newsletter can detail the newsletter by referencing 
 - overhead of configuring the permission to readonly for subscribers
 - listing newsletters for editors would be too much of an overhead -> filtering/pagination of newsletters for an editor would need to be done on the application level and buffered in the memory (potential memory leak if not handled correctly)
 
+## API Docs
+- implemented with Swagger UI
+- [API Docs](http://165.22.22.96:3000/api/indexlhtml)
+
+## Observability and Health Checks
+- [Health Check Readiness Probe](http://165.22.22.96:3000/health/readiness)
+- [Health Check Liveness Probe](http://165.22.22.96:3000/health/liveness)
+- [Metrics](http://165.22.22.96:3000/metrics)
+
 TODO:
 - rate limiting
 - validate address email before confirming subscription

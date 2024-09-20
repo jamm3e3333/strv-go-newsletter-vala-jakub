@@ -119,13 +119,16 @@ That way subscribers to the newsletter can detail the newsletter by referencing 
 - [Health Check Liveness Probe](http://165.22.22.96:3000/health/liveness)
 - [Metrics](http://165.22.22.96:3000/metrics)
 
-TODO:
-- rate limiting
-- validate address email before confirming subscription
-- add ELK stack - collect logs and metrics
-- add Grafana
-- add more tests
-- proper configuration of ACLs in Firebase for subscribers
-- add domain error mapping 422 http status with some error message/code
-- add nginx as a reverse proxy and a rate limiter
-- add DNS record for the app
+## TODOs and Missing parts/Enhancements
+- Add DNS records for the ip address so it’s reachable via a readable name and not IP.
+- Add Cloudflare with TLS protocol with Cloudflare so the communication between client and server is encrypted.
+- Add load balancer with nginx and rate limiter so the server is not overloaded.
+- Cache docker images in Github actions so it takes less time to run them.
+- Add more tests so every reasonable and possible use case is covered with tests.
+- Improve monitoring - scrape prometheus metrics and send them into Grafana to observe metrics
+- Add ELK stack to gather logs and present them in a user friendly way via Kibana.
+- Add sentry instead of ELK stack to cover presenting logs and alerting.
+- Enhance Firebase Realtime database ACL rules to specify more granular rules to access the data.
+- Replace docker swarm with Kubernetes cluster with helm charts so the deployment and app management is easier and more smooth, better way to manage secrets (use sealed secrets - encrypt only inside the k8s cluster). But questionable because the k8sw cluster needs more resources -> not needed for such a small app.
+- For creating subscription verify email addresses before sending the subscription confirmation so the subscription is created only for valid and verified addresses -> could be implemented via webhook, later if the app grows some message broker could be used instead.
+- Add domain error mapping to better inform clients about the errors.

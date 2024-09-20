@@ -74,28 +74,57 @@ CREATE INDEX idx_newsletter_id ON newsletter_subscribers (newsletter_id);
 CREATE INDEX idx_email ON newsletter_subscribers (email);
 ```
 
-### Migrations
-## Create New Migration
+# Run App locally
+
+Every dependency (firebase, postgres, go app) is dockerized with its health check and with exposed ports to be accessible from outside. Check [docker-compose](./docker-compose.yaml).
+
+For accessing the Go App REST API, check the swagger UI [API Docs](http://localhost:59110/api/indexlhtml).
+
+For accessing Firebase Realtime Database, check [Firebase Console](http://localhost:4000).
+
+You don't need to specify any environment variables, unless you want to, everything is set up in the docker-compose file.
+
+Before using the REST API you need to run migrations first, see [migrations up](#run-migrations-up)
+
+## Use cases:
+## Create Client
+- create client with credentials
+
+## Create Session
+- for authorization to create/list newsletters you need to have valid token, when it's invalid create a new one
+
+## Create Newsletter
+- create newsletter with name and optional description
+
+## Subscribe to the newsletter
+- subscribe to the newsletter with valid email
+- after the successful subscription you will receive an email with a link to confirm the subscription with and unsubscribe link
+
+## Unsubscribe from the newsletter
+- unsubscribe from the newsletter with the link you received in the email
+
+## Migrations
+### Create New Migration
 ```makefile
 make create-migration name=<migration_name>
 ```
 
-## Run Migrations Up
+### [Run Migrations Up](#run-migrations-up)
 ```makefile
 make migration-up
 ```
 
-## Run All Migrations Down
+### Run All Migrations Down
 ```makefile
 make migration-down-all
 ```
 
-## Run Migration Down By One
+### Run Migration Down By One
 ```makefile
 make migration-down-by-one
 ```
 
-### Alternative solution:
+## Alternative solution:
 
 #### Whole Newsletter model in Firebase
 Move data model in PostgreSQL to the Firebase.
@@ -132,3 +161,4 @@ That way subscribers to the newsletter can detail the newsletter by referencing 
 - Replace docker swarm with Kubernetes cluster with helm charts so the deployment and app management is easier and more smooth, better way to manage secrets (use sealed secrets - encrypt only inside the k8s cluster). But questionable because the k8sw cluster needs more resources -> not needed for such a small app.
 - For creating subscription verify email addresses before sending the subscription confirmation so the subscription is created only for valid and verified addresses -> could be implemented via webhook, later if the app grows some message broker could be used instead.
 - Add domain error mapping to better inform clients about the errors.
+- Enhance Github Actions dependencies, health checks, etc.

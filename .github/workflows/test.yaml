@@ -26,5 +26,8 @@ jobs:
       - name: export-db-env
         run: echo "DATABASE_URL=postgres://postgres:postgres@localhost:5432/strv-newsletter?sslmode=disable" >> $GITHUB_ENV
 
+      - name: run-docker-containers
+        run: make migrations-up
+
       - name: run-tests
         run: make test

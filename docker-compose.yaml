@@ -81,23 +81,19 @@ services:
       start_period: 10s
 
   firebase-emulator:
-    image: spine3/firebase-emulator:latest
     container_name: firebase-emulator
     ports:
-      - "4000:4000"
       - "9000:9000"
-    environment:
-      GCP_PROJECT: strv-newsletter-go-vala-jakub-vala-local
-      ENABLE_UI: true
-      RDB_EMULATOR_PORT: 9000
-      UI_EMULATOR_PORT: 4000
-      UI_ENABLED: true
-    volumes:
-      - "./firebase.json:/firebase/firebase.json"
-      - "./database.rules.json:/firebase/database.rules.json"
+      - "4000:4000"
+    build:
+      context: ./firebase
+      dockerfile: ./Dockerfile
+    command: 'firebase emulators:start --project strv-newsletter-go-vala-jakub-vala-local'
+    tty: true
+    restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "wget --server-response --spider http://localhost:4000 2>&1 | tee /tmp/healthcheck.log; grep 'HTTP/1.1 200 OK' /tmp/healthcheck.log || (cat /tmp/healthcheck.log && exit 1)"]
-      interval: 10s
-      timeout: 600s
-      retries: 10
-      start_period: 100s
+      test: ["CMD", "curl", "--fail", "http://localhost:4000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s

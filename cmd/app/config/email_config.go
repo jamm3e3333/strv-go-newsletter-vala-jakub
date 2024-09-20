@@ -20,7 +20,7 @@ func (f *EmailAddressField) SetValue(s string) error {
 }
 
 type EmailConfig struct {
-	SenderEmailAddress    string `env:"CONFIG_EMAIL_SENDER_EMAIL_ADDRESS"`
+	SenderEmailAddress    string `env:"CONFIG_EMAIL_SENDER_EMAIL_ADDRESS" env-default:"test.example@example.com"`
 	APIKey                string `env:"CONFIG_EMAIL_API_KEY"`
 	APISecret             string `env:"CONFIG_EMAIL_API_SECRET"`
 	UnsubURL              string `env:"CONFIG_UNSUBSCRIBE_URL"`

@@ -43,25 +43,25 @@ down: ## Stop and remove the application containers
 
 migration-create: ## Create a new migration (usage: make migratíon-create name=your_migration_name)
 	@if [ -z "$(name)" ]; then echo "Migration name not provided. Usage: make migration-create name=your_migration_name"; exit 1; fi
-	docker-compose run --rm \
+	docker compose run --rm \
 	  -e DATABASE_URL=${DATABASE_URL} \
 	  strv-newsletter \
 	  goose -dir db/migrations create $(name) sql
 
 migration-up: ## Apply all up migrations
-	docker-compose run --rm \
+	docker compose run --rm \
 	  -e DATABASE_URL=${DATABASE_URL} \
 	  strv-newsletter \
 	  goose postgres "$$DATABASE_URL" -dir db/migrations -v up status
 
 migration-down-by-one: ## Roll back the last migration
-	docker-compose run --rm \
+	docker compose run --rm \
 	  -e DATABASE_URL=${DATABASE_URL} \
 	  strv-newsletter \
 	  goose postgres "$$DATABASE_URL" -dir db/migrations -v down status
 
 migration-down-all: ## Roll back all migrations
-	docker-compose run --rm \
+	docker compose run --rm \
 	  -e DATABASE_URL=${DATABASE_URL} \
 	  strv-newsletter \
 	  goose postgres "$$DATABASE_URL" -dir db/migrations -v reset status
@@ -69,10 +69,10 @@ migration-down-all: ## Roll back all migrations
 
 ##@ Test
 .PHONY: test mtest test-pattern mtest-pattern
-test: ## Run tests via docker-compose
+test: ## Run tests via docker compose
 	./script/test.sh
 
-mtest: ## Run tests via docker-compose, supports arm arch
+mtest: ## Run tests via docker compose, supports arm arch
 	./script/arm/test.sh
 
 test-pattern: ## Run test with pattern

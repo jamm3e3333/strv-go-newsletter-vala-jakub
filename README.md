@@ -162,3 +162,4 @@ That way subscribers to the newsletter can detail the newsletter by referencing 
 - For creating subscription verify email addresses before sending the subscription confirmation so the subscription is created only for valid and verified addresses -> could be implemented via webhook, later if the app grows some message broker could be used instead.
 - Add domain error mapping to better inform clients about the errors.
 - Enhance Github Actions dependencies, health checks, etc.
+- Using git semantic tags and semantic tags for tagging docker image.

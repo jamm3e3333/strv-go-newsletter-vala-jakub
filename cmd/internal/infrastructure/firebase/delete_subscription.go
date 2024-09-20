@@ -20,7 +20,7 @@ func NewDeleteSubscriptionOp(fbConn firebase.Connector) *DeleteSubscription {
 
 func (c *DeleteSubscription) Execute(ctx context.Context, p dto.DeleteSubscription) error {
 	encodedEmail := encodeEmail(p.Email)
-	path := fmt.Sprintf("subscriber/%s/%d", encodedEmail, p.NewsletterPublicID)
+	path := fmt.Sprintf("subscriber/%s/newsletter/%d", encodedEmail, p.NewsletterPublicID)
 	err := c.fbConn.Delete(ctx, "DeleteSubscription", path)
 	if err != nil {
 		return err
